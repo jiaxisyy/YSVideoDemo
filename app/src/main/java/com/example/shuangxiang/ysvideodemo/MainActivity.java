@@ -8,6 +8,9 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.shuangxiang.ysvideodemo.login.view.LoginActivity;
+import com.example.shuangxiang.ysvideodemo.ui.BaiDuMapActivity;
+import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
 import com.videogo.exception.BaseException;
 import com.videogo.openapi.EZOpenSDK;
 import com.videogo.openapi.EZPlayer;
@@ -16,18 +19,16 @@ import com.videogo.openapi.bean.EZDeviceInfo;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit.RetrofitActivity;
-import rxbus2.RxBus2Activity;
 
 import static com.videogo.camera.CameraInfo.VIDEO_LEVEL_HD;
 
 public class MainActivity extends BaseActivity implements SurfaceHolder.Callback {
 
     private static final String TAG = "MainActivity";
-    @BindView(R.id.btn_openRxBus2)
-    Button mBtnOpenRxBus2;
+    @BindView(R.id.btn_openLogin)
+    Button mBtnOpenLogin;
     private int mErrorCode = -1;
     private EZOpenSDK mInstance;
     private SurfaceView mRealPlaySv;
@@ -37,10 +38,9 @@ public class MainActivity extends BaseActivity implements SurfaceHolder.Callback
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initContentView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+//        ButterKnife.bind(this);
         mInstance = EZOpenSDK.getInstance();
 
         mInstance.openLoginPage();
@@ -116,9 +116,10 @@ public class MainActivity extends BaseActivity implements SurfaceHolder.Callback
 
     }
 
-    @OnClick(R.id.btn_openRxBus2)
+    @OnClick(R.id.btn_openLogin)
     public void onViewClicked() {
-        startActivity(new Intent(MainActivity.this, RxBus2Activity.class));
-        finish();
+
+        startActivity(new Intent(this, LoginActivity.class));
+
     }
 }

@@ -5,4 +5,7 @@
     <string name="get">GET</string>
     <string name="openRxBus2">RxBus2</string>
     <string name="login">登录</string>
+    <string name="openLogin">登录界面</string>
+    <string name="login_username">swadmin</string>
+    <string name="login_password">chin2016</string>
 </resources>

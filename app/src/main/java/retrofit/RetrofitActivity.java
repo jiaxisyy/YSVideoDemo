@@ -16,7 +16,6 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 
 /**
@@ -43,7 +42,6 @@ public class RetrofitActivity extends Activity implements RequestServes{
     private void initSomeThings() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://www.test.com/")
-                .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
 

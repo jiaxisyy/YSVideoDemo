@@ -34,9 +34,9 @@
         android:layout_below="@+id/btn_weixin_login"
         android:text="@string/openRetrofit"/>
     <Button
-        android:id="@+id/btn_openRxBus2"
+        android:id="@+id/btn_openLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btn_openRetrofit"
-        android:text="@string/openRxBus2"/>
+        android:text="@string/openLogin"/>
 </RelativeLayout>

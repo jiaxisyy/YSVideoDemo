@@ -1,6 +1,6 @@
 package com.example.shuangxiang.ysvideodemo;
 
-import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.videogo.openapi.EZOpenSDK;
@@ -9,7 +9,7 @@ import com.videogo.openapi.EZOpenSDK;
  * Created by shuang.xiang on 2017/2/14.
  */
 
-public class MyApplication extends Application {
+public class MyApplication extends MultiDexApplication {
     //摄像头key
     private static String APP_KEY="fd46e0ca69864ce1a8b1d948698aee3e";
     @Override

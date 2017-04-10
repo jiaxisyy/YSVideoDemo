@@ -8,7 +8,7 @@ package com.example.shuangxiang.ysvideodemo.common;
 public class Constants {
 
     public interface Define {
-        boolean isLogTest = true;
+        boolean ISLOGTEST = true;
 
     }
 

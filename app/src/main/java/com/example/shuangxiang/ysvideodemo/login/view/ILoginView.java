@@ -26,5 +26,9 @@ public interface ILoginView {
 
     void showFailedError(String error);
 
+    void showPassWord();
+
+    void hidePassWord();
+
 
 }

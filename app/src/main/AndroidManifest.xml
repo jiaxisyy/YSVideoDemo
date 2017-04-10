@@ -56,7 +56,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".BaiDuMapActivity"/>
+        <activity android:name=".ui.BaiDuMapActivity"/>
 
 
         <receiver
@@ -74,7 +74,6 @@
         </service>
 
         <activity android:name="retrofit.RetrofitActivity"/>
-        <activity android:name="rxbus2.RxBus2Activity"/>
         <activity android:name=".login.view.LoginActivity"/>
     </application>
 

@@ -1,9 +1,6 @@
 package com.example.shuangxiang.ysvideodemo.login.view;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -11,9 +8,11 @@ import android.widget.Toast;
 
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.utils.CustomToast;
+import com.example.shuangxiang.ysvideodemo.common.utils.Utils;
+import com.example.shuangxiang.ysvideodemo.login.presenter.LoginPresenter;
+import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit.User;
 
@@ -21,7 +20,7 @@ import retrofit.User;
  * Created by shuang.xiang on 2017/4/6.
  */
 
-public class LoginActivity extends AppCompatActivity implements ILoginView {
+public class LoginActivity extends BaseActivity implements ILoginView {
 
     @BindView(R.id.et_login_userName)
     EditText mEtLoginUserName;
@@ -33,25 +32,29 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     Button mBtnLoginLogin;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initContentView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
-
-
-        Log.d("TEST", getUserName());
-
     }
 
     @Override
     public String getUserName() {
-        return mEtLoginUserName.getText().toString() == null ? "为null" : mEtLoginUserName.getText()
-                .toString().trim();
+        if (mEtLoginUserName.getText().toString() != null && !mEtLoginUserName.getText().toString()
+                .contains(" ")) {
+            return mEtLoginUserName.getText().toString().trim();
+
+        }
+        return "userNameError";
+
     }
 
     @Override
     public String getPassWord() {
-        return mEtLoginPassWord.getText().toString();
+        if (mEtLoginPassWord.getText().toString() != null && !mEtLoginPassWord.getText().toString()
+                .contains(" ")) {
+            return mEtLoginPassWord.getText().toString().trim();
+
+        }
+        return "passWordError";
     }
 
     @Override
@@ -76,7 +79,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
 
     @Override
     public void toMainActivity(User user) {
-
+        LoginPresenter loginPresenter = new LoginPresenter(this, this);
+        loginPresenter.login(user);
     }
 
     @Override
@@ -86,10 +90,28 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
 
     @Override
     public void showFailedError(String error) {
-        CustomToast.showToast(this,error, Toast.LENGTH_SHORT);
+        CustomToast.showToast(this, error, Toast.LENGTH_SHORT);
+    }
+
+    @Override
+    public void showPassWord() {
+
+    }
+
+    @Override
+    public void hidePassWord() {
+
     }
 
     @OnClick(R.id.btn_login_login)
     public void onViewClicked() {
+
+        //有效点击
+        if (Utils.isValidClick()) {
+            if (getUserName().equals("userNameError") || getPassWord().equals("passWordError")) {
+                showFailedError("输入有误,请重新输入");
+            }
+            toMainActivity(new User(getUserName(), getPassWord()));
+        }
     }
 }

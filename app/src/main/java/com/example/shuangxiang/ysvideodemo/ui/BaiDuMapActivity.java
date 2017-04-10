@@ -1,4 +1,4 @@
-package com.example.shuangxiang.ysvideodemo;
+package com.example.shuangxiang.ysvideodemo.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -20,6 +20,8 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
+import com.example.shuangxiang.ysvideodemo.MyLocationListener;
+import com.example.shuangxiang.ysvideodemo.R;
 
 import java.util.ArrayList;
 
