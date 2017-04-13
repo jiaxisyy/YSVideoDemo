@@ -33,10 +33,25 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/btn_weixin_login"
         android:text="@string/openRetrofit"/>
+
     <Button
         android:id="@+id/btn_openLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btn_openRetrofit"
         android:text="@string/openLogin"/>
+
+    <Button
+        android:id="@+id/btn_openFeedback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_openLogin"
+        android:text="@string/feedback"/>
+    <Button
+        android:id="@+id/btn_openmyservice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_openFeedback"
+        android:text="@string/open_myservice"/>
+
 </RelativeLayout>

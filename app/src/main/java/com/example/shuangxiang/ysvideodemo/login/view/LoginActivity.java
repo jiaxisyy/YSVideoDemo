@@ -37,6 +37,11 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     }
 
     @Override
+    protected void initSomething() {
+
+    }
+
+    @Override
     public String getUserName() {
         if (mEtLoginUserName.getText().toString() != null && !mEtLoginUserName.getText().toString()
                 .contains(" ")) {

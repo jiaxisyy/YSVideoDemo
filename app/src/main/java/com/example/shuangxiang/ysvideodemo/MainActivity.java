@@ -8,9 +8,11 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.shuangxiang.ysvideodemo.feedback.FeedbackActivity;
 import com.example.shuangxiang.ysvideodemo.login.view.LoginActivity;
 import com.example.shuangxiang.ysvideodemo.ui.BaiDuMapActivity;
 import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
+import com.example.shuangxiang.ysvideodemo.myservice.MyServiceActivity;
 import com.videogo.exception.BaseException;
 import com.videogo.openapi.EZOpenSDK;
 import com.videogo.openapi.EZPlayer;
@@ -29,6 +31,8 @@ public class MainActivity extends BaseActivity implements SurfaceHolder.Callback
     private static final String TAG = "MainActivity";
     @BindView(R.id.btn_openLogin)
     Button mBtnOpenLogin;
+    @BindView(R.id.btn_openFeedback)
+    Button mBtnOpenFeedback;
     private int mErrorCode = -1;
     private EZOpenSDK mInstance;
     private SurfaceView mRealPlaySv;
@@ -68,6 +72,11 @@ public class MainActivity extends BaseActivity implements SurfaceHolder.Callback
                 }
             }
         }).start();
+    }
+
+    @Override
+    protected void initSomething() {
+
     }
 
     protected void initView() {
@@ -121,5 +130,15 @@ public class MainActivity extends BaseActivity implements SurfaceHolder.Callback
 
         startActivity(new Intent(this, LoginActivity.class));
 
+    }
+
+    @OnClick(R.id.btn_openFeedback)
+    public void onOpenFeedback() {
+        startActivity(new Intent(this, FeedbackActivity.class));
+    }
+
+    @OnClick(R.id.btn_openmyservice)
+    public void onOpenMyService() {
+        startActivity(new Intent(this, MyServiceActivity.class));
     }
 }

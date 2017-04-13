@@ -1,5 +1,6 @@
 package com.example.shuangxiang.ysvideodemo.login.model;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.example.shuangxiang.ysvideodemo.api.ApiManager;
@@ -21,16 +22,17 @@ import retrofit.User;
 
 public class LoginModel implements ILoginModel {
     private LoginPresenter mLoginPresenter;
+    private Context mContext;
 
-    public LoginModel(LoginPresenter loginPresenter) {
+
+    public LoginModel(LoginPresenter loginPresenter, Context context) {
         this.mLoginPresenter = loginPresenter;
-
-
+        this.mContext = context;
     }
 
     @Override
     public void getLoginInfo(User user) {
-        Observable<String> observable = ApiManager.getLoginRequest(user.getUsername(), user
+        Observable<String> observable = new ApiManager(mContext).getLoginRequest(user.getUsername(), user
                 .getPassword());
         observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {
@@ -59,7 +61,7 @@ public class LoginModel implements ILoginModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("ERROR", e.getMessage().toString());
+                        Log.e("ERROR", e.toString());
                     }
 
                     @Override

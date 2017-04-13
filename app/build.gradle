@@ -22,19 +22,19 @@ android {
     }
 }
 //65535
-afterEvaluate {
-    tasks.matching {
-        it.name.startsWith('dex')
-    }.each { dx ->
-        if (dx.additionalParameters == null) {
-            dx.additionalParameters = []
-        }
-        dx.additionalParameters += '--multi-dex' // enable multidex
-
-        // optional
-        // dx.additionalParameters += "--main-dex-list=$projectDir/<filename>".toString() // enable the main-dex-list
-    }
-}
+//afterEvaluate {
+//    tasks.matching {
+//        it.name.startsWith('dex')
+//    }.each { dx ->
+//        if (dx.additionalParameters == null) {
+//            dx.additionalParameters = []
+//        }
+//        dx.additionalParameters += '--multi-dex' // enable multidex
+//
+//        // optional
+//        // dx.additionalParameters += "--main-dex-list=$projectDir/<filename>".toString() // enable the main-dex-list
+//    }
+//}
 
 
 dependencies {
@@ -58,7 +58,8 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
     compile 'com.squareup.retrofit2:converter-scalars:2.2.0'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'org.robolectric:shadows-multidex:3.3.2'
+    compile 'com.android.support:multidex:1.0.1'
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+    compile 'com.zhy:autolayout:1.4.5'
 }
 

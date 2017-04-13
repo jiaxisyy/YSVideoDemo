@@ -75,6 +75,17 @@
 
         <activity android:name="retrofit.RetrofitActivity"/>
         <activity android:name=".login.view.LoginActivity"/>
+        <activity android:name=".feedback.FeedbackActivity"/>
+        <activity android:name=".myservice.MyServiceActivity"/>
+
+        <meta-data
+            android:name="design_width"
+            android:value="1080">
+        </meta-data>
+        <meta-data
+            android:name="design_height"
+            android:value="1920">
+        </meta-data>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.example.shuangxiang.ysvideodemo.login.retrofit;
+package com.example.shuangxiang.ysvideodemo.retrofit;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;

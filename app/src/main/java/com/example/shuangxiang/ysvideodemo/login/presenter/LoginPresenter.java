@@ -1,6 +1,8 @@
 package com.example.shuangxiang.ysvideodemo.login.presenter;
 
 import android.content.Context;
+import android.os.Environment;
+import android.util.Log;
 
 import com.example.shuangxiang.ysvideodemo.common.utils.Utils;
 import com.example.shuangxiang.ysvideodemo.login.bean.LoginInfo;
@@ -21,9 +23,9 @@ public class LoginPresenter implements ILoginPresenter {
     private Context mContext;
 
     public LoginPresenter(ILoginView loginView, Context context) {
-        mLoginModel = new LoginModel(this);
-        mLoginView = loginView;
         this.mContext = context;
+        mLoginModel = new LoginModel(this,context);
+        mLoginView = loginView;
     }
 
     @Override
@@ -39,8 +41,8 @@ public class LoginPresenter implements ILoginPresenter {
 
     @Override
     public void loginSucceed(LoginInfo info) {
-
-
+        String fileStoreDir = Environment.getExternalStorageDirectory().getAbsolutePath();
+        Log.d("TEST", fileStoreDir);
 
     }
 
