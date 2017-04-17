@@ -5,10 +5,11 @@ package com.example.shuangxiang.ysvideodemo.myservice;
  */
 
 public interface IMyService {
-    void showDialog();
+    void showPopupWindow();
 
-    void hideDialog();
+
 
     void finishActivity();
+    void callPhone();
 
 }

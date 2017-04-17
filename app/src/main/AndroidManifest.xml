@@ -32,6 +32,7 @@
     <uses-permission android:name="android.permission.CAMERA"/>
     <!--地图sdk时添加的权限-->
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
 
     <application
         android:name=".MyApplication"
@@ -44,7 +45,7 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="rmtGkgqZg7ybNxm8Ms3OmwntmDWTAlpL"/>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -77,6 +78,9 @@
         <activity android:name=".login.view.LoginActivity"/>
         <activity android:name=".feedback.FeedbackActivity"/>
         <activity android:name=".myservice.MyServiceActivity"/>
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".ui.StartPagerActivity"/>
+
 
         <meta-data
             android:name="design_width"

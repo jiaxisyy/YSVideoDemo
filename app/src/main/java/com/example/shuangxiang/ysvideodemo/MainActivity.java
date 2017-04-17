@@ -89,7 +89,7 @@ public class MainActivity extends BaseActivity implements SurfaceHolder.Callback
             public void onClick(View view) {
 
                 startActivity(new Intent(MainActivity.this, BaiDuMapActivity.class));
-                finish();
+
 
 
             }
@@ -99,7 +99,7 @@ public class MainActivity extends BaseActivity implements SurfaceHolder.Callback
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, RetrofitActivity.class));
-                finish();
+
 
             }
         });

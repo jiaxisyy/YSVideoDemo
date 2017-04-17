@@ -7,8 +7,16 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/tb_myservice"
         android:layout_width="match_parent"
-        android:layout_height="120px">
+        android:layout_height="130px">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/tv_myservice_title"
+            android:textColor="#627281"
+            android:textSize="44px"
+            />
 
     </android.support.v7.widget.Toolbar>
 
