@@ -9,10 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.shuangxiang.ysvideodemo.MainActivity;
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.common.utils.CacheUtils;
+import com.example.shuangxiang.ysvideodemo.login.view.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +82,7 @@ public class StartPagerActivity extends BaseActivity {
         mBtn_experience.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(StartPagerActivity.this, MainActivity.class));
+                startActivity(new Intent(StartPagerActivity.this, LoginActivity.class));
                 CacheUtils.putBoolean(StartPagerActivity.this, Constants.Define.FIRST_START, false);
                 finish();
             }

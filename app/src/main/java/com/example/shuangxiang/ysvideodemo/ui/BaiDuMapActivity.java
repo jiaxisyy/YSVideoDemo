@@ -83,7 +83,7 @@ public class BaiDuMapActivity extends Activity implements BDLocationListener {
                 113.945747);
 
         BitmapDescriptor bitmap = BitmapDescriptorFactory
-                .fromResource(R.drawable.z_20);
+                .fromResource(R.drawable.user);
         //构建MarkerOption，用于在地图上添加Marker
         OverlayOptions mygps = new MarkerOptions()
                 .position(ll)

@@ -3,10 +3,10 @@ package com.example.shuangxiang.ysvideodemo.ui;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.shuangxiang.ysvideodemo.MainActivity;
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.common.utils.CacheUtils;
+import com.example.shuangxiang.ysvideodemo.login.view.LoginActivity;
 
 /**
  * Created by shuang.xiang on 2017/4/17.
@@ -35,7 +35,7 @@ public class StartActivity extends BaseActivity {
                 if (isFirst) {
                     startActivity(new Intent(StartActivity.this, StartPagerActivity.class));
                 } else {
-                    startActivity(new Intent(StartActivity.this, MainActivity.class));
+                    startActivity(new Intent(StartActivity.this, LoginActivity.class));
                 }
                 finish();
             }

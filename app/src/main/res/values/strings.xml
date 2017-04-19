@@ -20,4 +20,20 @@
     <string name="btn_startPager3">立即体验</string>
     <string name="pop_callPhone">拨打电话</string>
     <string name="pop_phoneNum">40000 811 699</string>
+    <string name="enter_username">请输入用户名</string>
+    <string name="tv_login_remember">记住密码</string>
+    <string name="tv_home_title">KAWA</string>
+    <string name="tv_home_myDevice">我的设备</string>
+    <string name="tv_home_monitoring">数据监控</string>
+    <string name="tv_home_warning">预警监测</string>
+    <string name="tv_home_setting">系统设置</string>
+    <string name="tv_home_newProduct">新产品发布</string>
+    <string name="tv_myself_title">我的</string>
+    <string name="tv_myself_loginNow">立即登录</string>
+    <string name="tv_myself_night">夜间模式</string>
+    <string name="tv_myself_feedback">反馈问题</string>
+    <string name="tv_myself_myservice">我的客服</string>
+    <string name="tv_myself_update">检查更新</string>
+    <string name="tv_myself_about">关于</string>
+    <string name="exit">退出登录</string>
 </resources>

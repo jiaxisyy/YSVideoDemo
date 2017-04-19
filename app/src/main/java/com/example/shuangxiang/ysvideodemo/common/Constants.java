@@ -13,6 +13,8 @@ public class Constants {
         String UPDATE_FAILED = "更新失败";
         String MYSERVICE_TITLE = "我的客服";
         String FIRST_START = "first_start";
+        String USERNAME = "username";
+        String PASSWORD = "password";
         long START_TIME = 3000;//启动页跳转时间为2秒
 
     }

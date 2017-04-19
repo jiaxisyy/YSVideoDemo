@@ -80,6 +80,7 @@
         <activity android:name=".myservice.MyServiceActivity"/>
         <activity android:name=".MainActivity"/>
         <activity android:name=".ui.StartPagerActivity"/>
+        <activity android:name=".ui.HomeActivity"/>
 
 
         <meta-data
