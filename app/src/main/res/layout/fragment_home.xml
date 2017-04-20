@@ -8,7 +8,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/tb_home"
         android:layout_width="match_parent"
-        android:layout_height="130px">
+        android:layout_height="wrap_content">
 
         <TextView
             android:layout_width="wrap_content"
@@ -16,7 +16,7 @@
             android:layout_gravity="center"
             android:text="@string/tv_home_title"
             android:textColor="#627281"
-            android:textSize="44px"
+            android:textSize="16sp"
             />
     </android.support.v7.widget.Toolbar>
 
@@ -32,17 +32,14 @@
         android:layout_height="340px"
         android:orientation="horizontal">
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/ll_home_myDevice"
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
             >
 
             <ImageView
-
                 style="@style/iv_home_icon"
                 android:src="@drawable/icon_shebeiguanli"
                 />
@@ -52,15 +49,13 @@
                 android:text="@string/tv_home_myDevice"
                 />
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/ll_home_monitoring"
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
             >
 
             <ImageView
@@ -73,15 +68,14 @@
                 android:text="@string/tv_home_monitoring"
                 />
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/ll_home_warning"
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
+
             >
 
             <ImageView
@@ -94,27 +88,23 @@
                 android:text="@string/tv_home_warning"
                 />
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/ll_home_setting"
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
             >
-
             <ImageView
                 style="@style/iv_home_icon"
                 android:src="@drawable/icon_shezhiguanli"
                 />
-
             <TextView
                 style="@style/tv_home_icon_text"
                 android:text="@string/tv_home_setting"
                 />
-        </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
     <TextView

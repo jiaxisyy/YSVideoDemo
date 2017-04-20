@@ -29,9 +29,10 @@ public class ApiManager {
     public ApiManager(Context context) {
         mContext = context;
     }
-
-    private static final String BASEURL = "http://10.199.198.55:58010/userconsle/";
-
+    //内网
+//    private static final String BASEURL = "http://10.199.198.55:58010/userconsle/";
+    //外网
+    private static final String BASEURL = "http://58.250.204.112:58010/userconsle/";
 
     /**
      * 获取登录信息
@@ -68,8 +69,4 @@ public class ApiManager {
         sDownRequest = sRetrofit.create(IDownloadRequest.class);
         return sDownRequest.getAppMessage();
     }
-
-
-
-
 }

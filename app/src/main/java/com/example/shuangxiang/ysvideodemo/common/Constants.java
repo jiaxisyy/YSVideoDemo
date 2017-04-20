@@ -15,6 +15,8 @@ public class Constants {
         String FIRST_START = "first_start";
         String USERNAME = "username";
         String PASSWORD = "password";
+        String DEVICELIST = "设备列表";
+        String DEVICEMAP = "设备地图";
         long START_TIME = 3000;//启动页跳转时间为2秒
 
     }

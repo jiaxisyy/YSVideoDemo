@@ -81,6 +81,8 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".ui.StartPagerActivity"/>
         <activity android:name=".ui.HomeActivity"/>
+        <activity android:name=".ui.TestActivity"/>
+        <activity android:name=".ui.mydevice.MyDeviceActivity"/>
 
 
         <meta-data

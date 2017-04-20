@@ -7,7 +7,9 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/tb_myservice"
         android:layout_width="match_parent"
-        android:layout_height="130px">
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:clipToPadding="true">
 
         <TextView
             android:layout_width="wrap_content"
@@ -15,7 +17,7 @@
             android:layout_gravity="center"
             android:text="@string/tv_myservice_title"
             android:textColor="#627281"
-            android:textSize="44px"
+            android:textSize="16sp"
             />
 
     </android.support.v7.widget.Toolbar>

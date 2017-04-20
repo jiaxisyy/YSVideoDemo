@@ -2,10 +2,16 @@ package com.example.shuangxiang.ysvideodemo.ui;
 
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.example.shuangxiang.ysvideodemo.R;
+import com.example.shuangxiang.ysvideodemo.common.utils.Utils;
+import com.example.shuangxiang.ysvideodemo.ui.home.HomeFragment;
+import com.example.shuangxiang.ysvideodemo.ui.myself.MyselfFragment;
 
 import butterknife.BindView;
 
@@ -42,7 +48,36 @@ public class HomeActivity extends BaseActivity {
         mBnv.setItemTextColor(csl);
         mBnv.setItemIconTintList(csl);
 
+        Utils.replace(getSupportFragmentManager(), R.id.fl_home,
+                HomeFragment.class);
+        mBnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.bnv_home:
+                        Utils.replace(getSupportFragmentManager(), R.id.fl_home,
+                                HomeFragment.class);
+                        break;
+                    case R.id.bnv_my:
+                        Utils.replace(getSupportFragmentManager(), R.id.fl_home,
+                                MyselfFragment.class);
+                        break;
+                }
+
+
+                return true;
+            }
+        });
+
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
 
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+        }
+        return false;
+
+    }
 }

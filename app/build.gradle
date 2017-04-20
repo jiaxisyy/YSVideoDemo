@@ -21,6 +21,8 @@ android {
         }
     }
 }
+
+//解决下面材料设计报红的问题,但是好像还是红...
 configurations.all {
     resolutionStrategy.eachDependency { DependencyResolveDetails details ->
         def requested = details.requested
@@ -43,7 +45,6 @@ dependencies {
     compile files('libs/EZOpenSDK.jar')
     compile files('libs/glide-3.6.1.jar')
     compile files('libs/zxing.jar')
-    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.0.2'
     compile files('libs/BaiduLBS_Android.jar')
     compile files('libs/httpmime-4.1.2.jar')
     compile 'com.squareup.retrofit2:retrofit:2.2.0'

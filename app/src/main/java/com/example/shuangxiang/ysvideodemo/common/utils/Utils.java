@@ -1,15 +1,22 @@
 package com.example.shuangxiang.ysvideodemo.common.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+
+import com.zhy.autolayout.utils.ScreenUtils;
 
 /**
  * Created by shuang.xiang on 2017/4/10.
@@ -119,6 +126,7 @@ public class Utils {
         NetworkInfo ni = cm.getActiveNetworkInfo();
         return ni != null && ni.isConnectedOrConnecting();
     }
+
     //版本名
     public static String getVersionName(Context context) {
         return getPackageInfo(context).versionName;
@@ -144,4 +152,6 @@ public class Utils {
 
         return pi;
     }
+
+
 }

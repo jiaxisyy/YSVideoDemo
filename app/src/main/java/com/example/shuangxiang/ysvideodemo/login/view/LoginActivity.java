@@ -44,6 +44,11 @@ public class LoginActivity extends BaseActivity implements ILoginView {
 
     @Override
     protected void initContentView(Bundle savedInstanceState) {
+        //当页面更布局有背景时使用可以全屏观看
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            Window window = getWindow();
+//            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        }
         setContentView(R.layout.activity_login);
     }
 

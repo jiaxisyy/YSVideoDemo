@@ -36,4 +36,9 @@
     <string name="tv_myself_update">检查更新</string>
     <string name="tv_myself_about">关于</string>
     <string name="exit">退出登录</string>
+    <string name="tv_myself_username">用户名</string>
+    <string name="tv_mydevice_mydevice">我的设备</string>
+    <string name="tv_mydevice_allCount">设备总量</string>
+    <string name="tv_mydevice_on">在线设备</string>
+    <string name="tv_mydevice_off">离线设备</string>
 </resources>

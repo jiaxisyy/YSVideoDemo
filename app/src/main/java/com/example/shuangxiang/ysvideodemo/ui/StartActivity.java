@@ -1,7 +1,10 @@
 package com.example.shuangxiang.ysvideodemo.ui;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
@@ -15,6 +18,11 @@ import com.example.shuangxiang.ysvideodemo.login.view.LoginActivity;
 public class StartActivity extends BaseActivity {
     @Override
     protected void initContentView(Bundle savedInstanceState) {
+        //当页面更布局有背景时使用可以全屏观看
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
         setContentView(R.layout.activiti_start);
 
     }

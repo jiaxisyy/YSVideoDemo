@@ -7,8 +7,10 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/tb_myself"
         android:layout_width="match_parent"
-        android:layout_height="130px"
-        android:background="#519EE6">
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:clipToPadding="true"
+        android:background="#4496E4">
 
         <TextView
             android:layout_width="wrap_content"
@@ -16,13 +18,13 @@
             android:layout_gravity="center"
             android:text="@string/tv_myself_title"
             android:textColor="#ffffff"
-            android:textSize="44px"
+            android:textSize="16sp"
             />
     </android.support.v7.widget.Toolbar>
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="600px"
         android:background="@drawable/bg_myself">
 
         <ImageView
@@ -36,23 +38,24 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_myself_head"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/btn_myself_login"
+            android:layout_marginTop="74px"
             android:gravity="center"
-            android:text="@string/tv_myself_loginNow"
+            android:singleLine="true"
+            android:text="@string/tv_myself_username"
             android:textColor="#00a1e9"
             android:textSize="38px"
             />
     </RelativeLayout>
-
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="30px"
+        android:layout_height="40px"
         android:background="#f4f5f9"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="110px">
+        android:layout_height="120px">
 
         <TextView
             style="@style/tv_myself"
@@ -67,15 +70,14 @@
             android:button="@drawable/selector_myself_night"
             />
     </RelativeLayout>
-
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="30px"
+        android:layout_height="40px"
         android:background="#f4f5f9"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="110px"
+        android:layout_height="120px"
         >
 
         <TextView
@@ -89,8 +91,9 @@
         android:background="#f4f5f9"/>
 
     <RelativeLayout
+        android:id="@+id/rl_myself_myservice"
         android:layout_width="match_parent"
-        android:layout_height="110px">
+        android:layout_height="120px">
 
         <TextView
             style="@style/tv_myself"
@@ -104,7 +107,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="110px">
+        android:layout_height="120px">
 
         <TextView
             style="@style/tv_myself"
@@ -113,12 +116,12 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="30px"
+        android:layout_height="40px"
         android:background="#f4f5f9"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="110px">
+        android:layout_height="120px">
 
         <TextView
             style="@style/tv_myself"

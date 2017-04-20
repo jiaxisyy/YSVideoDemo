@@ -58,7 +58,6 @@ public class MyServiceActivity extends BaseActivity implements IMyService {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
-
         }
         return super.onOptionsItemSelected(item);
     }
