@@ -44,6 +44,7 @@ public class MyDeviceActivity extends BaseActivity {
         setContentView(R.layout.activity_mydevice);
     }
 
+
     @Override
     protected void initSomething() {
         mTbMydevice.setTitle("");

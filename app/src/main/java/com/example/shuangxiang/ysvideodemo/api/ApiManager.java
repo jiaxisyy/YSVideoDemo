@@ -6,6 +6,7 @@ import com.example.shuangxiang.ysvideodemo.Interceptor.ReadCookiesInterceptor;
 import com.example.shuangxiang.ysvideodemo.Interceptor.SaveCookiesInterceptor;
 import com.example.shuangxiang.ysvideodemo.download.bean.AppMessage;
 import com.example.shuangxiang.ysvideodemo.retrofit.IDownloadRequest;
+import com.example.shuangxiang.ysvideodemo.retrofit.IHomePictureRequest;
 import com.example.shuangxiang.ysvideodemo.retrofit.ILoginRequest;
 
 import io.reactivex.Observable;
@@ -25,10 +26,12 @@ public class ApiManager {
     private static Context mContext;
     private static IDownloadRequest sDownRequest;
     private static Retrofit sRetrofit;
+    private static IHomePictureRequest sHomePictureRequest;
 
     public ApiManager(Context context) {
         mContext = context;
     }
+
     //内网
 //    private static final String BASEURL = "http://10.199.198.55:58010/userconsle/";
     //外网
@@ -69,4 +72,14 @@ public class ApiManager {
         sDownRequest = sRetrofit.create(IDownloadRequest.class);
         return sDownRequest.getAppMessage();
     }
+
+    /**
+     * 首页轮播图
+     * @return
+     */
+    public static Observable<String[]> getBannersUrl() {
+        sHomePictureRequest = sRetrofit.create(IHomePictureRequest.class);
+        return sHomePictureRequest.getBannersUrl();
+    }
+
 }

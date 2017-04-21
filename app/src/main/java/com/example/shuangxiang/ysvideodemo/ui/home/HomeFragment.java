@@ -10,13 +10,18 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.ui.BaseFragment;
+import com.example.shuangxiang.ysvideodemo.ui.home.presenter.HomeFragmentPresenter;
+import com.example.shuangxiang.ysvideodemo.ui.home.presenter.IHomeFragmentPresenter;
+import com.example.shuangxiang.ysvideodemo.ui.home.view.IHomeFragmentView;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.MyDeviceActivity;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 import static com.zhy.autolayout.utils.ScreenUtils.getStatusBarHeight;
 
@@ -24,9 +29,8 @@ import static com.zhy.autolayout.utils.ScreenUtils.getStatusBarHeight;
  * Created by shuang.xiang on 2017/4/19.
  */
 
-public class HomeFragment extends BaseFragment {
-
-
+public class HomeFragment extends BaseFragment implements IHomeFragmentView {
+    private IHomeFragmentPresenter mPresenter;
     @BindView(R.id.tb_home)
     Toolbar mTbHome;
     @BindView(R.id.banner_home)
@@ -41,9 +45,7 @@ public class HomeFragment extends BaseFragment {
     RelativeLayout mLlHomeSetting;
     @BindView(R.id.rv_home_product)
     RecyclerView mRvHomeProduct;
-    Unbinder unbinder;
-    Unbinder unbinder1;
-    Unbinder unbinder2;
+
 
     @Override
     protected int getLayoutId() {
@@ -53,11 +55,11 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void init() {
-
-
-
+        setImmerseLayout(mTbHome);
+        setBanner();
 
     }
+
 
     protected void setImmerseLayout(View view) {
         //先将状态栏透明化
@@ -86,4 +88,39 @@ public class HomeFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void setBanner() {
+        mPresenter = new HomeFragmentPresenter(this, getActivity());
+        mPresenter.loadBanner();
+
+    }
+
+    @Override
+    public void setBannersListUrl(List<String> list) {
+
+
+        mBannerHome.setPages(new CBViewHolderCreator<NetworkGlideView>() {
+            @Override
+            public NetworkGlideView createHolder() {
+                return new NetworkGlideView();
+            }
+        }, list).setPageIndicator(new int[]{R.drawable.yuan_dangqian, R.drawable.yuan_default});
+        mBannerHome.startTurning(5000);
+    }
+
+//    // 开始自动翻页
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        //开始自动翻页
+//        convenientBanner.startTurning(5000);
+//    }
+//
+//    // 停止自动翻页
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        //停止翻页
+//        convenientBanner.stopTurning();
+//    }
 }

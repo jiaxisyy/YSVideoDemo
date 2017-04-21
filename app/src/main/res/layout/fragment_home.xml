@@ -8,7 +8,9 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/tb_home"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:clipToPadding="true">
 
         <TextView
             android:layout_width="wrap_content"
@@ -96,10 +98,12 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             >
+
             <ImageView
                 style="@style/iv_home_icon"
                 android:src="@drawable/icon_shezhiguanli"
                 />
+
             <TextView
                 style="@style/tv_home_icon_text"
                 android:text="@string/tv_home_setting"
