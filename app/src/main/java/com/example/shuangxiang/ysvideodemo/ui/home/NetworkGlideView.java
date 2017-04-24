@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import com.bigkoo.convenientbanner.holder.Holder;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
@@ -35,6 +36,6 @@ public class NetworkGlideView implements Holder<String> {
                         (context, Constants.Define.COOKIE))
                 .build());
 //        imageView.setImageResource(R.drawable.ic_default_adimage);
-        Glide.with(context).load(glideUrl).into(imageView);
+        Glide.with(context).load(glideUrl).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
     }
 }

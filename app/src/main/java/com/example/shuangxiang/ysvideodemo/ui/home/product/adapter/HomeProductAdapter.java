@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.example.shuangxiang.ysvideodemo.R;
@@ -48,7 +49,7 @@ public class HomeProductAdapter extends RecyclerView.Adapter {
                 CacheUtils.getString
                         (mContext, Constants.Define.COOKIE))
                 .build());
-        Glide.with(mContext).load(glideUrl).into(viewHolder.mImageView);
+        Glide.with(mContext).load(glideUrl).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(viewHolder.mImageView);
     }
 
     @Override
