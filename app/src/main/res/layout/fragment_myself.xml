@@ -8,9 +8,9 @@
         android:id="@+id/tb_myself"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
+        android:background="#4496E4"
         android:clipToPadding="true"
-        android:background="#4496E4">
+        android:fitsSystemWindows="true">
 
         <TextView
             android:layout_width="wrap_content"
@@ -48,6 +48,7 @@
             android:textSize="38px"
             />
     </RelativeLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="40px"
@@ -70,12 +71,14 @@
             android:button="@drawable/selector_myself_night"
             />
     </RelativeLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="40px"
         android:background="#f4f5f9"/>
 
     <RelativeLayout
+        android:id="@+id/rl_myself_feedback"
         android:layout_width="match_parent"
         android:layout_height="120px"
         >

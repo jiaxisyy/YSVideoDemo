@@ -8,6 +8,7 @@ import com.example.shuangxiang.ysvideodemo.download.bean.AppMessage;
 import com.example.shuangxiang.ysvideodemo.retrofit.IDownloadRequest;
 import com.example.shuangxiang.ysvideodemo.retrofit.IHomePictureRequest;
 import com.example.shuangxiang.ysvideodemo.retrofit.ILoginRequest;
+import com.example.shuangxiang.ysvideodemo.ui.home.product.bean.ProductInfo;
 
 import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
@@ -75,11 +76,21 @@ public class ApiManager {
 
     /**
      * 首页轮播图
+     *
      * @return
      */
     public static Observable<String[]> getBannersUrl() {
         sHomePictureRequest = sRetrofit.create(IHomePictureRequest.class);
         return sHomePictureRequest.getBannersUrl();
+    }
+
+    /**
+     *
+     * 首页产品
+     * @return
+     */
+    public static Observable<ProductInfo> getProducts() {
+        return sHomePictureRequest.getProducts();
     }
 
 }

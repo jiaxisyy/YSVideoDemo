@@ -1,5 +1,7 @@
 package com.example.shuangxiang.ysvideodemo.retrofit;
 
+import com.example.shuangxiang.ysvideodemo.ui.home.product.bean.ProductInfo;
+
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 
@@ -10,5 +12,8 @@ import retrofit2.http.GET;
 public interface IHomePictureRequest {
     @GET("kawaapp/banners")
     Observable<String[]> getBannersUrl();
+
+    @GET("kawaapp/products")
+    Observable<ProductInfo> getProducts();
 
 }

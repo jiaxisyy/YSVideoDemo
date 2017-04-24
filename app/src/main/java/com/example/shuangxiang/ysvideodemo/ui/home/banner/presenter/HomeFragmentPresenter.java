@@ -1,11 +1,11 @@
-package com.example.shuangxiang.ysvideodemo.ui.home.presenter;
+package com.example.shuangxiang.ysvideodemo.ui.home.banner.presenter;
 
 import android.content.Context;
 
 import com.example.shuangxiang.ysvideodemo.common.Constants;
-import com.example.shuangxiang.ysvideodemo.ui.home.model.HomeFragmentModel;
-import com.example.shuangxiang.ysvideodemo.ui.home.model.IHomeFragmentModel;
-import com.example.shuangxiang.ysvideodemo.ui.home.view.IHomeFragmentView;
+import com.example.shuangxiang.ysvideodemo.ui.home.banner.model.HomeFragmentModel;
+import com.example.shuangxiang.ysvideodemo.ui.home.banner.model.IHomeFragmentModel;
+import com.example.shuangxiang.ysvideodemo.ui.home.banner.view.IHomeFragmentView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +42,7 @@ public class HomeFragmentPresenter implements IHomeFragmentPresenter {
 
         List<String> strings = new ArrayList<>();
         for (String url : list) {
-            strings.add(Constants.Define.BASE_BANNERSURL + url);
+            strings.add(Constants.Define.BASE_URL + url);
         }
         mView.setBannersListUrl(strings);
     }

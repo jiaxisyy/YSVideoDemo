@@ -2,6 +2,7 @@ package com.example.shuangxiang.ysvideodemo.ui.home;
 
 import android.content.Intent;
 import android.os.Build;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -13,9 +14,12 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.ui.BaseFragment;
-import com.example.shuangxiang.ysvideodemo.ui.home.presenter.HomeFragmentPresenter;
-import com.example.shuangxiang.ysvideodemo.ui.home.presenter.IHomeFragmentPresenter;
-import com.example.shuangxiang.ysvideodemo.ui.home.view.IHomeFragmentView;
+import com.example.shuangxiang.ysvideodemo.ui.home.banner.presenter.HomeFragmentPresenter;
+import com.example.shuangxiang.ysvideodemo.ui.home.banner.view.IHomeFragmentView;
+import com.example.shuangxiang.ysvideodemo.ui.home.product.adapter.HomeProductAdapter;
+import com.example.shuangxiang.ysvideodemo.ui.home.product.bean.ProductInfo;
+import com.example.shuangxiang.ysvideodemo.ui.home.product.presenter.HomeProductPresenter;
+import com.example.shuangxiang.ysvideodemo.ui.home.product.view.IHomeProductView;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.MyDeviceActivity;
 
 import java.util.List;
@@ -29,8 +33,9 @@ import static com.zhy.autolayout.utils.ScreenUtils.getStatusBarHeight;
  * Created by shuang.xiang on 2017/4/19.
  */
 
-public class HomeFragment extends BaseFragment implements IHomeFragmentView {
-    private IHomeFragmentPresenter mPresenter;
+public class HomeFragment extends BaseFragment implements IHomeFragmentView, IHomeProductView {
+    private HomeFragmentPresenter mPresenter;
+    private HomeProductPresenter mProductPresenter;
     @BindView(R.id.tb_home)
     Toolbar mTbHome;
     @BindView(R.id.banner_home)
@@ -57,6 +62,8 @@ public class HomeFragment extends BaseFragment implements IHomeFragmentView {
     protected void init() {
         setImmerseLayout(mTbHome);
         setBanner();
+        mProductPresenter = new HomeProductPresenter(this, getActivity());
+        mProductPresenter.load();
 
     }
 
@@ -92,12 +99,10 @@ public class HomeFragment extends BaseFragment implements IHomeFragmentView {
     public void setBanner() {
         mPresenter = new HomeFragmentPresenter(this, getActivity());
         mPresenter.loadBanner();
-
     }
 
     @Override
     public void setBannersListUrl(List<String> list) {
-
 
         mBannerHome.setPages(new CBViewHolderCreator<NetworkGlideView>() {
             @Override
@@ -106,6 +111,21 @@ public class HomeFragment extends BaseFragment implements IHomeFragmentView {
             }
         }, list).setPageIndicator(new int[]{R.drawable.yuan_dangqian, R.drawable.yuan_default});
         mBannerHome.startTurning(5000);
+    }
+
+    @Override
+    public void setProductResouce(List<ProductInfo.ListBean> list) {
+
+        GridLayoutManager layoutManager=new GridLayoutManager(getActivity(),2){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        layoutManager.setAutoMeasureEnabled(true);
+        mRvHomeProduct.setLayoutManager(layoutManager);
+        mRvHomeProduct.setAdapter(new HomeProductAdapter(list, getActivity()));
+
     }
 
 //    // 开始自动翻页

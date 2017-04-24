@@ -1,4 +1,4 @@
-package com.example.shuangxiang.ysvideodemo.ui.home.bean;
+package com.example.shuangxiang.ysvideodemo.ui.home.banner.bean;
 
 /**
  * Created by shuang.xiang on 2017/4/21.

@@ -1,4 +1,4 @@
-package com.example.shuangxiang.ysvideodemo.ui.home.view;
+package com.example.shuangxiang.ysvideodemo.ui.home.banner.view;
 
 import java.util.List;
 

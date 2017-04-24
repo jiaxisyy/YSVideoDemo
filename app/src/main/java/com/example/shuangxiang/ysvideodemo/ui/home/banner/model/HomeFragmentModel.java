@@ -1,9 +1,9 @@
-package com.example.shuangxiang.ysvideodemo.ui.home.model;
+package com.example.shuangxiang.ysvideodemo.ui.home.banner.model;
 
 import android.content.Context;
 
 import com.example.shuangxiang.ysvideodemo.api.ApiManager;
-import com.example.shuangxiang.ysvideodemo.ui.home.presenter.HomeFragmentPresenter;
+import com.example.shuangxiang.ysvideodemo.ui.home.banner.presenter.HomeFragmentPresenter;
 
 import java.util.ArrayList;
 import java.util.Arrays;

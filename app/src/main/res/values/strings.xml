@@ -41,4 +41,8 @@
     <string name="tv_mydevice_allCount">设备总量</string>
     <string name="tv_mydevice_on">在线设备</string>
     <string name="tv_mydevice_off">离线设备</string>
+    <string name="tv_feedback_title">反馈</string>
+    <string name="tv_feedback_submit">提交</string>
+    <string name="et_feedback_inputQuestion">请描述您的问题...</string>
+    <string name="et_feedback_inputPhone">请输入您的电话...</string>
 </resources>

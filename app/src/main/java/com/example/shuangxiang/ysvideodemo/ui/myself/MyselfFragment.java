@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
 import com.example.shuangxiang.ysvideodemo.R;
+import com.example.shuangxiang.ysvideodemo.feedback.FeedbackActivity;
 import com.example.shuangxiang.ysvideodemo.myservice.MyServiceActivity;
 import com.example.shuangxiang.ysvideodemo.ui.BaseFragment;
 
@@ -26,6 +27,10 @@ public class MyselfFragment extends BaseFragment {
     Toolbar mTbMyself;
     @BindView(R.id.rl_myself_myservice)
     RelativeLayout mRelativeLayout;
+    @BindView(R.id.rl_myself_feedback)
+    RelativeLayout mRlMyselfFeedback;
+
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_myself;
@@ -36,10 +41,12 @@ public class MyselfFragment extends BaseFragment {
         setImmerseLayout(mTbMyself);
 
     }
+
     @OnClick(R.id.rl_myself_myservice)
     public void onViewClicked() {
         startActivity(new Intent(getActivity(), MyServiceActivity.class));
     }
+
     protected void setImmerseLayout(View view) {
         //先将状态栏透明化
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -50,5 +57,12 @@ public class MyselfFragment extends BaseFragment {
             //将顶部空间的top padding设置为和状态栏一样的高度，以此达到预期的效果
             view.setPadding(0, statusBarHeight, 0, 0);
         }
+    }
+
+
+
+    @OnClick(R.id.rl_myself_feedback)
+    public void onViewClickedFeedback() {
+        startActivity(new Intent(getActivity(), FeedbackActivity.class));
     }
 }

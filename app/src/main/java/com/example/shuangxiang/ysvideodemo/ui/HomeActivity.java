@@ -55,16 +55,14 @@ public class HomeActivity extends BaseActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.bnv_home:
-                        Utils.replace(getSupportFragmentManager(), R.id.fl_home,
-                                HomeFragment.class);
-                        break;
+                            Utils.replace(getSupportFragmentManager(), R.id.fl_home,
+                                    HomeFragment.class);
+                            break;
                     case R.id.bnv_my:
                         Utils.replace(getSupportFragmentManager(), R.id.fl_home,
                                 MyselfFragment.class);
                         break;
                 }
-
-
                 return true;
             }
         });

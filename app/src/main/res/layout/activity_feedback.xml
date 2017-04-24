@@ -8,9 +8,30 @@
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
         android:clipToPadding="true"
-        />
+        android:fitsSystemWindows="true"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/tv_feedback_title"
+            android:textColor="#627281"
+            android:textSize="16sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_feedback_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginRight="40px"
+            android:text="@string/tv_feedback_submit"
+            android:textColor="#00a1e9"
+            android:textSize="14sp"/>
+
+    </android.support.v7.widget.Toolbar>
 
     <TextView
         android:layout_width="match_parent"
@@ -28,7 +49,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24px"
             android:background="@null"
-            android:hint="  请描述你的问题..."
+            android:hint="@string/et_feedback_inputQuestion"
+            android:paddingLeft="40px"
             android:textColor="#c9d3dc"
             android:textSize="40px"/>
 
@@ -36,8 +58,35 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="20px"
-        android:background="#c9d3dc"/>
+        android:layout_height="1px"
+        android:background="#e6e6e6"/>
+
+    <EditText
+        android:id="@+id/et_feedback_inputPhone"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:layout_marginTop="24px"
+        android:background="@null"
+        android:hint="@string/et_feedback_inputPhone"
+        android:inputType="number"
+        android:maxLength="11"
+        android:paddingLeft="40px"
+        android:singleLine="true"
+        android:textSize="40px"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#e6e6e6"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f4f5f9"
+        android:orientation="vertical">
+
+
+    </LinearLayout>
 
 
 </LinearLayout>
