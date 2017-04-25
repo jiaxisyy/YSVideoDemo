@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
+import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.adapter.MyViewPagerAdapter;
 import com.zhy.autolayout.utils.ScreenUtils;
 
 import java.util.ArrayList;
@@ -57,11 +58,22 @@ public class MyDeviceActivity extends BaseActivity {
         tb_titles.add(Constants.Define.DEVICEMAP.toString());
 
         mTabLayout.setLayoutMode(TabLayout.MODE_FIXED);
-        addFragment();
+//        addFragment();
         for (int i = 0; i < tb_titles.size(); i++) {
             mTabLayout.addTab(mTabLayout.newTab().setText(tb_titles.get(i)));
         }
+        initView();
         mTabLayout.setupWithViewPager(mViewPager);
+
+
+
+    }
+
+    private void initView() {
+        MyViewPagerAdapter myViewPagerAdapter = new MyViewPagerAdapter(getSupportFragmentManager());
+        myViewPagerAdapter.addFragment(MyDeviceListFragment.getInstance(), Constants.Define.DEVICELIST);
+        myViewPagerAdapter.addFragment(MyDeviceMapFragment.getInstance(), Constants.Define.DEVICEMAP);
+        mViewPager.setAdapter(myViewPagerAdapter);
     }
 
 
@@ -119,6 +131,7 @@ public class MyDeviceActivity extends BaseActivity {
             view.setPadding(0, statusBarHeight, 0, 0);
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

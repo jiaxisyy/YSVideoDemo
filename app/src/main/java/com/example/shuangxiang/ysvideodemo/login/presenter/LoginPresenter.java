@@ -46,12 +46,14 @@ public class LoginPresenter implements ILoginPresenter {
 
     @Override
     public void loginSucceed(LoginInfo info) {
+
         if (isChecked) {
             CacheUtils.putString(mContext, Constants.Define.USERNAME, mLoginView.getUserName());
             CacheUtils.putString(mContext, Constants.Define.PASSWORD, mLoginView.getPassWord());
         }
         mContext.startActivity(new Intent(mContext, HomeActivity.class));
-        Log.d("TEST","cookie="+CacheUtils.getString(mContext,Constants.Define.COOKIE));
+        Log.d("TEST", "cookie=" + CacheUtils.getString(mContext, Constants.Define.COOKIE));
+        Log.d("TEST", "orgID=" + info.getOrgId());
     }
 
     @Override

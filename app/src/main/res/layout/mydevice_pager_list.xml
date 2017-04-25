@@ -10,6 +10,7 @@
 
 
         <RadioGroup
+            android:id="@+id/rg_mydevice_list"
             android:layout_width="match_parent"
             android:layout_height="100px"
             android:background="#EEEFF3"
@@ -38,10 +39,21 @@
                 android:textColor="@drawable/selector_mydevice_onoroff"
                 android:textSize="36px"/>
 
+            <RadioButton
+                android:id="@+id/rb_mydevice_all"
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:text="全部"
+                android:textColor="@drawable/selector_mydevice_onoroff"
+                android:textSize="36px"/>
+
         </RadioGroup>
 
         <android.support.v7.widget.RecyclerView
-
+            android:id="@+id/rv_mydevice_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

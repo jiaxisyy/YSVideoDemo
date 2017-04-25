@@ -42,6 +42,11 @@ public class MyselfFragment extends BaseFragment {
 
     }
 
+    @Override
+    protected void initData() {
+
+    }
+
     @OnClick(R.id.rl_myself_myservice)
     public void onViewClicked() {
         startActivity(new Intent(getActivity(), MyServiceActivity.class));

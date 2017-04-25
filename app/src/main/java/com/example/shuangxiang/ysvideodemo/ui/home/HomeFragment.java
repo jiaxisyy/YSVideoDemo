@@ -5,6 +5,7 @@ import android.os.Build;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -64,6 +65,11 @@ public class HomeFragment extends BaseFragment implements IHomeFragmentView, IHo
         setBanner();
         mProductPresenter = new HomeProductPresenter(this, getActivity());
         mProductPresenter.load();
+        Log.d("TEST", "load");
+    }
+
+    @Override
+    protected void initData() {
 
     }
 
@@ -116,7 +122,7 @@ public class HomeFragment extends BaseFragment implements IHomeFragmentView, IHo
     @Override
     public void setProductResouce(List<ProductInfo.ListBean> list) {
 
-        GridLayoutManager layoutManager=new GridLayoutManager(getActivity(),2){
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2) {
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -143,4 +149,6 @@ public class HomeFragment extends BaseFragment implements IHomeFragmentView, IHo
 //        //停止翻页
 //        convenientBanner.stopTurning();
 //    }
+
+
 }

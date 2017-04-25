@@ -55,6 +55,7 @@
                 />
 
             <TextView
+                android:id="@+id/tv_mydevice_allDevice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24px"
@@ -90,6 +91,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/tv_mydevice_deviceOn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24px"
@@ -119,6 +121,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/tv_mydevice_deviceOff"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24px"
