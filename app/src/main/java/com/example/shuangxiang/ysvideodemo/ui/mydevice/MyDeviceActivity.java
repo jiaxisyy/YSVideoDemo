@@ -65,8 +65,6 @@ public class MyDeviceActivity extends BaseActivity {
         initView();
         mTabLayout.setupWithViewPager(mViewPager);
 
-
-
     }
 
     private void initView() {

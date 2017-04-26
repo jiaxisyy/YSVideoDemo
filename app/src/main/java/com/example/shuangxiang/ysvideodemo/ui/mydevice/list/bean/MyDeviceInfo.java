@@ -245,7 +245,7 @@ public class MyDeviceInfo {
         private String id;
         private String addr;
         private String longitude;
-        private long createDate;
+        private String createDate;
         private int totalRunTime;
         private String userId;
         private String serverHost;
@@ -369,11 +369,11 @@ public class MyDeviceInfo {
             this.longitude = longitude;
         }
 
-        public long getCreateDate() {
+        public String getCreateDate() {
             return createDate;
         }
 
-        public void setCreateDate(long createDate) {
+        public void setCreateDate(String createDate) {
             this.createDate = createDate;
         }
 

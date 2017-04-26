@@ -1,9 +1,11 @@
 package com.example.shuangxiang.ysvideodemo.ui;
 
+import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -24,10 +26,18 @@ public class HomeActivity extends BaseActivity {
     FrameLayout mFlHome;
     @BindView(R.id.bnv)
     BottomNavigationView mBnv;
+    private Bundle mInstanceState;
+    protected Activity mActivity;
+    private FragmentTransaction mTransaction;
+    private HomeFragment mHomeFragment;
+    private MyselfFragment mMyselfFragment;
+
 
     @Override
     protected void initContentView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_home);
+        mInstanceState = savedInstanceState;
+
     }
 
     @Override
@@ -48,6 +58,7 @@ public class HomeActivity extends BaseActivity {
         mBnv.setItemTextColor(csl);
         mBnv.setItemIconTintList(csl);
 
+//        setDefaultFragment();
         Utils.replace(getSupportFragmentManager(), R.id.fl_home,
                 HomeFragment.class);
         mBnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -55,9 +66,9 @@ public class HomeActivity extends BaseActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.bnv_home:
-                            Utils.replace(getSupportFragmentManager(), R.id.fl_home,
-                                    HomeFragment.class);
-                            break;
+                        Utils.replace(getSupportFragmentManager(), R.id.fl_home,
+                                HomeFragment.class);
+                        break;
                     case R.id.bnv_my:
                         Utils.replace(getSupportFragmentManager(), R.id.fl_home,
                                 MyselfFragment.class);
@@ -67,6 +78,15 @@ public class HomeActivity extends BaseActivity {
             }
         });
 
+    }
+
+    /**
+     * 首次加载的fragment
+     */
+    private void setDefaultFragment() {
+        mTransaction = getSupportFragmentManager().beginTransaction();
+        mTransaction.add(R.id.fl_home, HomeFragment.getInstance(), "home");
+        mTransaction.commit();
     }
 
     @Override

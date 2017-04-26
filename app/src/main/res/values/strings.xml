@@ -46,4 +46,6 @@
     <string name="et_feedback_inputQuestion">请描述您的问题...</string>
     <string name="et_feedback_inputPhone">请输入您的电话...</string>
     <string name="tv_feedback_addPicExplain">添加图片说明</string>
+    <string name="tv_mydevice_search_cancel">取消</string>
+    <string name="tv_mydevice_list_search_pleaseInputDeviceName">请输入设备名称</string>
 </resources>

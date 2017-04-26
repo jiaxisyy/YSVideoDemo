@@ -5,5 +5,5 @@ package com.example.shuangxiang.ysvideodemo.ui.mydevice.list.m;
  */
 
 public interface IMyDeviceListM {
-    void getAllResouce(String orgId,int pageNum,int pageSize);
+    void getAllResouce(String orgId, String name, int pageNum, int pageSize);
 }

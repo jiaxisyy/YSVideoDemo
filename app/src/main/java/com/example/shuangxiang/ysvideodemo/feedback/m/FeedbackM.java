@@ -28,7 +28,7 @@ public class FeedbackM implements IFeedbackM {
 
     @Override
     public void uploadFile(File file) {
-        Observable<FilePath> observable = ApiManager.uploadFile(file);
+        Observable<FilePath> observable = ApiManager.getInstance().uploadFile(file);
         observable.observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -60,7 +60,7 @@ public class FeedbackM implements IFeedbackM {
 
     @Override
     public void submit(FeedbackInfo info) {
-        Observable<String> observable = ApiManager.submit(info);
+        Observable<String> observable = ApiManager.getInstance().submit(info);
         observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io()).subscribe(new Observer<String>() {
             @Override

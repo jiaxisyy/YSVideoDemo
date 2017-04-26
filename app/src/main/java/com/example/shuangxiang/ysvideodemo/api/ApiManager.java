@@ -45,6 +45,24 @@ public class ApiManager {
         mContext = context;
     }
 
+    public ApiManager() {
+    }
+
+    //定义一个静态私有变量(不初始化，不使用final关键字，使用volatile保证了多线程访问时instance变量的可见性，避免了instance初始化时其他变量属性还没赋值完时，被另外线程调用)
+    private static volatile ApiManager instance;
+
+    //定义一个共有的静态方法，返回该类型实例
+    public static ApiManager getInstance() {
+        if (instance == null) {
+            synchronized (ApiManager.class) {
+                if (instance == null) {
+                    instance = new ApiManager();
+                }
+            }
+        }
+        return instance;
+    }
+
     //内网
 //    private static final String BASEURL = "http://10.199.198.55:58010/userconsle/";
     //外网
@@ -132,14 +150,12 @@ public class ApiManager {
     /**
      * 查询所有的设备
      *
-     * @param orgId
-     * @param pageNum
-     * @param pageSize
      * @return
      */
-    public static Observable<MyDeviceInfo> getAllDevices(String orgId, int pageNum, int pageSize) {
+    public static Observable<MyDeviceInfo> getAllDevices(String orgId, String name, int pageNum, int
+            pageSize) {
         sMyDeviceListRequest = sRetrofit.create(IMyDeviceListRequest.class);
-        return sMyDeviceListRequest.getAllDevices(orgId, pageNum, pageSize);
+        return sMyDeviceListRequest.getAllDevices(orgId, name, pageNum, pageSize);
     }
 
 

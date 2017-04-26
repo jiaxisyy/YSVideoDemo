@@ -27,6 +27,7 @@ public abstract class BaseFragment extends Fragment {
     protected abstract int getLayoutId();
 
     protected abstract void init();
+
     protected abstract void initData();
 
     @Nullable
@@ -38,7 +39,6 @@ public abstract class BaseFragment extends Fragment {
         init();
         return view;
     }
-
 
 
     @Override

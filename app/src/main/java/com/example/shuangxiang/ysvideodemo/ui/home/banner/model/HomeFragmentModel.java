@@ -31,7 +31,7 @@ public class HomeFragmentModel implements IHomeFragmentModel {
 
     @Override
     public void getBanner() {
-        Observable<String[]> observable = ApiManager.getBannersUrl();
+        Observable<String[]> observable = ApiManager.getInstance().getBannersUrl();
         observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(new Observer<String[]>() {

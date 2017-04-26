@@ -1,16 +1,27 @@
 package com.example.shuangxiang.ysvideodemo.ui.mydevice;
 
+import android.content.Intent;
 import android.support.annotation.IdRes;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.example.shuangxiang.ysvideodemo.R;
+import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.ui.BaseFragment;
+import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.adapter.MydeviceListRVAdapter;
+import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.decoration.MyDecoration;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.p.MyDeviceListP;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.v.IMyDeviceListV;
+import com.example.shuangxiang.ysvideodemo.ui.mydevice.search.MyDeviceListSearchActivity;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -21,6 +32,12 @@ import butterknife.OnClick;
 
 public class MyDeviceListFragment extends BaseFragment implements IMyDeviceListV {
 
+    @BindView(R.id.rb_mydevice_on)
+    RadioButton mRbOn;
+    @BindView(R.id.rb_mydevice_off)
+    RadioButton mRbOff;
+    @BindView(R.id.rb_mydevice_all)
+    RadioButton mRbAll;
     private MyDeviceListP mPresenter;
     @BindView(R.id.rg_mydevice_list)
     RadioGroup mRgMydeviceList;
@@ -28,7 +45,7 @@ public class MyDeviceListFragment extends BaseFragment implements IMyDeviceListV
     ImageView mIvMydeviceSearch;
     @BindView(R.id.rv_mydevice_list)
     RecyclerView mRecyclerView;
-
+    private MydeviceListRVAdapter mAdapter;
 
     public MyDeviceListFragment() {
     }
@@ -50,20 +67,14 @@ public class MyDeviceListFragment extends BaseFragment implements IMyDeviceListV
 
     @Override
     protected int getLayoutId() {
+
+
         return R.layout.mydevice_pager_list;
     }
 
     @Override
     protected void init() {
 
-
-        mRgMydeviceList.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
-
-
-            }
-        });
     }
 
     @Override
@@ -75,12 +86,66 @@ public class MyDeviceListFragment extends BaseFragment implements IMyDeviceListV
 
     @OnClick(R.id.iv_mydevice_search)
     public void onViewClicked() {
+        startActivity(new Intent(getActivity(), MyDeviceListSearchActivity.class));
     }
 
     @Override
-    public void setData(List<String> data) {
+    public void setData(final Map<String, String> map) {
+        Set<String> set = map.keySet();
+        List<String> names = new ArrayList<>();
+        Iterator<String> it = set.iterator();
+        while (it.hasNext()) {
+            names.add(it.next());
+        }
+        int size = names.size();
+        for (int i = 0; i < size; i++) {
+            if (map.get(names.get(i)).equals("OFFLINE")) {
+                map.remove(names.get(i));
+            }
+        }
+
+        mRgMydeviceList.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
+                switch (i) {
+                    case R.id.rb_mydevice_on:
+
+                        break;
+                    case R.id.rb_mydevice_off:
+
+                        break;
+                    case R.id.rb_mydevice_all:
+
+                        break;
+                }
+
+            }
+        });
+
+        //默认显示在线
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setAutoMeasureEnabled(true);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mAdapter = new MydeviceListRVAdapter(map, getActivity());
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.addItemDecoration(new MyDecoration(getActivity(), MyDecoration.VERTICAL_LIST));
+
+    }
 
 
+    @Override
+    public String getName() {
+        return null;
+    }
+
+    @Override
+    public int getPagerNum() {
+        return Constants.Define.PAGENUM;
+    }
+
+    @Override
+    public int getPagerSize() {
+        return Constants.Define.PAGESIZE;
     }
 
     @Override
@@ -92,4 +157,6 @@ public class MyDeviceListFragment extends BaseFragment implements IMyDeviceListV
     public void upload() {
 
     }
+
+
 }

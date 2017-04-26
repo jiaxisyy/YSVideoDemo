@@ -83,6 +83,7 @@
         <activity android:name=".ui.HomeActivity"/>
         <activity android:name=".ui.TestActivity"/>
         <activity android:name=".ui.mydevice.MyDeviceActivity"/>
+        <activity android:name=".ui.mydevice.search.MyDeviceListSearchActivity"/>
 
 
         <meta-data

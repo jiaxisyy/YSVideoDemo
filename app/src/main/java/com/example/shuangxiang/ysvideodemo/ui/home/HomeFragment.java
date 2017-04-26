@@ -52,20 +52,39 @@ public class HomeFragment extends BaseFragment implements IHomeFragmentView, IHo
     @BindView(R.id.rv_home_product)
     RecyclerView mRvHomeProduct;
 
-
     @Override
     protected int getLayoutId() {
-
         return R.layout.fragment_home;
+    }
+
+    public HomeFragment() {
+    }
+
+    //定义一个静态私有变量(不初始化，不使用final关键字，使用volatile保证了多线程访问时instance变量的可见性，避免了instance初始化时其他变量属性还没赋值完时，被另外线程调用)
+    private static volatile HomeFragment instance;
+
+    //定义一个共有的静态方法，返回该类型实例
+    public static HomeFragment getInstance() {
+        if (instance == null) {
+            synchronized (HomeFragment.class) {
+                if (instance == null) {
+                    instance = new HomeFragment();
+                }
+            }
+        }
+        return instance;
     }
 
     @Override
     protected void init() {
+
         setImmerseLayout(mTbHome);
         setBanner();
         mProductPresenter = new HomeProductPresenter(this, getActivity());
         mProductPresenter.load();
         Log.d("TEST", "load");
+
+
     }
 
     @Override
@@ -131,7 +150,6 @@ public class HomeFragment extends BaseFragment implements IHomeFragmentView, IHo
         layoutManager.setAutoMeasureEnabled(true);
         mRvHomeProduct.setLayoutManager(layoutManager);
         mRvHomeProduct.setAdapter(new HomeProductAdapter(list, getActivity()));
-
     }
 
 //    // 开始自动翻页

@@ -12,6 +12,6 @@
         android:paddingLeft="40px"
         android:text="供热00001"
         android:textColor="#627281"
-        android:textSize="30px"/>
+        android:textSize="35px"/>
 
 </LinearLayout>

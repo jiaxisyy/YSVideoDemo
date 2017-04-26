@@ -1,6 +1,6 @@
 package com.example.shuangxiang.ysvideodemo.ui.mydevice.list.v;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * Created by shuang.xiang on 2017/4/25.
@@ -8,7 +8,13 @@ import java.util.List;
 
 public interface IMyDeviceListV {
 
-    void setData(List<String> data);
+    void setData(Map<String, String> map);
+
+    String getName();
+
+    int getPagerNum();
+
+    int getPagerSize();
 
     void refresh();
 

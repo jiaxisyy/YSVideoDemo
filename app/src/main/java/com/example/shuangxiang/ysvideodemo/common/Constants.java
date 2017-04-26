@@ -19,7 +19,9 @@ public class Constants {
         String DEVICEMAP = "设备地图";
         long START_TIME = 3000;//启动页跳转时间为3秒
         String BASE_URL = "http://58.250.204.112:58010/userconsle/";//外网
-
+        //设备列表的默认设置
+        int PAGENUM = 1;
+        int PAGESIZE = 100;
     }
 
 }

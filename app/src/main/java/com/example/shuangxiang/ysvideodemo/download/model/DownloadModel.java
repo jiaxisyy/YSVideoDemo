@@ -25,7 +25,7 @@ public class DownloadModel implements IDownloadModel {
 
     @Override
     public void getAppMessage() {
-        Observable<AppMessage> observable = ApiManager.getAppMessage();
+        Observable<AppMessage> observable = ApiManager.getInstance().getAppMessage();
         observable.subscribeOn(Schedulers.io()).subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<AppMessage>() {
                     @Override

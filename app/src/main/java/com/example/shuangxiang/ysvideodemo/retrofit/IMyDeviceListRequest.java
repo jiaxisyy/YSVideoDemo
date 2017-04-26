@@ -12,6 +12,6 @@ import retrofit2.http.Query;
 
 public interface IMyDeviceListRequest {
     @GET("devices")
-    Observable<MyDeviceInfo> getAllDevices(@Query("orgId") String orgId, @Query("pageNum")
-            int pageNum, @Query("pageSize") int pageSize);
+    Observable<MyDeviceInfo> getAllDevices(@Query("orgId") String orgId, @Query("name") String name,
+                                           @Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
 }

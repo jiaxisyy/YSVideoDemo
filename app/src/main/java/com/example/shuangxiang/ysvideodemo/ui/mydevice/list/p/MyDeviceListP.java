@@ -5,8 +5,9 @@ import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.m.IMyDeviceListM;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.m.MyDeviceListM;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.v.IMyDeviceListV;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by shuang.xiang on 2017/4/25.
@@ -24,17 +25,20 @@ public class MyDeviceListP implements IMyDeviceListP {
     @Override
     public void getAllDevice() {
         //查询条件
-        mModel.getAllResouce("", 1, 10);
+        mModel.getAllResouce(null, mView.getName(), mView.getPagerNum(), mView.getPagerSize());
     }
 
     @Override
     public void getAllDeviceSucceed(List<MyDeviceInfo.ListBean> list) {
-        List<String> titles = new ArrayList<>();
+
+        Map<String, String> map = new HashMap<>();
+
         int size = list.size();
         for (int i = 0; i < size; i++) {
-            titles.add(list.get(i).getName());
+            map.put(list.get(i).getName(), list.get(i).getOnlineStatus());
         }
-        mView.setData(titles);
+        map.put("测试收费站", "ONLINE");
+        mView.setData(map);
 
     }
 }
