@@ -5,9 +5,8 @@ import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.m.IMyDeviceListM;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.m.MyDeviceListM;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.v.IMyDeviceListV;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by shuang.xiang on 2017/4/25.
@@ -30,15 +29,16 @@ public class MyDeviceListP implements IMyDeviceListP {
 
     @Override
     public void getAllDeviceSucceed(List<MyDeviceInfo.ListBean> list) {
-
-        Map<String, String> map = new HashMap<>();
-
+        List<String> names = new ArrayList<>();
+        List<String> status = new ArrayList<>();
         int size = list.size();
         for (int i = 0; i < size; i++) {
-            map.put(list.get(i).getName(), list.get(i).getOnlineStatus());
+            names.add(list.get(i).getName());
+            status.add(list.get(i).getOnlineStatus());
         }
-        map.put("测试收费站", "ONLINE");
-        mView.setData(map);
+        names.add("测试收费站");
+        status.add("ONLINE");
+        mView.setData(names, status);
 
     }
 }

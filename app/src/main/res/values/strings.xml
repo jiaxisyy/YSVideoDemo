@@ -48,4 +48,10 @@
     <string name="tv_feedback_addPicExplain">添加图片说明</string>
     <string name="tv_mydevice_search_cancel">取消</string>
     <string name="tv_mydevice_list_search_pleaseInputDeviceName">请输入设备名称</string>
+    <string name="tv_warning_title">预警监测</string>
+    <string name="tv_warning_listTitle_date">预警时间</string>
+    <string name="tv_warning_listTitle_name">预警名称</string>
+    <string name="tv_warning_listTitle_status">预警状态</string>
+    <string name="tv_warning_list_search_startTime">请输入开始时间</string>
+    <string name="tv_warning_list_search_endTime">请输入结束时间</string>
 </resources>

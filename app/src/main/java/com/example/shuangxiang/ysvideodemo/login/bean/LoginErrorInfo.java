@@ -6,6 +6,7 @@ package com.example.shuangxiang.ysvideodemo.login.bean;
 
 public class LoginErrorInfo {
 
+
     /**
      * count : 9
      * error : 密码错误，您还有9次机会
@@ -29,4 +30,5 @@ public class LoginErrorInfo {
     public void setError(String error) {
         this.error = error;
     }
+
 }

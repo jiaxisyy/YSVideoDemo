@@ -12,6 +12,7 @@ public interface IMyDeviceListP {
 
     void getAllDevice();
 
+
     void getAllDeviceSucceed(List<MyDeviceInfo.ListBean> list);
 
 }

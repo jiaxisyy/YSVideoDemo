@@ -18,10 +18,7 @@ import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.v.IMyDeviceListV;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.search.MyDeviceListSearchActivity;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -90,32 +87,38 @@ public class MyDeviceListFragment extends BaseFragment implements IMyDeviceListV
     }
 
     @Override
-    public void setData(final Map<String, String> map) {
-        Set<String> set = map.keySet();
-        List<String> names = new ArrayList<>();
-        Iterator<String> it = set.iterator();
-        while (it.hasNext()) {
-            names.add(it.next());
-        }
+    public void setData(final List<String> names, final List<String> status) {
+        //初始化在线
+        final List<String> namesOn = new ArrayList<>();
+        final List<String> statusOn = new ArrayList<>();
         int size = names.size();
         for (int i = 0; i < size; i++) {
-            if (map.get(names.get(i)).equals("OFFLINE")) {
-                map.remove(names.get(i));
+            if (status.get(i).equals("ONLINE")) {
+                namesOn.add(names.get(i));
+                statusOn.add("ONLINE");
             }
         }
-
+        //初始化离线
+        final List<String> namesOff = new ArrayList<>();
+        final List<String> statusOff = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            if (status.get(i).equals("OFFLINE")) {
+                namesOff.add(names.get(i));
+                statusOff.add("OFFLINE");
+            }
+        }
         mRgMydeviceList.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
                 switch (i) {
                     case R.id.rb_mydevice_on:
-
+                        mAdapter.setData(namesOn, statusOn);
                         break;
                     case R.id.rb_mydevice_off:
-
+                        mAdapter.setData(namesOff, statusOff);
                         break;
                     case R.id.rb_mydevice_all:
-
+                        mAdapter.setData(names, status);
                         break;
                 }
 
@@ -124,9 +127,10 @@ public class MyDeviceListFragment extends BaseFragment implements IMyDeviceListV
 
         //默认显示在线
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setHasFixedSize(true);
         layoutManager.setAutoMeasureEnabled(true);
         mRecyclerView.setLayoutManager(layoutManager);
-        mAdapter = new MydeviceListRVAdapter(map, getActivity());
+        mAdapter = new MydeviceListRVAdapter(namesOn, statusOn, getActivity());
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addItemDecoration(new MyDecoration(getActivity(), MyDecoration.VERTICAL_LIST));
 
@@ -140,12 +144,12 @@ public class MyDeviceListFragment extends BaseFragment implements IMyDeviceListV
 
     @Override
     public int getPagerNum() {
-        return Constants.Define.PAGENUM;
+        return Constants.Define.DEFAULTPAGENUM;
     }
 
     @Override
     public int getPagerSize() {
-        return Constants.Define.PAGESIZE;
+        return Constants.Define.DEFAULTPAGESIZE;
     }
 
     @Override

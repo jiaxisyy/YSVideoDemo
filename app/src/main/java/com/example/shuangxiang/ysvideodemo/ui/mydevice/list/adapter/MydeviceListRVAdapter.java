@@ -3,6 +3,7 @@ package com.example.shuangxiang.ysvideodemo.ui.mydevice.list.adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,22 +11,21 @@ import android.widget.TextView;
 
 import com.example.shuangxiang.ysvideodemo.R;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by shuang.xiang on 2017/4/24.
  */
 
 public class MydeviceListRVAdapter extends RecyclerView.Adapter {
-    private Map<String, String> map;
-    private Context mContext;
 
-    public MydeviceListRVAdapter(Map<String, String> map, Context context) {
-        this.map = map;
+    private Context mContext;
+    private List<String> names;
+    private List<String> status;
+
+    public MydeviceListRVAdapter(List<String> names, List<String> status, Context context) {
+        this.names = names;
+        this.status = status;
         mContext = context;
     }
 
@@ -35,29 +35,27 @@ public class MydeviceListRVAdapter extends RecyclerView.Adapter {
         return new MyViewHolder(inflate);
     }
 
-    public void setData(Map<String, String> map) {
-        this.map = map;
+    public void setData(List<String> names, List<String> status) {
+        this.names=names;
+        this.status=status;
         notifyDataSetChanged();
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         MyViewHolder viewHolder = (MyViewHolder) holder;
-        Set<String> set = map.keySet();
-        List<String> names = new ArrayList<>();
-        Iterator<String> it = set.iterator();
-        while (it.hasNext()) {
-            names.add(it.next());
-        }
         viewHolder.mTitle.setText(names.get(position).toString());
-        if (map.get(names.get(position)).equals("OFFLINE")) {
+        if (status.get(position).equals("OFFLINE")) {
             viewHolder.mTitle.setTextColor(Color.parseColor("#c9d3dc"));
+        }else{
+            viewHolder.mTitle.setTextColor(Color.parseColor("#627281"));
         }
+        Log.d("TEST", "onBindViewHolder");
     }
 
     @Override
     public int getItemCount() {
-        return map == null ? 0 : map.size();
+        return names == null ? 0 : names.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

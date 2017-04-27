@@ -1,34 +1,41 @@
 package com.example.shuangxiang.ysvideodemo.ui.mydevice;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.adapter.MyViewPagerAdapter;
+import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.p.MyDeviceListP;
+import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.v.IMyDeviceListV;
+import com.example.shuangxiang.ysvideodemo.ui.warning.WarningActivity;
 import com.zhy.autolayout.utils.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by shuang.xiang on 2017/4/20.
  */
 
-public class MyDeviceActivity extends BaseActivity {
+public class MyDeviceActivity extends BaseActivity implements IMyDeviceListV {
+    @BindView(R.id.iv_mydevice_warning)
+    ImageView mIvWarning;
+    private MyDeviceListP mPresenter;
     @BindView(R.id.tb_mydevice)
     Toolbar mTbMydevice;
 
@@ -36,8 +43,14 @@ public class MyDeviceActivity extends BaseActivity {
     TabLayout mTabLayout;
     @BindView(R.id.vp_mydevice)
     ViewPager mViewPager;
+    @BindView(R.id.tv_mydevice_allDevice)
+    TextView mTvAllDevice;
+    @BindView(R.id.tv_mydevice_deviceOn)
+    TextView mTvMyDeviceOn;
+    @BindView(R.id.tv_mydevice_deviceOff)
+    TextView mTvMyDeviceOff;
+
     private List<String> tb_titles;
-    private List<View> mViewList = new ArrayList<>();
 
 
     @Override
@@ -58,14 +71,21 @@ public class MyDeviceActivity extends BaseActivity {
         tb_titles.add(Constants.Define.DEVICEMAP.toString());
 
         mTabLayout.setLayoutMode(TabLayout.MODE_FIXED);
-//        addFragment();
         for (int i = 0; i < tb_titles.size(); i++) {
             mTabLayout.addTab(mTabLayout.newTab().setText(tb_titles.get(i)));
         }
         initView();
+        initData();
+
         mTabLayout.setupWithViewPager(mViewPager);
 
     }
+
+    private void initData() {
+        mPresenter = new MyDeviceListP(this);
+        mPresenter.getAllDevice();
+    }
+
 
     private void initView() {
         MyViewPagerAdapter myViewPagerAdapter = new MyViewPagerAdapter(getSupportFragmentManager());
@@ -74,44 +94,6 @@ public class MyDeviceActivity extends BaseActivity {
         mViewPager.setAdapter(myViewPagerAdapter);
     }
 
-
-    private void addFragment() {
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View view_list = inflater.inflate(R.layout.mydevice_pager_list, null);
-        View view_map = inflater.inflate(R.layout.mydevice_pager_map, null);
-        mViewList.add(view_list);
-        mViewList.add(view_map);
-        mViewPager.setAdapter(new PagerAdapter() {
-            @Override
-            public int getCount() {
-                return mViewList.size();
-            }
-
-            @Override
-            public boolean isViewFromObject(View view, Object object) {
-                return view == object;
-            }
-
-            @Override
-            public void destroyItem(ViewGroup container, int position, Object object) {
-
-                container.removeView(mViewList.get(position));
-            }
-
-            @Override
-            public Object instantiateItem(ViewGroup container, int position) {
-                container.addView(mViewList.get(position));
-                return mViewList.get(position);
-            }
-
-            @Override
-            public CharSequence getPageTitle(int position) {
-                return tb_titles.get(position);
-            }
-        });
-
-
-    }
 
     /**
      * 状态栏颜色设置
@@ -139,4 +121,48 @@ public class MyDeviceActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void setData(List<String> names, List<String> status) {
+        int size = names.size();
+        mTvAllDevice.setText(String.valueOf(size));
+        int countOn = 0;
+        for (int i = 0; i < size; i++) {
+            if (status.get(i).equals("ONLINE")) {
+                countOn++;
+            }
+        }
+        mTvMyDeviceOn.setText(String.valueOf(countOn));
+        mTvMyDeviceOff.setText(String.valueOf(size - countOn));
+    }
+
+    @Override
+    public String getName() {
+        return null;
+    }
+
+    @Override
+    public int getPagerNum() {
+        return Constants.Define.DEFAULTPAGENUM;
+    }
+
+    @Override
+    public int getPagerSize() {
+        return Constants.Define.MAXPAGESIZE;
+    }
+
+    @Override
+    public void refresh() {
+
+    }
+
+    @Override
+    public void upload() {
+
+    }
+
+
+    @OnClick(R.id.iv_mydevice_warning)
+    public void onViewClicked() {
+        startActivity(new Intent(this,WarningActivity.class));
+    }
 }

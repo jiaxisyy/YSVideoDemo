@@ -44,11 +44,8 @@ public class LoginModel implements ILoginModel {
                     @Override
                     public void onNext(String s) {
                         Gson gson = new Gson();
-
-
                         if (s.contains("\"error\"")) {
                             //失败
-
                             LoginErrorInfo loginErrorInfo = gson.fromJson(s, LoginErrorInfo.class);
                             mLoginPresenter.loginFailed(loginErrorInfo.getError());
                         } else {

@@ -29,6 +29,7 @@ public abstract class BaseActivity extends AutoLayoutActivity {
 
     protected abstract void initSomething();
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

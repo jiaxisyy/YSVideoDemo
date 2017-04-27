@@ -25,6 +25,7 @@ public class HomeProductModel implements IHomeProductModel {
 
     @Override
     public void getProductResouce() {
+
         Observable<ProductInfo> products = ApiManager.getInstance().getProducts();
         products.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io()).subscribe(new Observer<ProductInfo>() {

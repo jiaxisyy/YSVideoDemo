@@ -18,7 +18,7 @@ import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.decoration.MyDecorat
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.p.MyDeviceListP;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.v.IMyDeviceListV;
 
-import java.util.Map;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -73,11 +73,12 @@ public class MyDeviceListSearchActivity extends BaseActivity implements IMyDevic
     }
 
     @Override
-    public void setData(Map<String, String> map) {
+    public void setData(List<String> names, List<String> status) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setHasFixedSize(true);
         layoutManager.setAutoMeasureEnabled(true);
         mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setAdapter(new MydeviceListRVAdapter(map, this));
+        mRecyclerView.setAdapter(new MydeviceListRVAdapter(names, status, this));
         mRecyclerView.addItemDecoration(new MyDecoration(this, MyDecoration.VERTICAL_LIST));
     }
 
@@ -88,12 +89,12 @@ public class MyDeviceListSearchActivity extends BaseActivity implements IMyDevic
 
     @Override
     public int getPagerNum() {
-        return Constants.Define.PAGENUM;
+        return Constants.Define.DEFAULTPAGENUM;
     }
 
     @Override
     public int getPagerSize() {
-        return Constants.Define.PAGESIZE;
+        return Constants.Define.MAXPAGESIZE;
     }
 
     @Override

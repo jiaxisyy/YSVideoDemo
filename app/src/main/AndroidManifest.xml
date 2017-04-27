@@ -84,6 +84,9 @@
         <activity android:name=".ui.TestActivity"/>
         <activity android:name=".ui.mydevice.MyDeviceActivity"/>
         <activity android:name=".ui.mydevice.search.MyDeviceListSearchActivity"/>
+        <activity android:name=".ui.warning.WarningActivity"/>
+        <activity android:name=".ui.warning.record.search.WarningListSearchActivity"/>
+
 
 
         <meta-data

@@ -12,8 +12,10 @@ import com.example.shuangxiang.ysvideodemo.retrofit.IHomePictureRequest;
 import com.example.shuangxiang.ysvideodemo.retrofit.ILoginRequest;
 import com.example.shuangxiang.ysvideodemo.retrofit.IMyDeviceListRequest;
 import com.example.shuangxiang.ysvideodemo.retrofit.IUploadFileRequest;
+import com.example.shuangxiang.ysvideodemo.retrofit.IWarningListRequest;
 import com.example.shuangxiang.ysvideodemo.ui.home.product.bean.ProductInfo;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.bean.MyDeviceInfo;
+import com.example.shuangxiang.ysvideodemo.ui.warning.record.bean.WarningInfo;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -34,12 +36,13 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class ApiManager {
 
 
-    private static Context mContext;
-    private static IDownloadRequest sDownRequest;
+    private Context mContext;
+    private IDownloadRequest sDownRequest;
     private static Retrofit sRetrofit;
     private static IHomePictureRequest sHomePictureRequest;
-    private static IUploadFileRequest sUploadFileRequest;
-    private static IMyDeviceListRequest sMyDeviceListRequest;
+    private IUploadFileRequest sUploadFileRequest;
+    private IMyDeviceListRequest sMyDeviceListRequest;
+    private IWarningListRequest sWarningListRequest;
 
     public ApiManager(Context context) {
         mContext = context;
@@ -75,7 +78,7 @@ public class ApiManager {
      * @param password
      * @return
      */
-    public static Observable<String> getLoginRequest(String username, String password) {
+    public Observable<String> getLoginRequest(String username, String password) {
         OkHttpClient sOkHttpClient = new OkHttpClient.Builder().addInterceptor(new
                 SaveCookiesInterceptor(mContext)).addInterceptor(new ReadCookiesInterceptor(mContext)
         ).build();
@@ -99,7 +102,7 @@ public class ApiManager {
      *
      * @return
      */
-    public static Observable<AppMessage> getAppMessage() {
+    public Observable<AppMessage> getAppMessage() {
         sDownRequest = sRetrofit.create(IDownloadRequest.class);
         return sDownRequest.getAppMessage();
     }
@@ -119,7 +122,7 @@ public class ApiManager {
      *
      * @return
      */
-    public static Observable<ProductInfo> getProducts() {
+    public Observable<ProductInfo> getProducts() {
         return sHomePictureRequest.getProducts();
     }
 
@@ -129,7 +132,7 @@ public class ApiManager {
      * @param file
      * @return
      */
-    public static Observable<FilePath> uploadFile(File file) {
+    public Observable<FilePath> uploadFile(File file) {
         sUploadFileRequest = sRetrofit.create(IUploadFileRequest.class);
         RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
         return sUploadFileRequest.uploadFile(requestBody);
@@ -141,7 +144,7 @@ public class ApiManager {
      * @param
      * @return
      */
-    public static Observable<String> submit(FeedbackInfo info) {
+    public Observable<String> submit(FeedbackInfo info) {
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; " +
                 "charset=utf-8"), new Gson().toJson(info));
         return sUploadFileRequest.submit(body);
@@ -152,10 +155,21 @@ public class ApiManager {
      *
      * @return
      */
-    public static Observable<MyDeviceInfo> getAllDevices(String orgId, String name, int pageNum, int
+    public Observable<MyDeviceInfo> getAllDevices(String orgId, String name, int pageNum, int
             pageSize) {
         sMyDeviceListRequest = sRetrofit.create(IMyDeviceListRequest.class);
         return sMyDeviceListRequest.getAllDevices(orgId, name, pageNum, pageSize);
+    }
+
+    /**
+     * 查询所有的设备
+     *
+     * @return
+     */
+    public Observable<WarningInfo> getRecord(int pageNum, int pageSize, String fromDate,
+                                             String toDate) {
+        sWarningListRequest = sRetrofit.create(IWarningListRequest.class);
+        return sWarningListRequest.getRecord(pageNum, pageSize, fromDate, toDate);
     }
 
 

@@ -24,7 +24,6 @@ public class MyDeviceListM implements IMyDeviceListM {
     public MyDeviceListM(MyDeviceListP presenter) {
         mPresenter = presenter;
     }
-
     @Override
     public void getAllResouce(String orgId, String name, int pageNum, int pageSize) {
         Observable<MyDeviceInfo> observable = ApiManager.getInstance().getAllDevices(orgId, name,pageNum,
@@ -35,17 +34,13 @@ public class MyDeviceListM implements IMyDeviceListM {
             public void onSubscribe(Disposable d) {
 
             }
-
             @Override
             public void onNext(MyDeviceInfo myDeviceInfo) {
                 List<MyDeviceInfo.ListBean> list = myDeviceInfo.getList();
                 mPresenter.getAllDeviceSucceed(list);
-
             }
-
             @Override
             public void onError(Throwable e) {
-
                 Log.e("ERROR", e.getMessage().toString());
             }
 

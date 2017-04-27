@@ -22,13 +22,17 @@
             android:textSize="16sp"
             />
 
+
         <ImageView
+            android:id="@+id/iv_mydevice_warning"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginRight="40px"
             android:src="@drawable/icon_mydeice_notice"
             />
+
+
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout
