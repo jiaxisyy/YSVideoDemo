@@ -54,4 +54,12 @@
     <string name="tv_warning_listTitle_status">预警状态</string>
     <string name="tv_warning_list_search_startTime">请输入开始时间</string>
     <string name="tv_warning_list_search_endTime">请输入结束时间</string>
+    <string name="tv_mydevice_map_on">在线</string>
+    <string name="tv_mydevice_map_off">离线</string>
+    <string name="tv_mydevice_map_all">全部</string>
+    <string name="tv_warning_map_all">全部</string>
+    <string name="tv_warning_map_green">绿色</string>
+    <string name="tv_warning_map_yellow">黄色</string>
+    <string name="tv_warning_map_orange">橙色</string>
+    <string name="tv_warning_map_red">红色</string>
 </resources>

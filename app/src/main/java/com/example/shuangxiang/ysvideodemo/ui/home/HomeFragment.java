@@ -22,6 +22,7 @@ import com.example.shuangxiang.ysvideodemo.ui.home.product.bean.ProductInfo;
 import com.example.shuangxiang.ysvideodemo.ui.home.product.presenter.HomeProductPresenter;
 import com.example.shuangxiang.ysvideodemo.ui.home.product.view.IHomeProductView;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.MyDeviceActivity;
+import com.example.shuangxiang.ysvideodemo.ui.warning.WarningActivity;
 
 import java.util.List;
 
@@ -114,6 +115,7 @@ public class HomeFragment extends BaseFragment implements IHomeFragmentView, IHo
             case R.id.ll_home_monitoring:
                 break;
             case R.id.ll_home_warning:
+                startActivity(new Intent(getActivity(), WarningActivity.class));
                 break;
             case R.id.ll_home_setting:
                 break;
