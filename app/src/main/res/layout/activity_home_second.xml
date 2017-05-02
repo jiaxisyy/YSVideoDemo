@@ -5,16 +5,19 @@
               android:layout_height="match_parent"
               android:orientation="vertical"
     >
+
     <FrameLayout
-        android:id="@+id/fl_home"
+        android:id="@+id/fl_home2"
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="1"/>
+
     <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bnv"
+        android:id="@+id/bnv_home2"
         android:layout_width="match_parent"
+        android:background="#FFFFFF"
         android:layout_height="170px"
         android:layout_gravity="bottom"
-        app:menu="@menu/navigationview_home"
+        app:menu="@menu/navigationview_home_second"
         />
 </LinearLayout>

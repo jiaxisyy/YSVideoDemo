@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#FFFFFF"
+              android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tb_data_monitoring_analyze_warning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#4498E4"
+        android:clipToPadding="true"
+        android:fitsSystemWindows="true"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/tv_data_monitoring"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            />
+
+        <ImageView
+            android:id="@+id/iv_dataShow_analyze_warning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginRight="40px"
+            android:src="@drawable/icon_monitoring_notice"
+            />
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="700px"
+        android:background="@drawable/bg_datamonitoring_analysis_blue"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100px"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/tv_dataShow_dataAnalyze"
+                android:textColor="#FFFFFF"
+                android:textSize="40px"
+                />
+
+            <ImageView
+                android:id="@+id/iv_datashow_analyze_analyze"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="50px"
+                android:src="@drawable/icon_shujufenxi"
+                />
+
+            <ImageView
+                android:id="@+id/iv_dataShow_analyze_show"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="38px"
+                android:layout_toLeftOf="@+id/iv_datashow_analyze_analyze"
+                android:src="@drawable/icon_shujuxianhsi_default"/>
+
+        </RelativeLayout>
+
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

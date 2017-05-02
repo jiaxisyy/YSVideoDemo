@@ -1,51 +1,33 @@
 package com.example.shuangxiang.ysvideodemo.ui;
 
-import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.utils.Utils;
-import com.example.shuangxiang.ysvideodemo.ui.home.HomeFragment;
-import com.example.shuangxiang.ysvideodemo.ui.myself.MyselfFragment;
+import com.example.shuangxiang.ysvideodemo.ui.data.DataShowFragment;
 
 import butterknife.BindView;
 
 /**
- * Created by shuang.xiang on 2017/4/18.
+ * Created by shuang.xiang on 2017/5/2.
  */
 
-public class HomeActivity extends BaseActivity {
-    @BindView(R.id.fl_home)
-    FrameLayout mFlHome;
-    @BindView(R.id.bnv)
+public class SecondHomeActivity extends BaseActivity {
+    @BindView(R.id.bnv_home2)
     BottomNavigationView mBnv;
-    private Bundle mInstanceState;
-    protected Activity mActivity;
-    private FragmentTransaction mTransaction;
-    private HomeFragment mHomeFragment;
-    private MyselfFragment mMyselfFragment;
-
 
     @Override
     protected void initContentView(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_home);
-        mInstanceState = savedInstanceState;
-
+        setContentView(R.layout.activity_home_second);
     }
 
     @Override
     protected void initSomething() {
-//        mBnv.setItemTextColor(resources.getColorStateList(R.drawable.selector_home_bottom,
-//                null));
-//        mBnv.setItemIconTintList(resources.getColorStateList(R.drawable.selector_home_bottom, null));
-
         int[][] states = new int[][]{
                 new int[]{-android.R.attr.state_checked},
                 new int[]{android.R.attr.state_checked}
@@ -64,12 +46,12 @@ public class HomeActivity extends BaseActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.bnv_home:
-                        Utils.replace(getSupportFragmentManager(), R.id.fl_home,
-                                HomeFragment.class);
+//                        Utils.replace(getSupportFragmentManager(), R.id.fl_home,
+//                                HomeFragment.class);
                         break;
                     case R.id.bnv_my:
-                        Utils.replace(getSupportFragmentManager(), R.id.fl_home,
-                                MyselfFragment.class);
+//                        Utils.replace(getSupportFragmentManager(), R.id.fl_home,
+//                                MyselfFragment.class);
                         break;
                 }
                 return true;
@@ -78,12 +60,10 @@ public class HomeActivity extends BaseActivity {
 
     }
 
-    /**
-     * 首次加载的fragment
-     */
     private void setDefaultFragment() {
-        Utils.replace(getSupportFragmentManager(), R.id.fl_home,
-                HomeFragment.class);
+        Utils.replace(getSupportFragmentManager(), R.id.fl_home2,
+                DataShowFragment.class);
+
     }
 
     @Override
@@ -95,4 +75,5 @@ public class HomeActivity extends BaseActivity {
         return false;
 
     }
+
 }

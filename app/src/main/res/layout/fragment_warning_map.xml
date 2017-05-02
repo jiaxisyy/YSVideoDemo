@@ -125,8 +125,6 @@
 
             <LinearLayout
                 style="@style/ll_warnign_map_num"
-
-
                 >
 
                 <TextView

@@ -62,4 +62,13 @@
     <string name="tv_warning_map_yellow">黄色</string>
     <string name="tv_warning_map_orange">橙色</string>
     <string name="tv_warning_map_red">红色</string>
+    <string name="tv_data_monitoring">数据监控</string>
+    <string name="tv_data_show_internalPressure">内腔压力</string>
+    <string name="tv_dataShow_dataShow">数据显示</string>
+    <string name="tv_data_show_internalTemperature">内腔温度</string>
+    <string name="tv_data_show_waterTemperature">出水温度</string>
+    <string name="tv_data_show_exhaustGasTemperature">排烟温度</string>
+    <string name="tv_data_show_meanLoad">平均负荷</string>
+    <string name="tv_data_show_energy">节能量</string>
+    <string name="tv_dataShow_dataAnalyze">数据分析</string>
 </resources>

@@ -15,6 +15,7 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.ui.BaseFragment;
+import com.example.shuangxiang.ysvideodemo.ui.SecondHomeActivity;
 import com.example.shuangxiang.ysvideodemo.ui.home.banner.presenter.HomeFragmentPresenter;
 import com.example.shuangxiang.ysvideodemo.ui.home.banner.view.IHomeFragmentView;
 import com.example.shuangxiang.ysvideodemo.ui.home.product.adapter.HomeProductAdapter;
@@ -113,11 +114,13 @@ public class HomeFragment extends BaseFragment implements IHomeFragmentView, IHo
                 startActivity(new Intent(getActivity(), MyDeviceActivity.class));
                 break;
             case R.id.ll_home_monitoring:
+                startActivity(new Intent(getActivity(), SecondHomeActivity.class));
                 break;
             case R.id.ll_home_warning:
                 startActivity(new Intent(getActivity(), WarningActivity.class));
                 break;
             case R.id.ll_home_setting:
+                startActivity(new Intent(getActivity(), SecondHomeActivity.class));
                 break;
         }
     }

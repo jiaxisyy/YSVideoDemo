@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#FFFFFF"
+              android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tb_data_monitoring"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#4498E4"
+        android:clipToPadding="true"
+        android:fitsSystemWindows="true"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/tv_data_monitoring"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            />
+
+        <ImageView
+            android:id="@+id/iv_monitoring_notice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginRight="40px"
+            android:src="@drawable/icon_monitoring_notice"
+            />
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:background="@drawable/bg_datamonitoring_according_blue"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100px"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/tv_dataShow_dataShow"
+                android:textColor="#FFFFFF"
+                android:textSize="40px"
+                />
+
+            <ImageView
+                android:id="@+id/iv_datashow_analyze"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="74px"
+                android:src="@drawable/icon_shujufenxi_default"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="38px"
+                android:layout_toStartOf="@+id/iv_datashow_analyze"
+                android:src="@drawable/icon_shujuxianhsi_highlight"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_dataShow_circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20px"
+            android:background="@drawable/datashow_circle"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_dataShow_circleTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="70px"
+                android:text="出水温度"
+                android:textColor="#8cd0fb"
+                android:textSize="40px"/>
+
+            <TextView
+                android:id="@+id/tv_dataShow_circleNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="150.0"
+                android:textColor="#f0fafe"
+                android:textSize="140px"/>
+
+            <TextView
+                android:id="@+id/tv_dataShow_circleUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="68px"
+                android:singleLine="true"
+                android:text="单位:℃"
+                android:textColor="#8cd0fb"
+                android:textSize="40px"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <!--下部分-->
+    <LinearLayout
+        android:background="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="288px"
+        android:layout_marginBottom="50px"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16px"
+                    android:gravity="center"
+                    android:text="@string/tv_data_show_internalPressure"
+                    android:textColor="#efcf60"
+                    android:textSize="28px"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:src="@drawable/home2_data_yellow"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16px"
+                    android:singleLine="true"
+                    android:text="99.90Kpa"
+                    android:textColor="#c9d3dc"
+                    android:textSize="24px"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16px"
+                    android:gravity="center"
+                    android:text="@string/tv_data_show_internalTemperature"
+                    android:textColor="#0abcd6"
+                    android:textSize="28px"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:src="@drawable/home2_data_blue"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16px"
+                    android:singleLine="true"
+                    android:text="99.90Kpa"
+                    android:textColor="#c9d3dc"
+                    android:textSize="24px"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16px"
+                    android:gravity="center"
+                    android:text="@string/tv_data_show_waterTemperature"
+                    android:textColor="#69cee1"
+                    android:textSize="28px"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:src="@drawable/home2_data_blue"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16px"
+                    android:singleLine="true"
+                    android:text="99.90Kpa"
+                    android:textColor="#c9d3dc"
+                    android:textSize="24px"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16px"
+                    android:gravity="center"
+                    android:text="@string/tv_data_show_exhaustGasTemperature"
+                    android:textColor="#a3dfeb"
+                    android:textSize="28px"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:src="@drawable/home2_data_blue"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16px"
+                    android:singleLine="true"
+                    android:text="99.90Kpa"
+                    android:textColor="#c9d3dc"
+                    android:textSize="24px"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16px"
+                    android:gravity="center"
+                    android:text="@string/tv_data_show_meanLoad"
+                    android:textColor="#e98565"
+                    android:textSize="28px"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:src="@drawable/home2_data_orange"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16px"
+                    android:singleLine="true"
+                    android:text="99.90Kpa"
+                    android:textColor="#c9d3dc"
+                    android:textSize="24px"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16px"
+                    android:gravity="center"
+                    android:text="@string/tv_data_show_energy"
+                    android:textColor="#31b77a"
+                    android:textSize="28px"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:src="@drawable/home2_data_green"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16px"
+                    android:singleLine="true"
+                    android:text="99.90Kpa"
+                    android:textColor="#c9d3dc"
+                    android:textSize="24px"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

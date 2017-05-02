@@ -125,6 +125,9 @@ public class MyDeviceListFragment extends BaseFragment implements IMyDeviceListV
             }
         });
 
+
+
+
         //默认显示在线
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setHasFixedSize(true);
