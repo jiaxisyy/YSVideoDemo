@@ -6,12 +6,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.shuangxiang.ysvideodemo.R;
+import com.example.shuangxiang.ysvideodemo.common.utils.Utils;
+import com.example.shuangxiang.ysvideodemo.download.presenter.DownloadPresernter;
+import com.example.shuangxiang.ysvideodemo.download.view.IDownloadView;
 import com.example.shuangxiang.ysvideodemo.feedback.FeedbackActivity;
 import com.example.shuangxiang.ysvideodemo.myservice.MyServiceActivity;
 import com.example.shuangxiang.ysvideodemo.ui.BaseFragment;
+import com.example.shuangxiang.ysvideodemo.ui.about.AboutActivity;
+import com.example.shuangxiang.ysvideodemo.ui.myself.p.MyselfFragmentP;
+import com.example.shuangxiang.ysvideodemo.ui.myself.v.IMyselfFragmentV;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -22,13 +30,21 @@ import static com.zhy.autolayout.utils.ScreenUtils.getStatusBarHeight;
  * Created by shuang.xiang on 2017/4/19.
  */
 
-public class MyselfFragment extends BaseFragment {
+public class MyselfFragment extends BaseFragment implements IMyselfFragmentV, IDownloadView {
     @BindView(R.id.tb_myself)
     Toolbar mTbMyself;
     @BindView(R.id.rl_myself_myservice)
     RelativeLayout mRelativeLayout;
     @BindView(R.id.rl_myself_feedback)
     RelativeLayout mRlMyselfFeedback;
+    @BindView(R.id.tv_myself_versionName)
+    TextView mTvVersionName;
+    @BindView(R.id.tv_myself_newest)
+    TextView mTvNewest;
+    @BindView(R.id.rl_myself_update)
+    RelativeLayout mRlUpdate;
+    private MyselfFragmentP mPresenter;
+    private DownloadPresernter mDownloadPresernter;
 
     public MyselfFragment() {
     }
@@ -56,12 +72,14 @@ public class MyselfFragment extends BaseFragment {
     @Override
     protected void init() {
         setImmerseLayout(mTbMyself);
-
     }
 
     @Override
     protected void initData() {
-
+        String versionName = Utils.getVersionName(getActivity());
+        mTvVersionName.setText("V" + versionName);
+        mDownloadPresernter = new DownloadPresernter(this, getActivity());
+        mDownloadPresernter.checkVersion();
     }
 
     @OnClick(R.id.rl_myself_myservice)
@@ -85,5 +103,80 @@ public class MyselfFragment extends BaseFragment {
     @OnClick(R.id.rl_myself_feedback)
     public void onViewClickedFeedback() {
         startActivity(new Intent(getActivity(), FeedbackActivity.class));
+    }
+
+    @OnClick(R.id.rl_myself_about)
+    public void onViewClickedAbout() {
+        startActivity(new Intent(getActivity(), AboutActivity.class));
+    }
+
+    @OnClick(R.id.rl_myself_exit)
+    public void onViewClickedExit() {
+        mPresenter = new MyselfFragmentP(this, getActivity());
+        mPresenter.exit();
+    }
+
+
+    @Override
+    public void showPop(PopupWindow popupWindow) {
+
+
+    }
+
+    @Override
+    public void dismissPop(PopupWindow popupWindow) {
+        popupWindow.dismiss();
+    }
+
+    @Override
+    public void exit() {
+        getActivity().finish();
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void showUpdateMessage(String message) {
+
+    }
+
+    @Override
+    public void showNewestVersion() {
+        mTvNewest.setVisibility(View.VISIBLE);
+        mRlUpdate.setClickable(false);
+    }
+
+    @Override
+    public void hintNewestVersion() {
+        mTvNewest.setVisibility(View.INVISIBLE);
+        mRlUpdate.setClickable(true);
+    }
+
+    @Override
+    public void setVersionName(String versionName) {
+    }
+
+    @Override
+    public void showUpdatePop(PopupWindow popupWindow) {
+
+    }
+
+    @Override
+    public void hintUpdatePop(PopupWindow popupWindow) {
+        popupWindow.dismiss();
+    }
+
+
+    @OnClick(R.id.rl_myself_update)
+    public void rl_myself_update() {
+        mDownloadPresernter.startDownload();
     }
 }

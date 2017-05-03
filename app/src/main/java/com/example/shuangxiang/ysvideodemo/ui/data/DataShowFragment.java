@@ -67,7 +67,6 @@ public class DataShowFragment extends BaseFragment {
         if (operatingAnim != null) {
             mLlDataShowCircle.startAnimation(operatingAnim);
         }
-
     }
 
     protected void setImmerseLayout(View view) {

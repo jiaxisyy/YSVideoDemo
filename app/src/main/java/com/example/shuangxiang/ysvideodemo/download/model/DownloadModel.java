@@ -26,11 +26,10 @@ public class DownloadModel implements IDownloadModel {
     @Override
     public void getAppMessage() {
         Observable<AppMessage> observable = ApiManager.getInstance().getAppMessage();
-        observable.subscribeOn(Schedulers.io()).subscribeOn(AndroidSchedulers.mainThread())
+        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<AppMessage>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
                     }
 
                     @Override
@@ -43,8 +42,7 @@ public class DownloadModel implements IDownloadModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("ERROR", e.getMessage().toString());
-
+                        Log.e("ERROR", "DownloadModel->"+e.getMessage().toString());
                     }
 
                     @Override

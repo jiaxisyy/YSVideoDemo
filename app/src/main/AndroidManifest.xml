@@ -34,6 +34,7 @@
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>
     <uses-permission android:name="android.permission.CALL_PHONE"/>
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -87,6 +88,11 @@
         <activity android:name=".ui.warning.WarningActivity"/>
         <activity android:name=".ui.warning.record.search.WarningListSearchActivity"/>
         <activity android:name=".ui.SecondHomeActivity"/>
+        <activity android:name=".ui.about.AboutActivity"/>
+        <activity android:name=".ui.about.kawa.AboutKawaActivity"/>
+        <activity android:name=".ui.about.privacy.PrivacyActivity"/>
+        <service android:name=".service.MyIntentService"/>
+
 
 
         <meta-data

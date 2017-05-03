@@ -71,4 +71,16 @@
     <string name="tv_data_show_meanLoad">平均负荷</string>
     <string name="tv_data_show_energy">节能量</string>
     <string name="tv_dataShow_dataAnalyze">数据分析</string>
+    <string name="tv_about_title">关于</string>
+    <string name="tv_about_aboutKawa">关于KAWA</string>
+    <string name="tv_about_privacy">隐私保护政策</string>
+    <string name="tv_aboutKawa_title">关于KAWA</string>
+    <string name="tv_privacy_title">隐私保护政策</string>
+    <string name="pop_exit">退出账号</string>
+    <string name="pop_isExit">确定要退出吗?</string>
+    <string name="tv_myself_version">V1.1.1.0</string>
+    <string name="tv_myself_versionCode">V1.1.1.0</string>
+    <string name="tv_myself_newestVersion">最新版本</string>
+    <string name="pop_updateVersion">版本更新</string>
+    <string name="pop_updateMessage">更新版本可以体验最新功能</string>
 </resources>

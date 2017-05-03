@@ -15,5 +15,9 @@ public interface IDownloadPresenter {
 
     void getAppMessageFailed();
 
+    void checkVersion();
+
+
+
 
 }

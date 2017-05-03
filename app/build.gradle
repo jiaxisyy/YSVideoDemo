@@ -60,5 +60,6 @@ dependencies {
     compile 'com.zhy:autolayout:1.4.5'
     compile 'com.android.support:design:26.0.0-alpha1'
     compile 'com.bigkoo:convenientbanner:2.0.5'
+    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
 }
 

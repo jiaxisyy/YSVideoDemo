@@ -25,6 +25,7 @@ public class Constants {
         int MAXPAGESIZE = 100;
         String WARNINGMAP = "预警地图";
         String WARNINGRECORD = "预警记录";
+        int CONNECT_TIME_OUT = 5 * 1000 * 60;
     }
 
 }

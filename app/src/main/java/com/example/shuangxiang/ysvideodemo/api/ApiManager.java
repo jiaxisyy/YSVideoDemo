@@ -1,12 +1,14 @@
 package com.example.shuangxiang.ysvideodemo.api;
 
 import android.content.Context;
+import android.util.Log;
 
-import com.example.shuangxiang.ysvideodemo.Interceptor.ReadCookiesInterceptor;
-import com.example.shuangxiang.ysvideodemo.Interceptor.SaveCookiesInterceptor;
+import com.example.shuangxiang.ysvideodemo.common.Constants;
+import com.example.shuangxiang.ysvideodemo.download.FileResponseBody;
 import com.example.shuangxiang.ysvideodemo.download.bean.AppMessage;
 import com.example.shuangxiang.ysvideodemo.feedback.bean.FeedbackInfo;
 import com.example.shuangxiang.ysvideodemo.feedback.bean.FilePath;
+import com.example.shuangxiang.ysvideodemo.manager.CookieManger;
 import com.example.shuangxiang.ysvideodemo.retrofit.IDownloadRequest;
 import com.example.shuangxiang.ysvideodemo.retrofit.IHomePictureRequest;
 import com.example.shuangxiang.ysvideodemo.retrofit.ILoginRequest;
@@ -19,11 +21,16 @@ import com.example.shuangxiang.ysvideodemo.ui.warning.record.bean.WarningInfo;
 import com.google.gson.Gson;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -43,6 +50,7 @@ public class ApiManager {
     private IUploadFileRequest sUploadFileRequest;
     private IMyDeviceListRequest sMyDeviceListRequest;
     private IWarningListRequest sWarningListRequest;
+    private OkHttpClient mSOkHttpClient;
 
     public ApiManager(Context context) {
         mContext = context;
@@ -79,17 +87,17 @@ public class ApiManager {
      * @return
      */
     public Observable<String> getLoginRequest(String username, String password) {
-        OkHttpClient sOkHttpClient = new OkHttpClient.Builder().addInterceptor(new
-                SaveCookiesInterceptor(mContext)).addInterceptor(new ReadCookiesInterceptor(mContext)
-        ).build();
-
+        mSOkHttpClient = new OkHttpClient.Builder().cookieJar(new CookieManger(mContext))
+//                .addInterceptor(new SaveCookiesInterceptor(mContext))
+//                .addInterceptor(new ReadCookiesInterceptor(mContext))
+                .build();
         //增加返回值为String的支持
         sRetrofit = new Retrofit.Builder().baseUrl(BASEURL)
                 //增加返回值为String的支持
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .client(sOkHttpClient)
+                .client(mSOkHttpClient)
                 .build();
 
         ILoginRequest loginRequest = sRetrofit.create(ILoginRequest.class);
@@ -172,5 +180,28 @@ public class ApiManager {
         return sWarningListRequest.getRecord(pageNum, pageSize, fromDate, toDate);
     }
 
+    public Observable<ResponseBody> down(String url) {
 
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(Constants.Define.CONNECT_TIME_OUT, TimeUnit.MILLISECONDS)
+                .cookieJar(new CookieManger(mContext))
+                .addNetworkInterceptor(new Interceptor() {
+                    @Override
+                    public Response intercept(Chain chain) throws IOException {
+                        Response originalResponse = chain.proceed(chain.request());//对结果重新处理
+                        return originalResponse
+                                .newBuilder()
+                                .body(new FileResponseBody(originalResponse))//将自定义的ResposeBody设置给它
+                                .build();
+                    }
+                }).build();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASEURL)
+                .client(client)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+        IDownloadRequest iDownloadRequest = retrofit.create(IDownloadRequest.class);
+        Log.d("TEST", "ApiManager->down");
+        return iDownloadRequest.down();
+    }
 }
