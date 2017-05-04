@@ -108,7 +108,7 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener {
         BitmapDescriptor maker = null;
         switch (makerType) {
             case MAKERTYPE_MYSELF:
-                maker = BitmapDescriptorFactory.fromResource(R.drawable.icon_mydevice_online_green);
+                maker = BitmapDescriptorFactory.fromResource(R.drawable.icon_earlywarning_map_positioning);
                 break;
             case MAKERTYPE_ON:
                 maker = BitmapDescriptorFactory.fromResource(R.drawable.icon_mydevice_online_green);
