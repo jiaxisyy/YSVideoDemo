@@ -26,6 +26,7 @@ public class Constants {
         String WARNINGMAP = "预警地图";
         String WARNINGRECORD = "预警记录";
         int CONNECT_TIME_OUT = 5 * 1000 * 60;
+        int RXBUS_COOKIE_CODE = 1;
     }
 
 }

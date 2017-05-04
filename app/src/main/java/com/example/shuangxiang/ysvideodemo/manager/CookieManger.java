@@ -2,6 +2,9 @@ package com.example.shuangxiang.ysvideodemo.manager;
 
 import android.content.Context;
 
+import com.example.shuangxiang.ysvideodemo.common.Constants;
+import com.example.shuangxiang.ysvideodemo.common.utils.CacheUtils;
+
 import java.util.List;
 
 import okhttp3.Cookie;
@@ -35,6 +38,7 @@ public class CookieManger implements CookieJar {
     public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
         if (cookies != null && cookies.size() > 0) {
             for (Cookie item : cookies) {
+                CacheUtils.putString(mContext, Constants.Define.COOKIE, item.toString());
                 cookieStore.add(url, item);
             }
         }

@@ -32,7 +32,7 @@ public abstract class BaseActivity extends AutoLayoutActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
-        mUnbinder.unbind();
+            super.onDestroy();
+            mUnbinder.unbind();
     }
 }

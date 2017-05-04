@@ -57,7 +57,6 @@ public class UpdateManager {
                             e.printStackTrace();
                         }
                     }
-
                     @Override
                     public void onError(Throwable e) {
                         unSubscribe(cd);

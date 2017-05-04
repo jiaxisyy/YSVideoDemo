@@ -87,7 +87,9 @@ public class ApiManager {
      * @return
      */
     public Observable<String> getLoginRequest(String username, String password) {
-        mSOkHttpClient = new OkHttpClient.Builder().cookieJar(new CookieManger(mContext))
+        mSOkHttpClient = new OkHttpClient.Builder()
+
+                .cookieJar(new CookieManger(mContext))
 //                .addInterceptor(new SaveCookiesInterceptor(mContext))
 //                .addInterceptor(new ReadCookiesInterceptor(mContext))
                 .build();

@@ -7,6 +7,7 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -118,7 +119,9 @@ public class MyDeviceActivity extends BaseActivity implements IMyDeviceListV {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                Log.d("TEST", "MyDeviceActivity->onOptionsItemSelected1");
                 finish();
+                Log.d("TEST", "MyDeviceActivity->onOptionsItemSelected2");
         }
         return super.onOptionsItemSelected(item);
     }
@@ -165,6 +168,6 @@ public class MyDeviceActivity extends BaseActivity implements IMyDeviceListV {
 
     @OnClick(R.id.iv_mydevice_warning)
     public void onViewClicked() {
-        startActivity(new Intent(this,WarningActivity.class));
+        startActivity(new Intent(this, WarningActivity.class));
     }
 }

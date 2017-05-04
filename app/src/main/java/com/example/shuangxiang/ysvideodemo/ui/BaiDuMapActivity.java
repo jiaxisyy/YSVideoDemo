@@ -58,7 +58,6 @@ public class BaiDuMapActivity extends Activity implements BDLocationListener {
 
         //普通地图
         mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
-
         addMaker(22.528859, 113.945747, true);
         startGps();
 //        gpsMyself();
@@ -118,9 +117,7 @@ public class BaiDuMapActivity extends Activity implements BDLocationListener {
     private void addMaker(double latitude, double lontitude, boolean isFirst) {
         //定义Maker坐标点
         final LatLng point = new LatLng(latitude, lontitude);
-
-
-//构建Marker图标
+        //构建Marker图标
         BitmapDescriptor bitmap = BitmapDescriptorFactory
                 .fromResource(R.drawable.green);
         BitmapDescriptor bitmap2 = BitmapDescriptorFactory

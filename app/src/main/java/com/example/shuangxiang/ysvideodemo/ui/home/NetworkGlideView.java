@@ -1,12 +1,12 @@
 package com.example.shuangxiang.ysvideodemo.ui.home;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.bigkoo.convenientbanner.holder.Holder;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
@@ -29,13 +29,17 @@ public class NetworkGlideView implements Holder<String> {
     }
 
     @Override
-    public void UpdateUI(Context context, int position, String data) {
+    public void UpdateUI(final Context context, int position, final String data) {
+        Log.d("TEST", "NetworkGlideView->UpdateUI");
 
-        GlideUrl glideUrl = new GlideUrl(data, new LazyHeaders.Builder().addHeader("Cookie",
-                CacheUtils.getString
-                        (context, Constants.Define.COOKIE))
+        GlideUrl glideUrl = new GlideUrl(data, new LazyHeaders.Builder()
+                .addHeader("Cookie", CacheUtils.getString(context, Constants.Define
+                        .COOKIE))
                 .build());
 //        imageView.setImageResource(R.drawable.ic_default_adimage);
-        Glide.with(context).load(glideUrl).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
+        Glide.with(context).load(glideUrl)
+//                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(imageView);
+
     }
 }

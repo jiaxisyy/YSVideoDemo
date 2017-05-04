@@ -61,7 +61,8 @@ public class PersistentCookieStore {
 
     public void add(HttpUrl url, Cookie cookie) {
         String name = getCookieToken(cookie);
-
+        Log.d("TEST", "PersistentCookieStore->add->name->" + name);
+        Log.d("TEST", "PersistentCookieStore->add->cookie->" + cookie.toString());
         //将cookies缓存到内存中 如果缓存过期 就重置此cookie
         if (!cookie.persistent()) {
             if (!cookies.containsKey(url.host())) {
