@@ -32,6 +32,7 @@ import io.reactivex.disposables.Disposable;
  */
 
 public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener {
+
     private IMyDeviceMapV mView;
     private Context mContext;
     private LocationClient mLocationClient;
@@ -61,7 +62,8 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener {
 
     @Override
     public void clickAll() {
-        initBaiDuMap();
+            initBaiDuMap();
+
         RxBus.getDefault().toObservable().subscribe(new Observer<Object>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -134,6 +136,7 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener {
 
     @Override
     public void initBaiDuMap() {
+
 
         mBaiduMap = mMapView.getMap();
         mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);

@@ -34,7 +34,7 @@ import butterknife.OnClick;
  * Created by shuang.xiang on 2017/4/20.
  */
 
-public class MyDeviceActivity extends BaseActivity implements IMyDeviceListV {
+public class MyDeviceActivity extends BaseActivity implements IMyDeviceListV{
     @BindView(R.id.iv_mydevice_warning)
     ImageView mIvWarning;
     private MyDeviceListP mPresenter;
@@ -53,6 +53,7 @@ public class MyDeviceActivity extends BaseActivity implements IMyDeviceListV {
     TextView mTvMyDeviceOff;
 
     private List<String> tb_titles;
+
 
 
     @Override
