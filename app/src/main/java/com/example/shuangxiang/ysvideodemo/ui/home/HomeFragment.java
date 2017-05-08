@@ -89,6 +89,8 @@ public class HomeFragment extends BaseFragment implements IHomeFragmentView, IHo
 
     }
 
+
+
     @Override
     protected void initData() {
 

@@ -1,7 +1,12 @@
 package com.example.shuangxiang.ysvideodemo.ui.mydevice.map.p;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -10,9 +15,11 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
@@ -20,7 +27,8 @@ import com.example.shuangxiang.ysvideodemo.MyLocationListener;
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.rxbus.RxBus;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.bean.MyDeviceInfo;
-import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.IMyDeviceMapV;
+import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.v.IMyDeviceMapV;
+import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.ReadyNavigationActivity;
 
 import java.util.List;
 
@@ -31,7 +39,7 @@ import io.reactivex.disposables.Disposable;
  * Created by shuang.xiang on 2017/5/4.
  */
 
-public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener {
+public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap.OnMarkerClickListener {
 
     private IMyDeviceMapV mView;
     private Context mContext;
@@ -42,6 +50,13 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener {
     public BDLocationListener myListener = new MyLocationListener();
     private MapView mMapView;
     private BaiduMap mBaiduMap;
+    private List<MyDeviceInfo.ListBean> mList;
+    private BitmapDescriptor maker = null;
+    private int mSize;
+    private Intent mIntent;
+    private double mStartLatitude;
+    private double mStartLongitude;
+
 
     public MyDeviceMapP(IMyDeviceMapV view, Context context, MapView mapView) {
         mView = view;
@@ -52,37 +67,49 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener {
 
     @Override
     public void clickOn() {
+        mBaiduMap.clear();
+
+        for (int i = 0; i < mSize; i++) {
+            if (mList.get(i).getOnlineStatus().equals("ONLINE")) {
+                addMaker(Double.valueOf(mList.get(i).getLatitude()), Double.valueOf(mList.get(i)
+                        .getLongitude()), MAKERTYPE_ON);
+            }
+        }
+
 
     }
 
     @Override
     public void clickOff() {
-
+        mBaiduMap.clear();
+        for (int i = 0; i < mSize; i++) {
+            if (mList.get(i).getOnlineStatus().equals("OFFLINE")) {
+                addMaker(Double.valueOf(mList.get(i).getLatitude()), Double.valueOf(mList.get(i)
+                        .getLongitude()), MAKERTYPE_OFF);
+            }
+        }
     }
 
     @Override
     public void clickAll() {
-            initBaiDuMap();
-
+        initBaiDuMap();
         RxBus.getDefault().toObservable().subscribe(new Observer<Object>() {
             @Override
             public void onSubscribe(Disposable d) {
-
             }
 
             @Override
             public void onNext(Object o) {
-                List<MyDeviceInfo.ListBean> list = (List<MyDeviceInfo.ListBean>) o;
-                String name = list.get(0).getName();
-                int size = list.size();
+                mList = (List<MyDeviceInfo.ListBean>) o;
+                String name = mList.get(0).getName();
+                mSize = mList.size();
                 Log.d("TEST", "MyDeviceMapP->clickAll->name->" + name);
-
-                for (int i = 0; i < size; i++) {
-                    if (list.get(i).getOnlineStatus().equals("ONLINE")) {
-                        addMaker(Double.valueOf(list.get(i).getLatitude()), Double.valueOf(list.get(i)
+                for (int i = 0; i < mSize; i++) {
+                    if (mList.get(i).getOnlineStatus().equals("ONLINE")) {
+                        addMaker(Double.valueOf(mList.get(i).getLatitude()), Double.valueOf(mList.get(i)
                                 .getLongitude()), MAKERTYPE_ON);
                     } else {
-                        addMaker(Double.valueOf(list.get(i).getLatitude()), Double.valueOf(list.get(i)
+                        addMaker(Double.valueOf(mList.get(i).getLatitude()), Double.valueOf(mList.get(i)
                                 .getLongitude()), MAKERTYPE_OFF);
                     }
                 }
@@ -107,7 +134,10 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener {
     public void addMaker(double latitude, double lontitude, int makerType) {
         LatLng ll = new LatLng(latitude, lontitude);
         //构建Marker图标
-        BitmapDescriptor maker = null;
+        //TODO
+        //相同标注图标没有重复利用,此处需要优化2017.5.8
+
+
         switch (makerType) {
             case MAKERTYPE_MYSELF:
                 maker = BitmapDescriptorFactory.fromResource(R.drawable.icon_earlywarning_map_positioning);
@@ -139,23 +169,27 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener {
 
 
         mBaiduMap = mMapView.getMap();
+        mBaiduMap.clear();
         mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
         // 开启定位图层
         mBaiduMap.setMyLocationEnabled(true);
         mLocationClient.registerLocationListener(this);
         initLocation();
         mLocationClient.start();
+        mBaiduMap.setOnMarkerClickListener(this);
+
 
     }
 
     @Override
     public void onReceiveLocation(BDLocation bdLocation) {
+
         Log.d("TEST", "MyDeviceMapP->clickAll->size->onReceiveLocation");
-        double latitude = bdLocation.getLatitude();
-        double longitude = bdLocation.getLongitude();
+        mStartLatitude = bdLocation.getLatitude();
+        mStartLongitude = bdLocation.getLongitude();
         mLocationClient.stop();
         Log.d("TEST", "MyDeviceMapP->clickAll->size->onReceiveLocation->stop");
-        addMaker(latitude, longitude, MAKERTYPE_MYSELF);
+        addMaker(mStartLatitude, mStartLongitude, MAKERTYPE_MYSELF);
 
     }
 
@@ -204,4 +238,42 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener {
         mLocationClient.setLocOption(option);
     }
 
+
+    @Override
+    public boolean onMarkerClick(final Marker marker) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_infowindow, mMapView, false);
+        TextView name = (TextView) view.findViewById(R.id.tv_dialog_mapInfoWindow_deviceName);
+        final TextView address = (TextView) view.findViewById(R.id.tv_dialog_mapInfoWindow_deviceAddress);
+        final double endLatitude = marker.getPosition().latitude;
+        final double endLongitude = marker.getPosition().longitude;
+        ImageView dataShow = (ImageView) view.findViewById(R.id.iv_dialog_mapInfoWindow_dataShow);
+        ImageView navigation = (ImageView) view.findViewById(R.id.iv_dialog_mapInfoWindow_navigation);
+        mIntent = new Intent(mContext, ReadyNavigationActivity.class);
+        for (int i = 0; i < mSize; i++) {
+            if (mList.get(i).getLatitude().equals(String.valueOf(endLatitude)) && mList.get(i)
+                    .getLongitude().equals(String.valueOf(endLongitude))) {
+                String strName = mList.get(i).getName();
+                name.setText("设备名称:  " + strName);
+                address.setText("设备地址:  " + mList.get(i).getAddr());
+                mIntent.putExtra("name", strName);
+            }
+        }
+        //导航
+        navigation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mIntent.putExtra("endLatitude", endLatitude);
+                mIntent.putExtra("endLongitude", endLongitude);
+                mIntent.putExtra("startLatitude", mStartLatitude);
+                mIntent.putExtra("startLongitude", mStartLongitude);
+                mContext.startActivity(mIntent);
+            }
+        });
+        LatLng latLng = new LatLng(endLatitude, endLongitude);
+        InfoWindow infoWindow = new InfoWindow(view, latLng, -100);
+        mBaiduMap.showInfoWindow(infoWindow);
+        return false;
+
+    }
 }

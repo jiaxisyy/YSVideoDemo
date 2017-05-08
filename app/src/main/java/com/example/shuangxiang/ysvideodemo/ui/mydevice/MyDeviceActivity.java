@@ -3,8 +3,10 @@ package com.example.shuangxiang.ysvideodemo.ui.mydevice;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
+import com.example.shuangxiang.ysvideodemo.common.utils.PermissionUtils;
 import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.adapter.MyViewPagerAdapter;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.p.MyDeviceListP;
@@ -34,7 +37,7 @@ import butterknife.OnClick;
  * Created by shuang.xiang on 2017/4/20.
  */
 
-public class MyDeviceActivity extends BaseActivity implements IMyDeviceListV{
+public class MyDeviceActivity extends BaseActivity implements IMyDeviceListV,ActivityCompat.OnRequestPermissionsResultCallback {
     @BindView(R.id.iv_mydevice_warning)
     ImageView mIvWarning;
     private MyDeviceListP mPresenter;
@@ -53,7 +56,6 @@ public class MyDeviceActivity extends BaseActivity implements IMyDeviceListV{
     TextView mTvMyDeviceOff;
 
     private List<String> tb_titles;
-
 
 
     @Override
@@ -88,6 +90,9 @@ public class MyDeviceActivity extends BaseActivity implements IMyDeviceListV{
     private void initData() {
         mPresenter = new MyDeviceListP(this);
         mPresenter.getAllDevice();
+        PermissionUtils.requestPermission(this, PermissionUtils.CODE_ACCESS_FINE_LOCATION,
+                mPermissionGrant);
+
     }
 
 
@@ -98,6 +103,26 @@ public class MyDeviceActivity extends BaseActivity implements IMyDeviceListV{
         mViewPager.setAdapter(myViewPagerAdapter);
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionUtils.requestPermissionsResult(this, requestCode, permissions, grantResults,
+                mPermissionGrant);
+
+    }
+    private PermissionUtils.PermissionGrant mPermissionGrant = new PermissionUtils.PermissionGrant() {
+        @Override
+        public void onPermissionGranted(int requestCode) {
+            switch (requestCode) {
+                case PermissionUtils.CODE_ACCESS_FINE_LOCATION:
+
+                    break;
+                case PermissionUtils.CODE_ACCESS_COARSE_LOCATION:
+
+                    break;
+            }
+        }
+    };
 
     /**
      * 状态栏颜色设置

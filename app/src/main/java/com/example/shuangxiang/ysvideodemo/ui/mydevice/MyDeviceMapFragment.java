@@ -1,7 +1,5 @@
 package com.example.shuangxiang.ysvideodemo.ui.mydevice;
 
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -9,9 +7,8 @@ import android.widget.Toast;
 import com.baidu.mapapi.map.MapView;
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.utils.CustomToast;
-import com.example.shuangxiang.ysvideodemo.common.utils.PermissionUtils;
 import com.example.shuangxiang.ysvideodemo.ui.BaseFragment;
-import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.IMyDeviceMapV;
+import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.v.IMyDeviceMapV;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.p.MyDeviceMapP;
 
 import butterknife.BindView;
@@ -21,7 +18,7 @@ import butterknife.OnClick;
  * Created by shuang.xiang on 2017/4/20.
  */
 
-public class MyDeviceMapFragment extends BaseFragment implements IMyDeviceMapV, ActivityCompat.OnRequestPermissionsResultCallback {
+public class MyDeviceMapFragment extends BaseFragment implements IMyDeviceMapV {
 
     private static final int ACCESS_COARSE_LOCATION_REQUEST_CODE = 2;
     @BindView(R.id.mapView_mydevice)
@@ -60,33 +57,9 @@ public class MyDeviceMapFragment extends BaseFragment implements IMyDeviceMapV, 
     @Override
     protected void init() {
         mPresenter = new MyDeviceMapP(this, getActivity(), mMapView);
-        PermissionUtils.requestPermission(getActivity(), PermissionUtils.CODE_ACCESS_FINE_LOCATION, mPermissionGrant);
+        mPresenter.clickAll();
     }
 
-    @Override
-    public void onRequestPermissionsResult(final int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-
-
-        PermissionUtils.requestPermissionsResult(getActivity(), requestCode, permissions, grantResults, mPermissionGrant);
-    }
-
-    private PermissionUtils.PermissionGrant mPermissionGrant = new PermissionUtils.PermissionGrant() {
-        @Override
-        public void onPermissionGranted(int requestCode) {
-            switch (requestCode) {
-                case PermissionUtils.CODE_ACCESS_FINE_LOCATION:
-                    Toast.makeText(getActivity(), "Result Permission Grant CODE_ACCESS_FINE_LOCATION",
-                            Toast.LENGTH_SHORT).show();
-                    mPresenter.clickAll();
-                    break;
-                case PermissionUtils.CODE_ACCESS_COARSE_LOCATION:
-                    Toast.makeText(getActivity(), "Result Permission Grant CODE_ACCESS_COARSE_LOCATION",
-                            Toast.LENGTH_SHORT).show();
-                    break;
-            }
-        }
-    };
 
     @Override
     protected void initData() {
@@ -119,10 +92,13 @@ public class MyDeviceMapFragment extends BaseFragment implements IMyDeviceMapV, 
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_mydevice_on:
+                mPresenter.clickOn();
                 break;
             case R.id.ll_mydevice_off:
+                mPresenter.clickOff();
                 break;
             case R.id.ll_mydevice_all:
+                mPresenter.clickAll();
                 break;
         }
     }

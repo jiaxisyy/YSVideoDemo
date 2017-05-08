@@ -92,4 +92,9 @@
     <string name="permission_read_external_hint">没有此权限，无法开启这个功能，请开启权限。PERMISSION_READ_EXTERNAL_STORAGE</string>
     <string name="permission_white_external_hint">没有此权限，无法开启这个功能，请开启权限。PERMISSION_WRITE_EXTERNAL_STORAGE</string>
     <string name="permission_recode_audio_hint">没有此权限，无法开启这个功能，请开启权限。PERMISSION_RECORD_AUDIO</string>
+    <string name="tv_mydevice_readyNavigationTitle">导航</string>
+    <string name="tv_mydevice_readyNavigation_endPoint">终点:</string>
+    <string name="tv_mydevice_readyNavigation_gps">定位:</string>
+    <string name="tv_mydevice_readyNavigation_address_now">当前位置</string>
+    <string name="tv_readyNavigation_startNavigation">开始导航</string>
 </resources>
