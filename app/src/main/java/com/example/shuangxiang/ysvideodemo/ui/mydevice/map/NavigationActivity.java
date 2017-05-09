@@ -13,11 +13,12 @@ public class NavigationActivity extends BaseActivity {
     @Override
     protected void initContentView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_mydevice_navigation);
-
     }
 
     @Override
     protected void initSomething() {
 
     }
+
+
 }

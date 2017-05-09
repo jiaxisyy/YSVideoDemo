@@ -27,7 +27,8 @@ import butterknife.OnClick;
  * Created by shuang.xiang on 2017/5/8.
  */
 
-public class ReadyNavigationActivity extends BaseActivity implements IMyDeviceMapV, IMyDeviceMapNavigationV {
+public class ReadyNavigationActivity extends BaseActivity implements IMyDeviceMapV,
+        IMyDeviceMapNavigationV{
     @BindView(R.id.tb_readyNavigation)
     Toolbar mTb;
     @BindView(R.id.mapView_ready)
@@ -44,7 +45,6 @@ public class ReadyNavigationActivity extends BaseActivity implements IMyDeviceMa
     private double mEndLatitude;
     private double mStartLongitude;
     private double mEndLongitude;
-    private boolean hasInitSuccess = false;
     private String mAddress;
 
     @Override
@@ -117,10 +117,12 @@ public class ReadyNavigationActivity extends BaseActivity implements IMyDeviceMa
     @Override
     public void showToast(String toast) {
 
+
     }
 
     @OnClick(R.id.tv_readyNavigation_startNavigation)
     public void onViewClicked() {
+
 
 
     }

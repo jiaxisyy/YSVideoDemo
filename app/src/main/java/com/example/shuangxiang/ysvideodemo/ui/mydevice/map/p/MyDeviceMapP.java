@@ -27,8 +27,8 @@ import com.example.shuangxiang.ysvideodemo.MyLocationListener;
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.rxbus.RxBus;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.bean.MyDeviceInfo;
+import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.navigation.BNDemoMainActivity;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.v.IMyDeviceMapV;
-import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.ReadyNavigationActivity;
 
 import java.util.List;
 
@@ -248,7 +248,7 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
         final double endLongitude = marker.getPosition().longitude;
         ImageView dataShow = (ImageView) view.findViewById(R.id.iv_dialog_mapInfoWindow_dataShow);
         ImageView navigation = (ImageView) view.findViewById(R.id.iv_dialog_mapInfoWindow_navigation);
-        mIntent = new Intent(mContext, ReadyNavigationActivity.class);
+        mIntent = new Intent(mContext, BNDemoMainActivity.class);
         for (int i = 0; i < mSize; i++) {
             if (mList.get(i).getLatitude().equals(String.valueOf(endLatitude)) && mList.get(i)
                     .getLongitude().equals(String.valueOf(endLongitude))) {
