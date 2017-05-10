@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
               android:orientation="vertical"
+
     >
 
     <LinearLayout
+        android:id="@+id/ll_warning_list_search_head"
         android:layout_width="match_parent"
         android:layout_height="130px"
         android:gravity="center"
@@ -77,6 +80,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/ll_warning_list_search_head"
         android:background="#eeeff3"
         android:orientation="vertical">
 
@@ -84,7 +88,14 @@
             android:id="@+id/rv_warning_list_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-
     </LinearLayout>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="TwitterHeart.json"
+        app:lottie_loop="true"/>
 
 </LinearLayout>

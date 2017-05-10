@@ -11,6 +11,7 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.common.utils.CustomToast;
@@ -44,6 +45,8 @@ public class WarningListSearchActivity extends BaseActivity implements IWarningL
     TextView mTvCancel;
     @BindView(R.id.rv_warning_list_search)
     RecyclerView mRv;
+    @BindView(R.id.animation_view)
+    LottieAnimationView mAnimationView;
     private Calendar mCalendar;
     private int mYear;
     private int mMonth;
@@ -92,7 +95,7 @@ public class WarningListSearchActivity extends BaseActivity implements IWarningL
                         ("")) {
                     CustomToast.showToast(WarningListSearchActivity.this, "请输入起始时间", Toast.LENGTH_SHORT);
                 } else {
-                    if(mTvStartTime.getText().toString().equals(mTvEndTime.getText().toString())){
+                    if (mTvStartTime.getText().toString().equals(mTvEndTime.getText().toString())) {
                         CustomToast.showToast(WarningListSearchActivity.this, "请不要输入相同时间", Toast
                                 .LENGTH_SHORT);
                     }
@@ -103,6 +106,16 @@ public class WarningListSearchActivity extends BaseActivity implements IWarningL
                 }
             }
         }, mYear, mMonth, mDay);
+
+
+        myAnimation();
+    }
+
+    private void myAnimation() {
+        mAnimationView.setAnimation("TwitterHeart.json");
+        mAnimationView.loop(true);
+        mAnimationView.playAnimation();
+
     }
 
     @OnClick({R.id.tv_warning_listSearch_startTime, R.id.tv_warning_listSearch_endTime, R.id.tv_warning_listSearch_cancel})
@@ -188,4 +201,5 @@ public class WarningListSearchActivity extends BaseActivity implements IWarningL
     public String getToDate() {
         return getEndDate();
     }
+
 }
