@@ -2,6 +2,7 @@ package com.example.shuangxiang.ysvideodemo.ui.warning.record.v;
 
 import com.example.shuangxiang.ysvideodemo.ui.warning.record.bean.WarningInfo;
 
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -20,9 +21,9 @@ public interface IWarningListV {
 
     int getPageSize();
 
-    String getFromDate();
+    String getFromDate() throws ParseException;
 
-    String getToDate();
+    String getToDate() throws ParseException;
 
 
 }

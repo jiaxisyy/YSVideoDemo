@@ -1,22 +1,19 @@
 package com.example.shuangxiang.ysvideodemo.common.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
-import com.zhy.autolayout.utils.ScreenUtils;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by shuang.xiang on 2017/4/10.
@@ -152,6 +149,16 @@ public class Utils {
 
         return pi;
     }
-
+    /*
+       * 将时间转换为时间戳
+       */
+    public static String dateToStamp(String s) throws ParseException {
+        String res;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = simpleDateFormat.parse(s);
+        long ts = date.getTime();
+        res = String.valueOf(ts);
+        return res;
+    }
 
 }

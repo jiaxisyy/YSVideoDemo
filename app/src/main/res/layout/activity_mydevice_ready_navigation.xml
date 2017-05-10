@@ -26,7 +26,8 @@
         android:id="@+id/mapView_ready"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tb_readyNavigation">
+        android:layout_below="@+id/tb_readyNavigation"
+        >
 
     </com.baidu.mapapi.map.MapView>
 

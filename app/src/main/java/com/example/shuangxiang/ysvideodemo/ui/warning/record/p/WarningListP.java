@@ -5,6 +5,7 @@ import com.example.shuangxiang.ysvideodemo.ui.warning.record.m.IWarningListM;
 import com.example.shuangxiang.ysvideodemo.ui.warning.record.m.WarningListM;
 import com.example.shuangxiang.ysvideodemo.ui.warning.record.v.IWarningListV;
 
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -22,7 +23,11 @@ public class WarningListP implements IWarningListP {
 
     @Override
     public void getResouce() {
-        mModel.getResouce(mView.getPageNum(), mView.getPageSize(), mView.getFromDate(), mView.getToDate());
+        try {
+            mModel.getResouce(mView.getPageNum(), mView.getPageSize(), mView.getFromDate(), mView.getToDate());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -31,6 +30,7 @@ import com.baidu.navisdk.adapter.BaiduNaviManager;
 import com.baidu.navisdk.adapter.BaiduNaviManager.NaviInitListener;
 import com.baidu.navisdk.adapter.BaiduNaviManager.RoutePlanListener;
 import com.example.shuangxiang.ysvideodemo.R;
+import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.p.IMyDeviceMapNavigationP;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.p.IMydeviceMapP;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.p.MyDeviceMapP;
@@ -43,12 +43,21 @@ import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
-public class BNDemoMainActivity extends Activity implements IMyDeviceMapV {
+public class BNDemoMainActivity extends BaseActivity implements IMyDeviceMapV {
 
     public static List<Activity> activityList = new LinkedList<Activity>();
 
     private static final String APP_FOLDER_NAME = "BNSDKSimpleDemo";
+    @BindView(R.id.tb_readyNavigation)
+    Toolbar mTb;
+    @BindView(R.id.mapView_ready)
+    MapView mMapView;
+    @BindView(R.id.tv_readyNavigation_address)
+    TextView mTvAddress;
+    @BindView(R.id.tv_readyNavigation_startNavigation)
+    TextView mTvStartNavigation;
 
     private Button mWgsNaviBtn = null;
     private Button mGcjNaviBtn = null;
@@ -69,14 +78,6 @@ public class BNDemoMainActivity extends Activity implements IMyDeviceMapV {
     private boolean hasInitSuccess = false;
     private boolean hasRequestComAuth = false;
 
-    @BindView(R.id.tb_readyNavigation)
-    Toolbar mTb;
-    @BindView(R.id.mapView_ready)
-    MapView mMapView;
-    @BindView(R.id.tv_readyNavigation_address)
-    TextView mTvAddress;
-    @BindView(R.id.tv_readyNavigation_startNavigation)
-    TextView mTvStartNavigation;
     private IMydeviceMapP mPresenter;
     private IMyDeviceMapNavigationP mNavagationP;
     private double DEFAULT_LATITUDE = 0.0;
@@ -87,15 +88,13 @@ public class BNDemoMainActivity extends Activity implements IMyDeviceMapV {
     private double mEndLongitude;
     private String mAddress;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
-        super.onCreate(savedInstanceState);
 
+    @Override
+    protected void initContentView(Bundle savedInstanceState) {
         activityList.add(this);
 
         setContentView(R.layout.activity_mydevice_ready_navigation);
-        initSomething();
+
 
         Handler h = new Handler();
         h.postDelayed(new Runnable() {
@@ -111,13 +110,29 @@ public class BNDemoMainActivity extends Activity implements IMyDeviceMapV {
 
         BNOuterLogUtil.setLogSwitcher(true);
 
-        initListener();
+
         if (initDirs()) {
             initNavi();
         }
 
+    }
 
-        // BNOuterLogUtil.setLogSwitcher(true);
+    @Override
+    protected void initSomething() {
+        mAddress = getIntent().getStringExtra("name");
+        mStartLatitude = getIntent().getDoubleExtra("startLatitude", DEFAULT_LATITUDE);
+        mEndLatitude = getIntent().getDoubleExtra("endLatitude", DEFAULT_LATITUDE);
+        mStartLongitude = getIntent().getDoubleExtra("startLongitude", DEFAULT_LONGITUDE);
+        mEndLongitude = getIntent().getDoubleExtra("endLongitude", DEFAULT_LONGITUDE);
+        mTvAddress.setText(mAddress);
+        mTb.setTitle("");
+        setSupportActionBar(mTb);
+        mTb.setNavigationIcon(R.drawable.icon_back);
+        setImmerseLayout(mTb);//状态栏颜色设置
+        showDeviceAll();
+        mMapView.showZoomControls(false);
+
+
     }
 
     @Override
@@ -137,57 +152,6 @@ public class BNDemoMainActivity extends Activity implements IMyDeviceMapV {
 //        }).start();
     }
 
-    private void initListener() {
-
-        if (mWgsNaviBtn != null) {
-            mWgsNaviBtn.setOnClickListener(new OnClickListener() {
-
-                @Override
-                public void onClick(View arg0) {
-                    if (BaiduNaviManager.isNaviInited()) {
-                        routeplanToNavi(CoordinateType.WGS84);
-                    }
-                }
-
-            });
-        }
-        if (mGcjNaviBtn != null) {
-            mGcjNaviBtn.setOnClickListener(new OnClickListener() {
-
-                @Override
-                public void onClick(View arg0) {
-                    if (BaiduNaviManager.isNaviInited()) {
-                        routeplanToNavi(CoordinateType.GCJ02);
-                    }
-                }
-
-            });
-        }
-        if (mBdmcNaviBtn != null) {
-            mBdmcNaviBtn.setOnClickListener(new OnClickListener() {
-
-                @Override
-                public void onClick(View arg0) {
-
-                    if (BaiduNaviManager.isNaviInited()) {
-                        routeplanToNavi(CoordinateType.BD09_MC);
-                    }
-                }
-            });
-        }
-
-        if (mTvStartNavigation != null) {
-            mTvStartNavigation.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View arg0) {
-                    if (BaiduNaviManager.isNaviInited()) {
-                        routeplanToNavi(CoordinateType.BD09LL);
-                    }
-                }
-            });
-        }
-
-    }
 
     private boolean initDirs() {
         mSDCardPath = getSdcardDir();
@@ -228,6 +192,14 @@ public class BNDemoMainActivity extends Activity implements IMyDeviceMapV {
             }
         }
     };
+
+    @OnClick(R.id.tv_readyNavigation_startNavigation)
+    public void startNavigation() {
+        if (BaiduNaviManager.isNaviInited()) {
+            routeplanToNavi(CoordinateType.BD09LL);
+        }
+    }
+
 
     /**
      * 内部TTS播报状态回调接口
@@ -292,7 +264,7 @@ public class BNDemoMainActivity extends Activity implements IMyDeviceMapV {
         BNOuterTTSPlayerCallback ttsCallback = null;
 
         // 申请权限
-        if (android.os.Build.VERSION.SDK_INT >= 23) {
+        if (Build.VERSION.SDK_INT >= 23) {
 
             if (!hasBasePhoneAuth()) {
 
@@ -352,7 +324,7 @@ public class BNDemoMainActivity extends Activity implements IMyDeviceMapV {
             Toast.makeText(BNDemoMainActivity.this, "还未初始化!", Toast.LENGTH_SHORT).show();
         }
         // 权限申请
-        if (android.os.Build.VERSION.SDK_INT >= 23) {
+        if (Build.VERSION.SDK_INT >= 23) {
             // 保证导航功能完备
             if (!hasCompletePhoneAuth()) {
                 if (!hasRequestComAuth) {
@@ -367,30 +339,10 @@ public class BNDemoMainActivity extends Activity implements IMyDeviceMapV {
         }
         BNRoutePlanNode sNode = null;
         BNRoutePlanNode eNode = null;
-        switch (coType) {
-            case GCJ02: {
-                sNode = new BNRoutePlanNode(116.30142, 40.05087, "百度大厦", null, coType);
-                eNode = new BNRoutePlanNode(116.39750, 39.90882, "北京天安门", null, coType);
-                break;
-            }
-            case WGS84: {
-                sNode = new BNRoutePlanNode(116.300821, 40.050969, "百度大厦", null, coType);
-                eNode = new BNRoutePlanNode(116.397491, 39.908749, "北京天安门", null, coType);
-                break;
-            }
-            case BD09_MC: {
-                sNode = new BNRoutePlanNode(12947471, 4846474, "百度大厦", null, coType);
-                eNode = new BNRoutePlanNode(12958160, 4825947, "北京天安门", null, coType);
-                break;
-            }
-            case BD09LL: {
-                sNode = new BNRoutePlanNode(116.30784537597782, 40.057009624099436, "百度大厦", null, coType);
-                eNode = new BNRoutePlanNode(116.40386525193937, 39.915160800132085, "北京天安门", null, coType);
-                break;
-            }
-            default:
-                ;
-        }
+//        sNode = new BNRoutePlanNode(116.30784537597782, 40.057009624099436, "百度大厦", null, coType);
+//        eNode = new BNRoutePlanNode(116.40386525193937, 39.915160800132085, "北京天安门", null, coType);
+        sNode = new BNRoutePlanNode(mStartLongitude, mStartLatitude, "我的位置", null, coType);
+        eNode = new BNRoutePlanNode(mEndLongitude, mEndLatitude, mAddress, null, coType);
         if (sNode != null && eNode != null) {
             List<BNRoutePlanNode> list = new ArrayList<BNRoutePlanNode>();
             list.add(sNode);
@@ -416,7 +368,7 @@ public class BNDemoMainActivity extends Activity implements IMyDeviceMapV {
     @Override
     public void showDeviceAll() {
         mPresenter = new MyDeviceMapP(this, this, mMapView);
-//        mPresenter.clickAll();
+        mPresenter.clickAll();
     }
 
     @Override
@@ -450,6 +402,9 @@ public class BNDemoMainActivity extends Activity implements IMyDeviceMapV {
             Bundle bundle = new Bundle();
             bundle.putSerializable(ROUTE_PLAN_NODE, (BNRoutePlanNode) mBNRoutePlanNode);
             intent.putExtras(bundle);
+            intent.putExtra("startLongitude", mStartLongitude);
+            intent.putExtra("startLatitude", mStartLatitude);
+            intent.putExtra("address", mAddress);
             startActivity(intent);
 
         }
@@ -471,7 +426,7 @@ public class BNDemoMainActivity extends Activity implements IMyDeviceMapV {
         BNaviSettingManager.setIsAutoQuitWhenArrived(true);
         Bundle bundle = new Bundle();
         // 必须设置APPID，否则会静音
-        bundle.putString(BNCommonSettingParam.TTS_APP_ID, "9354030");
+        bundle.putString(BNCommonSettingParam.TTS_APP_ID, "9338465");
         BNaviSettingManager.setNaviSdkParam(bundle);
     }
 
@@ -559,22 +514,6 @@ public class BNDemoMainActivity extends Activity implements IMyDeviceMapV {
         }
     }
 
-    private void initSomething() {
-        mAddress = getIntent().getStringExtra("name");
-        mStartLatitude = getIntent().getDoubleExtra("startLatitude", DEFAULT_LATITUDE);
-        mEndLatitude = getIntent().getDoubleExtra("endLatitude", DEFAULT_LATITUDE);
-        mStartLongitude = getIntent().getDoubleExtra("startLongitude", DEFAULT_LONGITUDE);
-        mEndLongitude = getIntent().getDoubleExtra("endLongitude", DEFAULT_LONGITUDE);
-        mTvAddress.setText(mAddress);
-        mTb.setTitle("");
-
-//        setSupportActionBar(mTb);
-        mTb.setNavigationIcon(R.drawable.icon_back);
-        setImmerseLayout(mTb);//状态栏颜色设置
-        showDeviceAll();
-        mMapView.showZoomControls(false);
-
-    }
 
     /**
      * 状态栏颜色设置

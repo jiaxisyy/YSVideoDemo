@@ -57,7 +57,7 @@ public class MyDeviceMapFragment extends BaseFragment implements IMyDeviceMapV {
     @Override
     protected void init() {
         mPresenter = new MyDeviceMapP(this, getActivity(), mMapView);
-        mPresenter.clickAll();
+        mPresenter.initBaiDuMap();
     }
 
 

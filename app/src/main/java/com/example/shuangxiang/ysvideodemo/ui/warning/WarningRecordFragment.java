@@ -1,5 +1,6 @@
 package com.example.shuangxiang.ysvideodemo.ui.warning;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,6 +32,7 @@ public class WarningRecordFragment extends BaseFragment implements IWarningListV
     RecyclerView mRecyclerView;
     private WarningListRVAdapter mAdapter;
     private WarningListP mPresenter;
+    private ProgressDialog mProgressDialog;
 
 
     public WarningRecordFragment() {
@@ -65,6 +67,9 @@ public class WarningRecordFragment extends BaseFragment implements IWarningListV
     protected void initData() {
         mPresenter = new WarningListP(this);
         mPresenter.getResouce();
+        mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.show();
+
     }
 
     @Override
@@ -76,6 +81,7 @@ public class WarningRecordFragment extends BaseFragment implements IWarningListV
         mAdapter = new WarningListRVAdapter(data, getActivity());
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addItemDecoration(new MyDecoration(getActivity(), MyDecoration.VERTICAL_LIST));
+        mProgressDialog.dismiss();
 
     }
 

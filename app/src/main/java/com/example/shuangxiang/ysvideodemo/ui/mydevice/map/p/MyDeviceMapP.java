@@ -56,6 +56,7 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
     private Intent mIntent;
     private double mStartLatitude;
     private double mStartLongitude;
+    private boolean mFirstInto=true;
 
 
     public MyDeviceMapP(IMyDeviceMapV view, Context context, MapView mapView) {
@@ -92,7 +93,63 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
 
     @Override
     public void clickAll() {
-        initBaiDuMap();
+        mBaiduMap.clear();
+        for (int i = 0; i < mSize; i++) {
+            if (mList.get(i).getOnlineStatus().equals("ONLINE")) {
+                addMaker(Double.valueOf(mList.get(i).getLatitude()), Double.valueOf(mList.get(i)
+                        .getLongitude()), MAKERTYPE_ON);
+            } else {
+                addMaker(Double.valueOf(mList.get(i).getLatitude()), Double.valueOf(mList.get(i)
+                        .getLongitude()), MAKERTYPE_OFF);
+            }
+        }
+
+
+    }
+
+    @Override
+    public void addMaker(double latitude, double lontitude, int makerType) {
+        LatLng ll = new LatLng(latitude, lontitude);
+        //构建Marker图标
+        //TODO
+        //相同标注图标没有重复利用,此处需要优化2017.5.8
+        switch (makerType) {
+            case MAKERTYPE_MYSELF:
+                maker = BitmapDescriptorFactory.fromResource(R.drawable.icon_earlywarning_map_positioning);
+                break;
+            case MAKERTYPE_ON:
+                maker = BitmapDescriptorFactory.fromResource(R.drawable.icon_mydevice_online_green);
+                break;
+            case MAKERTYPE_OFF:
+                maker = BitmapDescriptorFactory.fromResource(R.drawable.icon_mydevice_offline_grey);
+                break;
+        }
+        OverlayOptions mygps = new MarkerOptions()
+                .position(ll)
+                .icon(maker);
+        //在地图上添加Marker，并显示
+        mBaiduMap.addOverlay(mygps);
+        if (makerType == MAKERTYPE_MYSELF) {
+            MapStatus.Builder builder = new MapStatus.Builder();
+            builder.target(ll).zoom(18.0f);
+            mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
+        }
+    }
+
+
+    @Override
+    public void initBaiDuMap() {
+
+
+        mBaiduMap = mMapView.getMap();
+        mBaiduMap.clear();
+        mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
+        // 开启定位图层
+        mBaiduMap.setMyLocationEnabled(true);
+        mLocationClient.registerLocationListener(this);
+        initLocation();
+        mLocationClient.start();
+        mBaiduMap.setOnMarkerClickListener(this);
         RxBus.getDefault().toObservable().subscribe(new Observer<Object>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -126,59 +183,10 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
 
             }
         });
-
-
-    }
-
-    @Override
-    public void addMaker(double latitude, double lontitude, int makerType) {
-        LatLng ll = new LatLng(latitude, lontitude);
-        //构建Marker图标
-        //TODO
-        //相同标注图标没有重复利用,此处需要优化2017.5.8
-
-
-        switch (makerType) {
-            case MAKERTYPE_MYSELF:
-                maker = BitmapDescriptorFactory.fromResource(R.drawable.icon_earlywarning_map_positioning);
-                break;
-            case MAKERTYPE_ON:
-                maker = BitmapDescriptorFactory.fromResource(R.drawable.icon_mydevice_online_green);
-                break;
-            case MAKERTYPE_OFF:
-                maker = BitmapDescriptorFactory.fromResource(R.drawable.icon_mydevice_offline_grey);
-                break;
+        if (mFirstInto = true) {
+            clickAll();
+            mFirstInto = false;
         }
-        OverlayOptions mygps = new MarkerOptions()
-                .position(ll)
-                .icon(maker);
-        //在地图上添加Marker，并显示
-        mBaiduMap.addOverlay(mygps);
-        if (makerType == MAKERTYPE_MYSELF) {
-            MapStatus.Builder builder = new MapStatus.Builder();
-            builder.target(ll).zoom(18.0f);
-            mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
-        }
-
-
-    }
-
-
-    @Override
-    public void initBaiDuMap() {
-
-
-        mBaiduMap = mMapView.getMap();
-        mBaiduMap.clear();
-        mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
-        // 开启定位图层
-        mBaiduMap.setMyLocationEnabled(true);
-        mLocationClient.registerLocationListener(this);
-        initLocation();
-        mLocationClient.start();
-        mBaiduMap.setOnMarkerClickListener(this);
-
-
     }
 
     @Override
