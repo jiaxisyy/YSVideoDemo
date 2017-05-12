@@ -26,7 +26,6 @@ public class FeedbackP implements IFeedbackP {
     public void uploadFile(File file) {
         mView.showProgressBar();
         mModel.uploadFile(file);
-
     }
 
     @Override
@@ -34,6 +33,7 @@ public class FeedbackP implements IFeedbackP {
 
         String feedbackMessage = mView.getFeedbackMessage();
         String feedbackPhone = mView.getFeedbackPhone();
+
         submit(new FeedbackInfo(feedbackMessage, feedbackPhone, imagePath));
 
 

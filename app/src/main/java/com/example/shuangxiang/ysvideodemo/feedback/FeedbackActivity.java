@@ -20,8 +20,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.shuangxiang.ysvideodemo.R;
+import com.example.shuangxiang.ysvideodemo.common.utils.CustomToast;
 import com.example.shuangxiang.ysvideodemo.feedback.p.FeedbackP;
 import com.example.shuangxiang.ysvideodemo.feedback.v.IFeedBackV;
 import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
@@ -77,7 +79,13 @@ public class FeedbackActivity extends BaseActivity implements IFeedBackV {
         switch (view.getId()) {
             case R.id.tv_feedback_submit:
                 mPresenter = new FeedbackP(this);
-                mPresenter.uploadFile(new File(mPath));
+                if (mPath == null || mPath.equals("") || getFeedbackMessage().equals("")
+                        || getFeedbackPhone().equals("")) {
+                    CustomToast.showToast(this, "请填写完整", Toast.LENGTH_SHORT);
+                } else {
+                    mPresenter.uploadFile(new File(mPath));
+                }
+
                 break;
             case R.id.iv_feedback_picAdd:
 //                Intent intent = new Intent();

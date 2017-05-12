@@ -155,15 +155,20 @@ public class MyDeviceActivity extends BaseActivity implements IMyDeviceListV,Act
     @Override
     public void setData(List<String> names, List<String> status) {
         int size = names.size();
-        mTvAllDevice.setText(String.valueOf(size));
-        int countOn = 0;
-        for (int i = 0; i < size; i++) {
-            if (status.get(i).equals("ONLINE")) {
-                countOn++;
+        if(size>0){
+            mTvAllDevice.setText(String.valueOf(size));
+            int countOn = 0;
+            for (int i = 0; i < size; i++) {
+                if (status.get(i).equals("ONLINE")) {
+                    countOn++;
+                }
             }
+            mTvMyDeviceOn.setText(String.valueOf(countOn));
+            mTvMyDeviceOff.setText(String.valueOf(size - countOn));
+
         }
-        mTvMyDeviceOn.setText(String.valueOf(countOn));
-        mTvMyDeviceOff.setText(String.valueOf(size - countOn));
+
+
     }
 
     @Override

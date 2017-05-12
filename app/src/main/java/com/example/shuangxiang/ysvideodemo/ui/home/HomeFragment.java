@@ -32,6 +32,7 @@ import butterknife.OnClick;
 
 import static com.zhy.autolayout.utils.ScreenUtils.getStatusBarHeight;
 
+
 /**
  * Created by shuang.xiang on 2017/4/19.
  */

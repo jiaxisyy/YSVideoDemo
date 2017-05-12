@@ -46,7 +46,6 @@ public class DataShowFragment extends BaseFragment {
 
     @Override
     protected int getLayoutId() {
-
         return R.layout.fragment_data_show;
     }
 
@@ -88,13 +87,13 @@ public class DataShowFragment extends BaseFragment {
             case R.id.iv_monitoring_notice:
                 startActivity(new Intent(getActivity(), WarningActivity.class));
                 break;
-
             case R.id.iv_datashow_analyze:
 
 
                 break;
         }
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

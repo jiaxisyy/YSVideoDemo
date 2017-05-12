@@ -8,6 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:listDivider">@drawable/divider</item>
     </style>
+    <!--改变状态栏颜色-->
+    <!--<style name="statusBarStyle" parent="@android:style/Theme.DeviceDefault.Light">-->
+        <!--<item name="android:statusBarColor">@color/status_bar_color</item>-->
+        <!--&lt;!&ndash;<item name="android:windowLightStatusBar">false</item>&ndash;&gt;-->
+    <!--</style>-->
 
     <style name="AnimationPreview">
         <item name="android:windowEnterAnimation">@anim/fade_in</item>

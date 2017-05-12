@@ -67,8 +67,8 @@ public class WarningRecordFragment extends BaseFragment implements IWarningListV
     protected void initData() {
         mPresenter = new WarningListP(this);
         mPresenter.getResouce();
-        mProgressDialog = new ProgressDialog(getActivity());
-        mProgressDialog.show();
+//        mProgressDialog = new ProgressDialog(getActivity());
+//        mProgressDialog.show();
 
     }
 
@@ -81,7 +81,7 @@ public class WarningRecordFragment extends BaseFragment implements IWarningListV
         mAdapter = new WarningListRVAdapter(data, getActivity());
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addItemDecoration(new MyDecoration(getActivity(), MyDecoration.VERTICAL_LIST));
-        mProgressDialog.dismiss();
+//        mProgressDialog.dismiss();
 
     }
 

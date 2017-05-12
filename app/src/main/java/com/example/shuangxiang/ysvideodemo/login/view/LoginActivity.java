@@ -1,5 +1,6 @@
 package com.example.shuangxiang.ysvideodemo.login.view;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -40,6 +41,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     @BindView(R.id.btn_login_login)
     Button mBtnLoginLogin;
     private boolean mChecked;
+    private ProgressDialog mProgressDialog;
 
 
     @Override
@@ -105,11 +107,13 @@ public class LoginActivity extends BaseActivity implements ILoginView {
 
     @Override
     public void showLoading() {
+        mProgressDialog.show();
 
     }
 
     @Override
     public void hideLoading() {
+        mProgressDialog.dismiss();
 
     }
 
@@ -126,6 +130,8 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     @Override
     public void toMainActivity(User user) {
         LoginPresenter loginPresenter = new LoginPresenter(this, this, mChecked);
+        mProgressDialog = new ProgressDialog(this);
+        showLoading();
         loginPresenter.login(user);
     }
 

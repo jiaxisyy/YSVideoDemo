@@ -36,8 +36,9 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void initContentView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_home);
+        //修改状态栏背景色
+//        StatusBarUtil.setColor(this, getResources().getColor(R.color.stastusbar_bg),0);
         mInstanceState = savedInstanceState;
-
     }
 
     @Override

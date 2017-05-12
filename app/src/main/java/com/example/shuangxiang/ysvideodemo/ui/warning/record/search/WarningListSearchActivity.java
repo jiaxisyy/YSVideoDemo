@@ -11,7 +11,6 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.common.utils.CustomToast;
@@ -45,8 +44,8 @@ public class WarningListSearchActivity extends BaseActivity implements IWarningL
     TextView mTvCancel;
     @BindView(R.id.rv_warning_list_search)
     RecyclerView mRv;
-    @BindView(R.id.animation_view)
-    LottieAnimationView mAnimationView;
+//    @BindView(R.id.animation_view)
+//    LottieAnimationView mAnimationView;
     private Calendar mCalendar;
     private int mYear;
     private int mMonth;
@@ -108,15 +107,14 @@ public class WarningListSearchActivity extends BaseActivity implements IWarningL
         }, mYear, mMonth, mDay);
 
 
-        myAnimation();
     }
 
-    private void myAnimation() {
-        mAnimationView.setAnimation("TwitterHeart.json");
-        mAnimationView.loop(true);
-        mAnimationView.playAnimation();
-
-    }
+//    private void myAnimation() {
+//        mAnimationView.setAnimation("TwitterHeart.json");
+//        mAnimationView.loop(true);
+//        mAnimationView.playAnimation();
+//
+//    }
 
     @OnClick({R.id.tv_warning_listSearch_startTime, R.id.tv_warning_listSearch_endTime, R.id.tv_warning_listSearch_cancel})
     public void onViewClicked(View view) {

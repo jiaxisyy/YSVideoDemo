@@ -51,7 +51,9 @@ public class LoginPresenter implements ILoginPresenter {
             CacheUtils.putString(mContext, Constants.Define.USERNAME, mLoginView.getUserName());
             CacheUtils.putString(mContext, Constants.Define.PASSWORD, mLoginView.getPassWord());
         }
+
         mContext.startActivity(new Intent(mContext, HomeActivity.class));
+        mLoginView.hideLoading();
         Log.d("TEST", "cookie=" + CacheUtils.getString(mContext, Constants.Define.COOKIE));
         Log.d("TEST", "orgID=" + info.getOrgId());
     }
