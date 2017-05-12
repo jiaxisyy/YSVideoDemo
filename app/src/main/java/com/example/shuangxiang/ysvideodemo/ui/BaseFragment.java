@@ -16,8 +16,9 @@ import butterknife.Unbinder;
 
 public abstract class BaseFragment extends Fragment {
 
-
+    private boolean mIsCompleted = false;
     private Unbinder mUnbinder;
+    private LayoutInflater mInflater;
 
     /**
      * 获取布局文件ID
@@ -30,20 +31,42 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract void initData();
 
+    private View mLayoutView;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getLayoutId(), container, false);
+//        if (mLayoutView == null) {
+//            mLayoutView = inflate(inflater);
+//            onInflateView(mLayoutView);
+//            mIsCompleted = true;
+//        } else {
+//            ViewGroup parent = (ViewGroup) mLayoutView.getParent();
+//            if (parent != null)
+//                parent.removeView(mLayoutView);
+//        }
+//        mInflater = inflater;
         mUnbinder = ButterKnife.bind(this, view);
         initData();
         init();
         return view;
     }
 
+    protected View inflate(LayoutInflater inflater) {
+        return inflater.inflate(getLayoutId(), null);
+    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         mUnbinder.unbind();
+    }
+
+    /**
+     * 只运行一次
+     */
+    public void onInflateView(View contentView) {
+
     }
 }
