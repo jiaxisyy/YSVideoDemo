@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.TextureMapView;
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.ui.BaseFragment;
@@ -25,7 +25,7 @@ import butterknife.OnClick;
 
 public class WarningMapFragment extends BaseFragment implements IWarningListV, IWarningMapV {
     @BindView(R.id.mapView_warning)
-    MapView mMapView;
+    TextureMapView mMapView;
     @BindView(R.id.ll_warning_map_red)
     LinearLayout mLlMapRed;
     @BindView(R.id.ll_warning_map_orange)

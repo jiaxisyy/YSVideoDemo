@@ -45,14 +45,19 @@ public class SecondHomeActivity extends BaseActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.bnv_home:
-//                        Utils.replace(getSupportFragmentManager(), R.id.fl_home,
-//                                HomeFragment.class);
+                    case R.id.bnv_home2_data:
+                        Utils.replace(getSupportFragmentManager(), R.id.fl_home2,
+                                DataShowFragment.class);
                         break;
-                    case R.id.bnv_my:
-//                        Utils.replace(getSupportFragmentManager(), R.id.fl_home,
-//                                MyselfFragment.class);
+                    case R.id.bnv_home2_monitoring:
+//                        Utils.replace(getSupportFragmentManager(), R.id.fl_home2,
+//                                DataShowFragment.class);
                         break;
+                    case R.id.bnv_home2_setting:
+//                        Utils.replace(getSupportFragmentManager(), R.id.fl_home2,
+//                                DataShowFragment.class);
+                        break;
+
                 }
                 return true;
             }

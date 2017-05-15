@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -16,11 +17,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.shuangxiang.ysvideodemo.R;
+import com.example.shuangxiang.ysvideodemo.common.Constants;
+import com.example.shuangxiang.ysvideodemo.rxbus.RxBus;
 import com.example.shuangxiang.ysvideodemo.ui.BaseFragment;
+import com.example.shuangxiang.ysvideodemo.ui.data.show.RxListEvent;
 import com.example.shuangxiang.ysvideodemo.ui.warning.WarningActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 import static com.zhy.autolayout.utils.ScreenUtils.getStatusBarHeight;
 
@@ -66,6 +72,33 @@ public class DataShowFragment extends BaseFragment {
         if (operatingAnim != null) {
             mLlDataShowCircle.startAnimation(operatingAnim);
         }
+        Log.d("TEST", "DataShowFragment->id=");
+        RxBus.getDefault().toObservable(Constants.Define.RXBUS_MYDEVICEMAP_TO_DATASHOW_CODE,
+                RxListEvent.class).subscribe(new Observer<RxListEvent>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(RxListEvent rxListEvent) {
+                String id = rxListEvent.getId();
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+
+
+
     }
 
     protected void setImmerseLayout(View view) {

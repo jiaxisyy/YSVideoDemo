@@ -1,7 +1,9 @@
 package com.example.shuangxiang.ysvideodemo.ui.mydevice.list.p;
 
+import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.rxbus.RxBus;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.bean.MyDeviceInfo;
+import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.bean.RxMydeviceEvent;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.m.IMyDeviceListM;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.m.MyDeviceListM;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.v.IMyDeviceListV;
@@ -40,8 +42,6 @@ public class MyDeviceListP implements IMyDeviceListP {
         names.add("测试收费站");
         status.add("ONLINE");
         mView.setData(names, status);
-
-        RxBus.getDefault().send(list);
-
+        RxBus.getDefault().post(Constants.Define.RXBUS_MYDEVICELISTP_CODE,new RxMydeviceEvent(list));
     }
 }

@@ -11,10 +11,10 @@ import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.InfoWindow;
-import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.map.TextureMapView;
 import com.baidu.mapapi.model.LatLng;
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.ui.warning.map.v.IWarningMapV;
@@ -28,14 +28,14 @@ import java.util.List;
 
 public class WarningMapP implements IWarningMapP, BaiduMap.OnMarkerClickListener {
     private IWarningMapV mIWarningMapV;
-    private MapView mMapView;
+    private TextureMapView mMapView;
     private int mSize;
     private Intent mIntent;
     private List<WarningInfo.ListBean> mList;
     private Context mContext;
     private BaiduMap mBaiduMap;
 
-    public WarningMapP(IWarningMapV IWarningMapV, MapView mapView, Context context) {
+    public WarningMapP(IWarningMapV IWarningMapV, TextureMapView mapView, Context context) {
         mContext = context;
         mIWarningMapV = IWarningMapV;
         mMapView = mapView;

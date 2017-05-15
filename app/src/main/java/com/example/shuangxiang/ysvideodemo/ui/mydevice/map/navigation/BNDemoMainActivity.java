@@ -19,7 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.TextureMapView;
 import com.baidu.navisdk.adapter.BNCommonSettingParam;
 import com.baidu.navisdk.adapter.BNOuterLogUtil;
 import com.baidu.navisdk.adapter.BNOuterTTSPlayerCallback;
@@ -53,7 +53,7 @@ public class BNDemoMainActivity extends BaseActivity implements IMyDeviceMapV {
     @BindView(R.id.tb_readyNavigation)
     Toolbar mTb;
     @BindView(R.id.mapView_ready)
-    MapView mMapView;
+    TextureMapView mMapView;
     @BindView(R.id.tv_readyNavigation_address)
     TextView mTvAddress;
     @BindView(R.id.tv_readyNavigation_startNavigation)

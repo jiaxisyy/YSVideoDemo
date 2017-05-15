@@ -11,23 +11,23 @@ public class MyDeviceInfo {
     /**
      * endRow : 1
      * firstPage : 1
-     * hasNextPage : false
+     * hasNextPage : true
      * hasPreviousPage : false
      * isFirstPage : true
-     * isLastPage : true
-     * lastPage : 1
-     * list : [{"agentId":"11","supplierId":"11","onlineStatus":"ONLINE","latitude":"111","serverPort":11,"delFlag":"0","deviceId":"deviceId0002","password":"password0002","deviceHost":"11","deviceModelId":"model1","onlineTime":1,"id":"1","addr":"1111","longitude":"1111","createDate":1465294203000,"totalRunTime":11111,"userId":"111111","serverHost":"111","picPath":"11111","createBy":"11111","areaId":"111111","name":"111","devicePort":11,"manufactorId":"111","status":"1"}]
+     * isLastPage : false
+     * lastPage : 5
+     * list : [{"addr":"","area":null,"cameraId":"","compute":null,"createBy":"92ca19eb-387a-4e8b-a2f3-df4b0f8103a8","createDate":"2017-05-07 11:01:34","dataTemplateId":"f23d45d16e96456ba88130ebf6ed7407","defaultTableId":null,"delFlag":"0","deviceNo":1,"id":"a49ee15e45e2465b9d419cdc8028e771","latitude":"","longitude":"","name":"TEST1","onlineStatus":"OFFLINE","orgId":"","picPath":null,"plcId":"deviceId0174","relatedDeviceId":null,"scadaId":"","statusName":null,"tenantId":"b3ea4c5282944b41970bdee5ae7ad2b9","updateBy":"92ca19eb-387a-4e8b-a2f3-df4b0f8103a8","updateDate":"2017-05-08 08:45:17"}]
      * navigatePages : 8
-     * navigatepageNums : [1]
-     * nextPage : 0
+     * navigatepageNums : [1,2,3,4,5]
+     * nextPage : 2
      * orderBy : null
      * pageNum : 1
-     * pageSize : 20
-     * pages : 1
+     * pageSize : 1
+     * pages : 5
      * prePage : 0
      * size : 1
      * startRow : 1
-     * total : 1
+     * total : 5
      */
 
     private int endRow;
@@ -204,154 +204,56 @@ public class MyDeviceInfo {
 
     public static class ListBean {
         /**
-         * agentId : 11
-         * supplierId : 11
-         * onlineStatus : ONLINE
-         * latitude : 111
-         * serverPort : 11
+         * addr :
+         * area : null
+         * cameraId :
+         * compute : null
+         * createBy : 92ca19eb-387a-4e8b-a2f3-df4b0f8103a8
+         * createDate : 2017-05-07 11:01:34
+         * dataTemplateId : f23d45d16e96456ba88130ebf6ed7407
+         * defaultTableId : null
          * delFlag : 0
-         * deviceId : deviceId0002
-         * password : password0002
-         * deviceHost : 11
-         * deviceModelId : model1
-         * onlineTime : 1
-         * id : 1
-         * addr : 1111
-         * longitude : 1111
-         * createDate : 1465294203000
-         * totalRunTime : 11111
-         * userId : 111111
-         * serverHost : 111
-         * picPath : 11111
-         * createBy : 11111
-         * areaId : 111111
-         * name : 111
-         * devicePort : 11
-         * manufactorId : 111
-         * status : 1
+         * deviceNo : 1
+         * id : a49ee15e45e2465b9d419cdc8028e771
+         * latitude :
+         * longitude :
+         * name : TEST1
+         * onlineStatus : OFFLINE
+         * orgId :
+         * picPath : null
+         * plcId : deviceId0174
+         * relatedDeviceId : null
+         * scadaId :
+         * statusName : null
+         * tenantId : b3ea4c5282944b41970bdee5ae7ad2b9
+         * updateBy : 92ca19eb-387a-4e8b-a2f3-df4b0f8103a8
+         * updateDate : 2017-05-08 08:45:17
          */
 
-        private String agentId;
-        private String supplierId;
-        private String onlineStatus;
-        private String latitude;
-        private int serverPort;
-        private String delFlag;
-        private String deviceId;
-        private String password;
-        private String deviceHost;
-        private String deviceModelId;
-        private int onlineTime;
-        private String id;
         private String addr;
-        private String longitude;
-        private String createDate;
-        private int totalRunTime;
-        private String userId;
-        private String serverHost;
-        private String picPath;
+        private Object area;
+        private String cameraId;
+        private Object compute;
         private String createBy;
-        private String areaId;
+        private String createDate;
+        private String dataTemplateId;
+        private Object defaultTableId;
+        private String delFlag;
+        private int deviceNo;
+        private String id;
+        private String latitude;
+        private String longitude;
         private String name;
-        private int devicePort;
-        private String manufactorId;
-        private String status;
-
-        public String getAgentId() {
-            return agentId;
-        }
-
-        public void setAgentId(String agentId) {
-            this.agentId = agentId;
-        }
-
-        public String getSupplierId() {
-            return supplierId;
-        }
-
-        public void setSupplierId(String supplierId) {
-            this.supplierId = supplierId;
-        }
-
-        public String getOnlineStatus() {
-            return onlineStatus;
-        }
-
-        public void setOnlineStatus(String onlineStatus) {
-            this.onlineStatus = onlineStatus;
-        }
-
-        public String getLatitude() {
-            return latitude;
-        }
-
-        public void setLatitude(String latitude) {
-            this.latitude = latitude;
-        }
-
-        public int getServerPort() {
-            return serverPort;
-        }
-
-        public void setServerPort(int serverPort) {
-            this.serverPort = serverPort;
-        }
-
-        public String getDelFlag() {
-            return delFlag;
-        }
-
-        public void setDelFlag(String delFlag) {
-            this.delFlag = delFlag;
-        }
-
-        public String getDeviceId() {
-            return deviceId;
-        }
-
-        public void setDeviceId(String deviceId) {
-            this.deviceId = deviceId;
-        }
-
-        public String getPassword() {
-            return password;
-        }
-
-        public void setPassword(String password) {
-            this.password = password;
-        }
-
-        public String getDeviceHost() {
-            return deviceHost;
-        }
-
-        public void setDeviceHost(String deviceHost) {
-            this.deviceHost = deviceHost;
-        }
-
-        public String getDeviceModelId() {
-            return deviceModelId;
-        }
-
-        public void setDeviceModelId(String deviceModelId) {
-            this.deviceModelId = deviceModelId;
-        }
-
-        public int getOnlineTime() {
-            return onlineTime;
-        }
-
-        public void setOnlineTime(int onlineTime) {
-            this.onlineTime = onlineTime;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
+        private String onlineStatus;
+        private String orgId;
+        private Object picPath;
+        private String plcId;
+        private Object relatedDeviceId;
+        private String scadaId;
+        private Object statusName;
+        private String tenantId;
+        private String updateBy;
+        private String updateDate;
 
         public String getAddr() {
             return addr;
@@ -361,52 +263,28 @@ public class MyDeviceInfo {
             this.addr = addr;
         }
 
-        public String getLongitude() {
-            return longitude;
+        public Object getArea() {
+            return area;
         }
 
-        public void setLongitude(String longitude) {
-            this.longitude = longitude;
+        public void setArea(Object area) {
+            this.area = area;
         }
 
-        public String getCreateDate() {
-            return createDate;
+        public String getCameraId() {
+            return cameraId;
         }
 
-        public void setCreateDate(String createDate) {
-            this.createDate = createDate;
+        public void setCameraId(String cameraId) {
+            this.cameraId = cameraId;
         }
 
-        public int getTotalRunTime() {
-            return totalRunTime;
+        public Object getCompute() {
+            return compute;
         }
 
-        public void setTotalRunTime(int totalRunTime) {
-            this.totalRunTime = totalRunTime;
-        }
-
-        public String getUserId() {
-            return userId;
-        }
-
-        public void setUserId(String userId) {
-            this.userId = userId;
-        }
-
-        public String getServerHost() {
-            return serverHost;
-        }
-
-        public void setServerHost(String serverHost) {
-            this.serverHost = serverHost;
-        }
-
-        public String getPicPath() {
-            return picPath;
-        }
-
-        public void setPicPath(String picPath) {
-            this.picPath = picPath;
+        public void setCompute(Object compute) {
+            this.compute = compute;
         }
 
         public String getCreateBy() {
@@ -417,12 +295,68 @@ public class MyDeviceInfo {
             this.createBy = createBy;
         }
 
-        public String getAreaId() {
-            return areaId;
+        public String getCreateDate() {
+            return createDate;
         }
 
-        public void setAreaId(String areaId) {
-            this.areaId = areaId;
+        public void setCreateDate(String createDate) {
+            this.createDate = createDate;
+        }
+
+        public String getDataTemplateId() {
+            return dataTemplateId;
+        }
+
+        public void setDataTemplateId(String dataTemplateId) {
+            this.dataTemplateId = dataTemplateId;
+        }
+
+        public Object getDefaultTableId() {
+            return defaultTableId;
+        }
+
+        public void setDefaultTableId(Object defaultTableId) {
+            this.defaultTableId = defaultTableId;
+        }
+
+        public String getDelFlag() {
+            return delFlag;
+        }
+
+        public void setDelFlag(String delFlag) {
+            this.delFlag = delFlag;
+        }
+
+        public int getDeviceNo() {
+            return deviceNo;
+        }
+
+        public void setDeviceNo(int deviceNo) {
+            this.deviceNo = deviceNo;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getLatitude() {
+            return latitude;
+        }
+
+        public void setLatitude(String latitude) {
+            this.latitude = latitude;
+        }
+
+        public String getLongitude() {
+            return longitude;
+        }
+
+        public void setLongitude(String longitude) {
+            this.longitude = longitude;
         }
 
         public String getName() {
@@ -433,28 +367,84 @@ public class MyDeviceInfo {
             this.name = name;
         }
 
-        public int getDevicePort() {
-            return devicePort;
+        public String getOnlineStatus() {
+            return onlineStatus;
         }
 
-        public void setDevicePort(int devicePort) {
-            this.devicePort = devicePort;
+        public void setOnlineStatus(String onlineStatus) {
+            this.onlineStatus = onlineStatus;
         }
 
-        public String getManufactorId() {
-            return manufactorId;
+        public String getOrgId() {
+            return orgId;
         }
 
-        public void setManufactorId(String manufactorId) {
-            this.manufactorId = manufactorId;
+        public void setOrgId(String orgId) {
+            this.orgId = orgId;
         }
 
-        public String getStatus() {
-            return status;
+        public Object getPicPath() {
+            return picPath;
         }
 
-        public void setStatus(String status) {
-            this.status = status;
+        public void setPicPath(Object picPath) {
+            this.picPath = picPath;
+        }
+
+        public String getPlcId() {
+            return plcId;
+        }
+
+        public void setPlcId(String plcId) {
+            this.plcId = plcId;
+        }
+
+        public Object getRelatedDeviceId() {
+            return relatedDeviceId;
+        }
+
+        public void setRelatedDeviceId(Object relatedDeviceId) {
+            this.relatedDeviceId = relatedDeviceId;
+        }
+
+        public String getScadaId() {
+            return scadaId;
+        }
+
+        public void setScadaId(String scadaId) {
+            this.scadaId = scadaId;
+        }
+
+        public Object getStatusName() {
+            return statusName;
+        }
+
+        public void setStatusName(Object statusName) {
+            this.statusName = statusName;
+        }
+
+        public String getTenantId() {
+            return tenantId;
+        }
+
+        public void setTenantId(String tenantId) {
+            this.tenantId = tenantId;
+        }
+
+        public String getUpdateBy() {
+            return updateBy;
+        }
+
+        public void setUpdateBy(String updateBy) {
+            this.updateBy = updateBy;
+        }
+
+        public String getUpdateDate() {
+            return updateDate;
+        }
+
+        public void setUpdateDate(String updateDate) {
+            this.updateDate = updateDate;
         }
     }
 }

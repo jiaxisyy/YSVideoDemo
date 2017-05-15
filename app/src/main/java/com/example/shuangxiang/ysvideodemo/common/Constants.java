@@ -27,6 +27,8 @@ public class Constants {
         String WARNINGRECORD = "预警记录";
         int CONNECT_TIME_OUT = 5 * 1000 * 60;
         int RXBUS_COOKIE_CODE = 1;
+        int RXBUS_MYDEVICELISTP_CODE = 2;
+        int RXBUS_MYDEVICEMAP_TO_DATASHOW_CODE = 3;
     }
 
 }

@@ -10,7 +10,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.TextureMapView;
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.p.IMyDeviceMapNavigationP;
@@ -32,7 +32,7 @@ public class ReadyNavigationActivity extends BaseActivity implements IMyDeviceMa
     @BindView(R.id.tb_readyNavigation)
     Toolbar mTb;
     @BindView(R.id.mapView_ready)
-    MapView mMapView;
+    TextureMapView mMapView;
     @BindView(R.id.tv_readyNavigation_address)
     TextView mTvAddress;
     @BindView(R.id.tv_readyNavigation_startNavigation)

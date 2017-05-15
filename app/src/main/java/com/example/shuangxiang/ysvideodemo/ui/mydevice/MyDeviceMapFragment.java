@@ -4,12 +4,12 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.TextureMapView;
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.utils.CustomToast;
 import com.example.shuangxiang.ysvideodemo.ui.BaseFragment;
-import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.v.IMyDeviceMapV;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.p.MyDeviceMapP;
+import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.v.IMyDeviceMapV;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -22,7 +22,7 @@ public class MyDeviceMapFragment extends BaseFragment implements IMyDeviceMapV {
 
     private static final int ACCESS_COARSE_LOCATION_REQUEST_CODE = 2;
     @BindView(R.id.mapView_mydevice)
-    MapView mMapView;
+    TextureMapView mMapView;
     @BindView(R.id.ll_mydevice_on)
     LinearLayout mLlOn;
     @BindView(R.id.ll_mydevice_off)
