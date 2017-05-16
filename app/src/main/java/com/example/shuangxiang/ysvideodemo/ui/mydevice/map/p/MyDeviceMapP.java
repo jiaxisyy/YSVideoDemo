@@ -157,7 +157,10 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
         mLocationClient.start();
         mBaiduMap.setOnMarkerClickListener(this);
 
-        RxBus.getDefault().toObservable(Constants.Define.RXBUS_MYDEVICELISTP_CODE, RxMydeviceEvent.class)
+
+        RxBus.getDefault().toObservable(Constants.Define
+                        .RXBUS_MYDEVICELISTP_CODE,
+                RxMydeviceEvent.class)
                 .subscribe(new Observer<RxMydeviceEvent>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -274,8 +277,7 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
                 address.setText("设备地址:  " + mList.get(i).getAddr());
                 String id = mList.get(i).getId();
                 mIntent.putExtra("name", strName);
-                rxBus.post(Constants.Define.RXBUS_MYDEVICEMAP_TO_DATASHOW_CODE, new RxListEvent
-                        (id));
+                rxBus.post(Constants.Define.RXBUS_MYDEVICEMAP_TO_DATASHOW_CODE,new RxListEvent(id));
                 Log.d("TEST", "MyDeviceMapP->id=" + id);
             }
         }
