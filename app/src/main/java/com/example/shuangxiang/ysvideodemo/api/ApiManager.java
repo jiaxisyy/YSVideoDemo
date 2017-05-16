@@ -9,12 +9,14 @@ import com.example.shuangxiang.ysvideodemo.download.bean.AppMessage;
 import com.example.shuangxiang.ysvideodemo.feedback.bean.FeedbackInfo;
 import com.example.shuangxiang.ysvideodemo.feedback.bean.FilePath;
 import com.example.shuangxiang.ysvideodemo.manager.CookieManger;
+import com.example.shuangxiang.ysvideodemo.retrofit.IDataShowRequest;
 import com.example.shuangxiang.ysvideodemo.retrofit.IDownloadRequest;
 import com.example.shuangxiang.ysvideodemo.retrofit.IHomePictureRequest;
 import com.example.shuangxiang.ysvideodemo.retrofit.ILoginRequest;
 import com.example.shuangxiang.ysvideodemo.retrofit.IMyDeviceListRequest;
 import com.example.shuangxiang.ysvideodemo.retrofit.IUploadFileRequest;
 import com.example.shuangxiang.ysvideodemo.retrofit.IWarningListRequest;
+import com.example.shuangxiang.ysvideodemo.ui.data.show.bean.DataShowBottomTitle;
 import com.example.shuangxiang.ysvideodemo.ui.home.product.bean.ProductInfo;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.bean.MyDeviceInfo;
 import com.example.shuangxiang.ysvideodemo.ui.warning.record.bean.WarningInfo;
@@ -22,6 +24,7 @@ import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -51,6 +54,7 @@ public class ApiManager {
     private IMyDeviceListRequest sMyDeviceListRequest;
     private IWarningListRequest sWarningListRequest;
     private OkHttpClient mSOkHttpClient;
+    private IDataShowRequest mIDataShowRequest;
 
     public ApiManager(Context context) {
         mContext = context;
@@ -182,6 +186,18 @@ public class ApiManager {
         return sWarningListRequest.getRecord(pageNum, pageSize, fromDate, toDate);
     }
 
+    /**
+     *
+     * 数据显示界面下面的标题获取
+     * @param url
+     * @return
+     */
+    public Observable<List<DataShowBottomTitle>> getTitle(String url) {
+        mIDataShowRequest = sRetrofit.create(IDataShowRequest.class);
+        return mIDataShowRequest.getDataShowBottomTitle(url);
+    }
+
+
     public Observable<ResponseBody> down(String url) {
 
         OkHttpClient client = new OkHttpClient.Builder()
@@ -206,4 +222,6 @@ public class ApiManager {
         Log.d("TEST", "ApiManager->down");
         return iDownloadRequest.down();
     }
+
+
 }

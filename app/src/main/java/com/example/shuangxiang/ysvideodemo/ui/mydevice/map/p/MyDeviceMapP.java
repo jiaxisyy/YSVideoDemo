@@ -28,6 +28,7 @@ import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.rxbus.RxBus;
 import com.example.shuangxiang.ysvideodemo.ui.SecondHomeActivity;
+import com.example.shuangxiang.ysvideodemo.ui.data.DataShowFragment;
 import com.example.shuangxiang.ysvideodemo.ui.data.show.RxListEvent;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.bean.MyDeviceInfo;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.bean.RxMydeviceEvent;
@@ -44,6 +45,7 @@ import io.reactivex.disposables.Disposable;
  */
 
 public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap.OnMarkerClickListener {
+
 
     private IMyDeviceMapV mView;
     private Context mContext;
@@ -69,6 +71,7 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
         this.mMapView = mapView;
         mLocationClient = new LocationClient(mContext);
     }
+
 
     @Override
     public void clickOn() {
@@ -97,7 +100,7 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
 
     @Override
     public void clickAll() {
-        if(mBaiduMap!=null){
+        if (mBaiduMap != null) {
             mBaiduMap.clear();
         }
         for (int i = 0; i < mSize; i++) {
@@ -277,8 +280,9 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
                 address.setText("设备地址:  " + mList.get(i).getAddr());
                 String id = mList.get(i).getId();
                 mIntent.putExtra("name", strName);
-                rxBus.post(Constants.Define.RXBUS_MYDEVICEMAP_TO_DATASHOW_CODE,new RxListEvent(id));
+                rxBus.post(Constants.Define.RXBUS_MYDEVICEMAP_TO_DATASHOW_CODE, new RxListEvent(id));
                 Log.d("TEST", "MyDeviceMapP->id=" + id);
+                mIToDataShow.setId(id);
             }
         }
         //导航
@@ -304,5 +308,15 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
         mBaiduMap.showInfoWindow(infoWindow);
         return false;
 
+    }
+
+    public interface IToDataShow {
+        void setId(String id);
+    }
+
+    private static IToDataShow mIToDataShow = new DataShowFragment();
+
+    public static void register(IToDataShow iToDataShow) {
+        mIToDataShow = iToDataShow;
     }
 }

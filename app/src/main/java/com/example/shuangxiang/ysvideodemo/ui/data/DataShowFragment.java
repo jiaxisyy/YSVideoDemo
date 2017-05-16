@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.ui.BaseFragment;
+import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.p.MyDeviceMapP;
 import com.example.shuangxiang.ysvideodemo.ui.warning.WarningActivity;
 
 import butterknife.BindView;
@@ -28,7 +30,7 @@ import static com.zhy.autolayout.utils.ScreenUtils.getStatusBarHeight;
  * Created by shuang.xiang on 2017/5/2.
  */
 
-public class DataShowFragment extends BaseFragment {
+public class DataShowFragment extends BaseFragment implements MyDeviceMapP.IToDataShow {
     @BindView(R.id.iv_monitoring_notice)
     ImageView mIvMonitoringNotice;
     @BindView(R.id.tb_data_monitoring)
@@ -66,10 +68,7 @@ public class DataShowFragment extends BaseFragment {
         if (operatingAnim != null) {
             mLlDataShowCircle.startAnimation(operatingAnim);
         }
-
-
-
-
+        MyDeviceMapP.register(this);
     }
 
     protected void setImmerseLayout(View view) {
@@ -106,5 +105,12 @@ public class DataShowFragment extends BaseFragment {
                 getActivity().finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void setId(String id) {
+
+
+        Log.d("TEST", "id=" + id);
     }
 }
