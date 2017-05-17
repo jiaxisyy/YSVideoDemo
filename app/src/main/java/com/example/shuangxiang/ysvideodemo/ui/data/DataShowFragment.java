@@ -68,7 +68,7 @@ public class DataShowFragment extends BaseFragment implements MyDeviceMapP.IToDa
         if (operatingAnim != null) {
             mLlDataShowCircle.startAnimation(operatingAnim);
         }
-        MyDeviceMapP.register(this);
+
     }
 
     protected void setImmerseLayout(View view) {

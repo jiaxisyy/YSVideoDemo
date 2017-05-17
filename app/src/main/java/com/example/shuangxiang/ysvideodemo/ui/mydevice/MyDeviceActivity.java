@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.common.utils.PermissionUtils;
+import com.example.shuangxiang.ysvideodemo.manager.ActivityManager;
 import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.adapter.MyViewPagerAdapter;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.p.MyDeviceListP;
@@ -67,6 +68,7 @@ public class MyDeviceActivity extends BaseActivity implements IMyDeviceListV,Act
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void initSomething() {
+        ActivityManager.getInstance().addActivity(this);
         mTbMydevice.setTitle("");
         setSupportActionBar(mTbMydevice);
         mTbMydevice.setNavigationIcon(R.drawable.icon_mydevice_back);

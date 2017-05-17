@@ -1,9 +1,11 @@
 package com.example.shuangxiang.ysvideodemo.login.view;
 
+
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -16,6 +18,7 @@ import com.example.shuangxiang.ysvideodemo.common.utils.CacheUtils;
 import com.example.shuangxiang.ysvideodemo.common.utils.CustomToast;
 import com.example.shuangxiang.ysvideodemo.common.utils.Utils;
 import com.example.shuangxiang.ysvideodemo.login.presenter.LoginPresenter;
+import com.example.shuangxiang.ysvideodemo.manager.ActivityManager;
 import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
 
 import butterknife.BindView;
@@ -56,6 +59,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
 
     @Override
     protected void initSomething() {
+       ActivityManager.getInstance().addActivity(this);
         if (CacheUtils.getString(this, Constants.Define.USERNAME) != null && !CacheUtils.getString
                 (this, Constants.Define.USERNAME).equals("") && CacheUtils.getString(this,
                 Constants.Define.PASSWORD) != null && !CacheUtils.getString(this, Constants.Define
@@ -167,5 +171,24 @@ public class LoginActivity extends BaseActivity implements ILoginView {
             mChecked = mCbLoginIsRemember.isChecked();
             toMainActivity(new User(getUserName(), getPassWord()));
         }
+    }
+
+    //点击两次退出
+    private long firstTime = 0;
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+                long secondTime = System.currentTimeMillis();
+                if (secondTime - firstTime > 2000) { //如果两次按键时间间隔大于2秒，则不退出
+                    Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                    firstTime = secondTime;//更新firstTime
+                    return true;
+                } else { //两次按键小于2秒时，退出应用
+                    ActivityManager.getInstance().exit();
+                }
+                break;
+        }
+        return super.onKeyUp(keyCode, event);
     }
 }

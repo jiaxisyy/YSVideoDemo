@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.baidu.mapapi.map.TextureMapView;
 import com.example.shuangxiang.ysvideodemo.R;
+import com.example.shuangxiang.ysvideodemo.manager.ActivityManager;
 import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.p.IMyDeviceMapNavigationP;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.p.IMydeviceMapP;
@@ -54,6 +55,7 @@ public class ReadyNavigationActivity extends BaseActivity implements IMyDeviceMa
 
     @Override
     protected void initSomething() {
+        ActivityManager.getInstance().addActivity(this);
         mAddress = getIntent().getStringExtra("name");
         mStartLatitude = getIntent().getDoubleExtra("startLatitude", DEFAULT_LATITUDE);
         mEndLatitude = getIntent().getDoubleExtra("endLatitude", DEFAULT_LATITUDE);

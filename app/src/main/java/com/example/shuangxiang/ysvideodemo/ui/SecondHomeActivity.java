@@ -9,7 +9,9 @@ import android.view.MenuItem;
 
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.utils.Utils;
+import com.example.shuangxiang.ysvideodemo.manager.ActivityManager;
 import com.example.shuangxiang.ysvideodemo.ui.data.DataShowFragment;
+import com.example.shuangxiang.ysvideodemo.ui.setting.parameter.ParameterFragment;
 
 import butterknife.BindView;
 
@@ -28,6 +30,7 @@ public class SecondHomeActivity extends BaseActivity {
 
     @Override
     protected void initSomething() {
+        ActivityManager.getInstance().addActivity(this);
         int[][] states = new int[][]{
                 new int[]{-android.R.attr.state_checked},
                 new int[]{android.R.attr.state_checked}
@@ -54,8 +57,8 @@ public class SecondHomeActivity extends BaseActivity {
 //                                DataShowFragment.class);
                         break;
                     case R.id.bnv_home2_setting:
-//                        Utils.replace(getSupportFragmentManager(), R.id.fl_home2,
-//                                DataShowFragment.class);
+                        Utils.replace(getSupportFragmentManager(), R.id.fl_home2,
+                                ParameterFragment.class);
                         break;
 
                 }
@@ -66,8 +69,15 @@ public class SecondHomeActivity extends BaseActivity {
     }
 
     private void setDefaultFragment() {
-        Utils.replace(getSupportFragmentManager(), R.id.fl_home2,
-                DataShowFragment.class);
+        String flag = getIntent().getStringExtra("flag");
+        if (flag.equals("monitoring")) {
+            Utils.replace(getSupportFragmentManager(), R.id.fl_home2,
+                    DataShowFragment.class);
+        } else if (flag.equals("setting")) {
+            Utils.replace(getSupportFragmentManager(), R.id.fl_home2,
+                    ParameterFragment.class);
+        }
+
 
     }
 

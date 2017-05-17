@@ -12,6 +12,7 @@ import android.view.WindowManager;
 
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
+import com.example.shuangxiang.ysvideodemo.manager.ActivityManager;
 import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.adapter.MyViewPagerAdapter;
 
@@ -43,6 +44,7 @@ public class WarningActivity extends BaseActivity {
 
     @Override
     protected void initSomething() {
+        ActivityManager.getInstance().addActivity(this);
         setImmerseLayout(mTbWarning);
         mTbWarning.setTitle("");
         mTbWarning.setNavigationIcon(R.drawable.icon_back);

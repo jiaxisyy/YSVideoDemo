@@ -9,6 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.shuangxiang.ysvideodemo.R;
+import com.example.shuangxiang.ysvideodemo.manager.ActivityManager;
 import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
 
 import butterknife.BindView;
@@ -32,6 +33,7 @@ public class AboutKawaActivity extends BaseActivity {
 
     @Override
     protected void initSomething() {
+        ActivityManager.getInstance().addActivity(this);
         mTbAboutKawa.setNavigationIcon(R.drawable.icon_back);
         mTbAboutKawa.setTitle("");
         setSupportActionBar(mTbAboutKawa);

@@ -17,6 +17,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.example.shuangxiang.ysvideodemo.R;
+import com.example.shuangxiang.ysvideodemo.manager.ActivityManager;
 import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
 
 import butterknife.BindView;
@@ -46,6 +47,7 @@ public class MyServiceActivity extends BaseActivity implements IMyService {
 
     @Override
     protected void initSomething() {
+        ActivityManager.getInstance().addActivity(this);
         mTbMyservice.setNavigationIcon(R.drawable.icon_back);
         mTbMyservice.setTitle("");
         setSupportActionBar(mTbMyservice);

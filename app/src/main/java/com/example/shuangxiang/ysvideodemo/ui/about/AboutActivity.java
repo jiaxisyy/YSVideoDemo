@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.example.shuangxiang.ysvideodemo.R;
+import com.example.shuangxiang.ysvideodemo.manager.ActivityManager;
 import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
 import com.example.shuangxiang.ysvideodemo.ui.about.kawa.AboutKawaActivity;
 import com.example.shuangxiang.ysvideodemo.ui.about.privacy.PrivacyActivity;
@@ -39,6 +40,7 @@ public class AboutActivity extends BaseActivity {
 
     @Override
     protected void initSomething() {
+        ActivityManager.getInstance().addActivity(this);
         setImmerseLayout(mTbAbout);
         mTbAbout.setNavigationIcon(R.drawable.icon_back);
         mTbAbout.setTitle("");

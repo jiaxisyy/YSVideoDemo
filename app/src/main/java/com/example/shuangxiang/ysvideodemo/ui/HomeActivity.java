@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.utils.Utils;
+import com.example.shuangxiang.ysvideodemo.manager.ActivityManager;
 import com.example.shuangxiang.ysvideodemo.ui.home.HomeFragment;
 import com.example.shuangxiang.ysvideodemo.ui.myself.MyselfFragment;
 
@@ -43,6 +44,7 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     protected void initSomething() {
+        ActivityManager.getInstance().addActivity(this);
 //        mBnv.setItemTextColor(resources.getColorStateList(R.drawable.selector_home_bottom,
 //                null));
 //        mBnv.setItemIconTintList(resources.getColorStateList(R.drawable.selector_home_bottom, null));

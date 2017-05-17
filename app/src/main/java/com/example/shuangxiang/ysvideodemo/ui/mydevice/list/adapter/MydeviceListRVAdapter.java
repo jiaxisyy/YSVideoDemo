@@ -61,6 +61,7 @@ public class MydeviceListRVAdapter extends RecyclerView.Adapter {
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView mTitle;
 
+
         public MyViewHolder(View itemView) {
             super(itemView);
             mTitle = (TextView) itemView.findViewById(R.id.tv_item_mydevice_listName);

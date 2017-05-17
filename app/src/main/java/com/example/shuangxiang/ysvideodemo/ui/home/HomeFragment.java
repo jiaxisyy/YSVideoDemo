@@ -80,7 +80,6 @@ public class HomeFragment extends BaseFragment implements IHomeFragmentView, IHo
 
     @Override
     protected void init() {
-
         setImmerseLayout(mTbHome);
         setBanner();
         mProductPresenter = new HomeProductPresenter(this, getActivity());
@@ -89,7 +88,6 @@ public class HomeFragment extends BaseFragment implements IHomeFragmentView, IHo
 
 
     }
-
 
 
     @Override
@@ -117,13 +115,18 @@ public class HomeFragment extends BaseFragment implements IHomeFragmentView, IHo
                 startActivity(new Intent(getActivity(), MyDeviceActivity.class));
                 break;
             case R.id.ll_home_monitoring:
-                startActivity(new Intent(getActivity(), SecondHomeActivity.class));
+                Intent intentM = new Intent(getActivity(), SecondHomeActivity.class);
+
+                intentM.putExtra("flag", "monitoring");
+                startActivity(intentM);
                 break;
             case R.id.ll_home_warning:
                 startActivity(new Intent(getActivity(), WarningActivity.class));
                 break;
             case R.id.ll_home_setting:
-                startActivity(new Intent(getActivity(), SecondHomeActivity.class));
+                Intent intentS = new Intent(getActivity(), SecondHomeActivity.class);
+                intentS.putExtra("flag", "setting");
+                startActivity(intentS);
                 break;
         }
     }

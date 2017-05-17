@@ -13,6 +13,7 @@ import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.common.utils.CacheUtils;
 import com.example.shuangxiang.ysvideodemo.login.view.LoginActivity;
+import com.example.shuangxiang.ysvideodemo.manager.ActivityManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,7 @@ public class StartPagerActivity extends BaseActivity {
 
     @Override
     protected void initSomething() {
+        ActivityManager.getInstance().addActivity(this);
 
         LayoutInflater inflater = LayoutInflater.from(this);
         //获取四个view

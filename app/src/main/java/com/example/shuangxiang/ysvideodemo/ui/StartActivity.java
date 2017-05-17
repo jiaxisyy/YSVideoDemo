@@ -10,6 +10,7 @@ import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.common.utils.CacheUtils;
 import com.example.shuangxiang.ysvideodemo.login.view.LoginActivity;
+import com.example.shuangxiang.ysvideodemo.manager.ActivityManager;
 
 /**
  * Created by shuang.xiang on 2017/4/17.
@@ -29,6 +30,7 @@ public class StartActivity extends BaseActivity {
 
     @Override
     protected void initSomething() {
+        ActivityManager.getInstance().addActivity(this);
         final boolean isFirst = CacheUtils.getBoolean(StartActivity.this, Constants.Define.FIRST_START, true);
 
         new Thread(new Runnable() {

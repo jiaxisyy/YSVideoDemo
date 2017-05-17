@@ -26,6 +26,7 @@ import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.utils.CustomToast;
 import com.example.shuangxiang.ysvideodemo.feedback.p.FeedbackP;
 import com.example.shuangxiang.ysvideodemo.feedback.v.IFeedBackV;
+import com.example.shuangxiang.ysvideodemo.manager.ActivityManager;
 import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
 
 import java.io.File;
@@ -66,6 +67,7 @@ public class FeedbackActivity extends BaseActivity implements IFeedBackV {
 
     @Override
     protected void initSomething() {
+        ActivityManager.getInstance().addActivity(this);
         mToolbar.setNavigationIcon(R.drawable.icon_back);
         mToolbar.setTitle("");
         setSupportActionBar(mToolbar);

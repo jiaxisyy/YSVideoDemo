@@ -28,7 +28,6 @@ import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.rxbus.RxBus;
 import com.example.shuangxiang.ysvideodemo.ui.SecondHomeActivity;
-import com.example.shuangxiang.ysvideodemo.ui.data.DataShowFragment;
 import com.example.shuangxiang.ysvideodemo.ui.data.show.RxListEvent;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.bean.MyDeviceInfo;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.bean.RxMydeviceEvent;
@@ -63,6 +62,7 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
     private double mStartLatitude;
     private double mStartLongitude;
     private boolean mFirstInto = true;
+    private String mId;
 
 
     public MyDeviceMapP(IMyDeviceMapV view, Context context, TextureMapView mapView) {
@@ -175,16 +175,22 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
                         String name = mList.get(0).getName();
                         mSize = mList.size();
                         Log.d("TEST", "MyDeviceMapP->clickAll->name->" + name);
+                        Log.d("TEST", "MyDeviceMapP->clickAll->" + mList.get(0).getLatitude());
                         for (int i = 0; i < mSize; i++) {
                             if (mList.get(i).getOnlineStatus().equals("ONLINE")) {
-                                addMaker(Double.valueOf(mList.get(i).getLatitude()), Double.valueOf(mList.get(i)
-                                        .getLongitude()), MAKERTYPE_ON);
+                                if (!mList.get(i).getLatitude().equals("") && !mList.get(i)
+                                        .getLongitude().equals("")) {
+                                    addMaker(Double.valueOf(mList.get(i).getLatitude()), Double.valueOf(mList.get(i)
+                                            .getLongitude()), MAKERTYPE_ON);
+                                }
                             } else {
-                                addMaker(Double.valueOf(mList.get(i).getLatitude()), Double.valueOf(mList.get(i)
-                                        .getLongitude()), MAKERTYPE_OFF);
+                                if (!mList.get(i).getLatitude().equals("") && !mList.get(i)
+                                        .getLongitude().equals("")) {
+                                    addMaker(Double.valueOf(mList.get(i).getLatitude()), Double.valueOf(mList.get(i)
+                                            .getLongitude()), MAKERTYPE_OFF);
+                                }
                             }
                         }
-
                     }
 
                     @Override
@@ -278,11 +284,12 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
                 String strName = mList.get(i).getName();
                 name.setText("设备名称:  " + strName);
                 address.setText("设备地址:  " + mList.get(i).getAddr());
-                String id = mList.get(i).getId();
+                mId = mList.get(i).getId();
+                String dataTemplateId = mList.get(i).getDataTemplateId();
                 mIntent.putExtra("name", strName);
-                rxBus.post(Constants.Define.RXBUS_MYDEVICEMAP_TO_DATASHOW_CODE, new RxListEvent(id));
-                Log.d("TEST", "MyDeviceMapP->id=" + id);
-                mIToDataShow.setId(id);
+                rxBus.post(Constants.Define.RXBUS_MYDEVICEMAP_TO_DATASHOW_CODE, new RxListEvent(mId));
+                Log.d("TEST", "MyDeviceMapP->id=" + mId);
+                Log.d("TEST", "MyDeviceMapP->dataTemplateId=" + dataTemplateId);
             }
         }
         //导航
@@ -300,6 +307,8 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, SecondHomeActivity.class);
+                intent.putExtra("flag", "monitoring");
+
                 mContext.startActivity(intent);
             }
         });
@@ -313,10 +322,8 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
     public interface IToDataShow {
         void setId(String id);
     }
-
-    private static IToDataShow mIToDataShow = new DataShowFragment();
-
-    public static void register(IToDataShow iToDataShow) {
-        mIToDataShow = iToDataShow;
+    private static IToDataShow mIToDataShow;
+    public void sendID(String id) {
+        mIToDataShow.setId(id);
     }
 }

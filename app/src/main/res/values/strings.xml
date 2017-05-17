@@ -148,4 +148,7 @@
     <string name="change_to_traditional">地图切换为繁体</string>
     <string name="change_to_simplified_tips">已切换为简体，请在地图图层页看效果</string>
     <string name="change_to_traditional_tips">已切换为繁体，请在地图图层页看效果</string>
+    <string name="tv_system_setting">系统设置</string>
+    <string name="tv_setting_parameter">参数设置</string>
+    <string name="tv_setting_control">控制设置</string>
 </resources>

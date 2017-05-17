@@ -9,6 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.shuangxiang.ysvideodemo.R;
+import com.example.shuangxiang.ysvideodemo.manager.ActivityManager;
 import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
 
 import butterknife.BindView;
@@ -31,6 +32,7 @@ public class PrivacyActivity extends BaseActivity {
 
     @Override
     protected void initSomething() {
+        ActivityManager.getInstance().addActivity(this);
         mTbPrivacy.setNavigationIcon(R.drawable.icon_back);
         mTbPrivacy.setTitle("");
         setSupportActionBar(mTbPrivacy);

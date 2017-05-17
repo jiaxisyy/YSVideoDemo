@@ -23,6 +23,7 @@ public abstract class BaseActivity extends AutoLayoutActivity {
             initContentView(savedInstanceState);
         mUnbinder = ButterKnife.bind(this);
         initSomething();
+
     }
 
     protected abstract void initContentView(Bundle savedInstanceState);

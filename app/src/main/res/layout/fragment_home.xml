@@ -60,6 +60,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:visibility="gone"
                 android:id="@+id/ll_home_monitoring"
                 android:layout_width="0px"
                 android:layout_height="match_parent"
@@ -99,6 +100,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:visibility="gone"
                 android:id="@+id/ll_home_setting"
                 android:layout_width="0px"
                 android:layout_height="match_parent"
