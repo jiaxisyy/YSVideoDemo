@@ -1,8 +1,15 @@
 package com.example.shuangxiang.ysvideodemo.ui.setting.parameter.p;
 
+import com.example.shuangxiang.ysvideodemo.ui.setting.parameter.bean.ParameterInfo;
+
 /**
  * Created by shuang.xiang on 2017/5/17.
  */
 
 public interface ISettingParameterP {
+    void getTitleSucceed(ParameterInfo[] list);
+
+    void getTitle(String type);
+
+    void getValueSucceed(String s);
 }

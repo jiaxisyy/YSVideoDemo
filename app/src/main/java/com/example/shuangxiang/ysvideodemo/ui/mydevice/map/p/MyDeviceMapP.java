@@ -26,9 +26,9 @@ import com.baidu.mapapi.model.LatLng;
 import com.example.shuangxiang.ysvideodemo.MyLocationListener;
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
+import com.example.shuangxiang.ysvideodemo.common.utils.CacheUtils;
 import com.example.shuangxiang.ysvideodemo.rxbus.RxBus;
 import com.example.shuangxiang.ysvideodemo.ui.SecondHomeActivity;
-import com.example.shuangxiang.ysvideodemo.ui.data.show.RxListEvent;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.bean.MyDeviceInfo;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.bean.RxMydeviceEvent;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.navigation.BNDemoMainActivity;
@@ -63,6 +63,8 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
     private double mStartLongitude;
     private boolean mFirstInto = true;
     private String mId;
+    private Disposable mDisposable;
+    private String mDataTemplateId;
 
 
     public MyDeviceMapP(IMyDeviceMapV view, Context context, TextureMapView mapView) {
@@ -71,7 +73,6 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
         this.mMapView = mapView;
         mLocationClient = new LocationClient(mContext);
     }
-
 
     @Override
     public void clickOn() {
@@ -167,6 +168,8 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
                 .subscribe(new Observer<RxMydeviceEvent>() {
                     @Override
                     public void onSubscribe(Disposable d) {
+                        Log.d("TEST", "MyDeviceMapP->clickAll->onSubscribe->");
+                        mDisposable = d;
                     }
 
                     @Override
@@ -191,6 +194,7 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
                                 }
                             }
                         }
+//                        mDisposable.dispose();
                     }
 
                     @Override
@@ -277,7 +281,7 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
         ImageView dataShow = (ImageView) view.findViewById(R.id.iv_dialog_mapInfoWindow_dataShow);
         ImageView navigation = (ImageView) view.findViewById(R.id.iv_dialog_mapInfoWindow_navigation);
         mIntent = new Intent(mContext, BNDemoMainActivity.class);
-        RxBus rxBus = RxBus.getDefault();
+
         for (int i = 0; i < mSize; i++) {
             if (mList.get(i).getLatitude().equals(String.valueOf(endLatitude)) && mList.get(i)
                     .getLongitude().equals(String.valueOf(endLongitude))) {
@@ -285,11 +289,10 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
                 name.setText("设备名称:  " + strName);
                 address.setText("设备地址:  " + mList.get(i).getAddr());
                 mId = mList.get(i).getId();
-                String dataTemplateId = mList.get(i).getDataTemplateId();
+                mDataTemplateId = mList.get(i).getDataTemplateId();
                 mIntent.putExtra("name", strName);
-                rxBus.post(Constants.Define.RXBUS_MYDEVICEMAP_TO_DATASHOW_CODE, new RxListEvent(mId));
                 Log.d("TEST", "MyDeviceMapP->id=" + mId);
-                Log.d("TEST", "MyDeviceMapP->dataTemplateId=" + dataTemplateId);
+                Log.d("TEST", "MyDeviceMapP->dataTemplateId=" + mDataTemplateId);
             }
         }
         //导航
@@ -308,22 +311,20 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, SecondHomeActivity.class);
                 intent.putExtra("flag", "monitoring");
-
+                CacheUtils.putString(mContext, Constants.Define.MYDEVICE_TO_SECONDHOME_ID, mId);
+                CacheUtils.putString(mContext, Constants.Define.MYDEVICE_TO_SECONDHOME_DATATEMPLATEID, mDataTemplateId);
                 mContext.startActivity(intent);
             }
         });
         LatLng latLng = new LatLng(endLatitude, endLongitude);
-        InfoWindow infoWindow = new InfoWindow(view, latLng, -100);
-        mBaiduMap.showInfoWindow(infoWindow);
+        if (mStartLatitude == endLatitude && mStartLongitude == endLongitude) {
+
+        } else {
+            InfoWindow infoWindow = new InfoWindow(view, latLng, -100);
+            mBaiduMap.showInfoWindow(infoWindow);
+        }
         return false;
-
     }
 
-    public interface IToDataShow {
-        void setId(String id);
-    }
-    private static IToDataShow mIToDataShow;
-    public void sendID(String id) {
-        mIToDataShow.setId(id);
-    }
+
 }

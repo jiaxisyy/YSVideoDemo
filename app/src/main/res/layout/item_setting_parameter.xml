@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
+              android:layout_height="wrap_content"
               android:orientation="vertical">
 
     <TextView
+        android:layout_marginTop="94px"
         android:id="@+id/tv_item_system_setting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,6 +15,7 @@
         android:textSize="40px"/>
 
     <EditText
+        android:inputType="number"
         android:id="@+id/et_item_system_setting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,6 +24,7 @@
         android:background="@drawable/edit_system_parameter"
         android:gravity="center"
         android:text="150.0"
+        android:singleLine="true"
         android:textColor="#627281"
         android:textSize="50px"/>
 </LinearLayout>

@@ -53,7 +53,7 @@
                 />
 
             <ImageView
-                android:id="@+id/iv_control_toParameter"
+                android:id="@+id/iv_control_"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
@@ -63,17 +63,19 @@
                 />
 
             <ImageView
+                android:id="@+id/iv_control_toParameter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_marginRight="38px"
-                android:layout_toStartOf="@+id/iv_control_toParameter"
+                android:layout_toStartOf="@+id/iv_control_"
                 android:src="@drawable/icon_ssetting_parameter_default"/>
         </RelativeLayout>
 
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:background="#ffffff"
         android:id="@+id/rv_setting_control"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

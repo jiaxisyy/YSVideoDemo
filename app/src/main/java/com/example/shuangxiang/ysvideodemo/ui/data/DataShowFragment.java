@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -18,11 +17,14 @@ import android.widget.TextView;
 
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.ui.BaseFragment;
-import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.p.MyDeviceMapP;
 import com.example.shuangxiang.ysvideodemo.ui.warning.WarningActivity;
+
+import org.reactivestreams.Subscription;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 import static com.zhy.autolayout.utils.ScreenUtils.getStatusBarHeight;
 
@@ -30,7 +32,7 @@ import static com.zhy.autolayout.utils.ScreenUtils.getStatusBarHeight;
  * Created by shuang.xiang on 2017/5/2.
  */
 
-public class DataShowFragment extends BaseFragment implements MyDeviceMapP.IToDataShow {
+public class DataShowFragment extends BaseFragment {
     @BindView(R.id.iv_monitoring_notice)
     ImageView mIvMonitoringNotice;
     @BindView(R.id.tb_data_monitoring)
@@ -45,6 +47,9 @@ public class DataShowFragment extends BaseFragment implements MyDeviceMapP.IToDa
     TextView mTvDataShowCircleUnit;
     @BindView(R.id.ll_dataShow_circle)
     LinearLayout mLlDataShowCircle;
+    private Subscription mSubscription;
+    private Disposable mDisposable;
+    private CompositeDisposable compositeDisposable;
 
     @Override
     protected int getLayoutId() {
@@ -70,7 +75,6 @@ public class DataShowFragment extends BaseFragment implements MyDeviceMapP.IToDa
         }
 
     }
-
     protected void setImmerseLayout(View view) {
         //先将状态栏透明化
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -107,10 +111,5 @@ public class DataShowFragment extends BaseFragment implements MyDeviceMapP.IToDa
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void setId(String id) {
 
-
-        Log.d("TEST", "id=" + id);
-    }
 }

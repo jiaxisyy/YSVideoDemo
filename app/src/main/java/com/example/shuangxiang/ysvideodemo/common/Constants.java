@@ -29,6 +29,8 @@ public class Constants {
         int RXBUS_COOKIE_CODE = 1;
         int RXBUS_MYDEVICELISTP_CODE = 2;
         int RXBUS_MYDEVICEMAP_TO_DATASHOW_CODE = 3;
+        String MYDEVICE_TO_SECONDHOME_ID = "mydevice_to_secondhome_id";
+        String MYDEVICE_TO_SECONDHOME_DATATEMPLATEID="mydevice_to_secondhome_datatemplateid";
     }
 
 }

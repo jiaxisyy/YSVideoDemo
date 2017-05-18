@@ -14,11 +14,13 @@ import com.example.shuangxiang.ysvideodemo.retrofit.IDownloadRequest;
 import com.example.shuangxiang.ysvideodemo.retrofit.IHomePictureRequest;
 import com.example.shuangxiang.ysvideodemo.retrofit.ILoginRequest;
 import com.example.shuangxiang.ysvideodemo.retrofit.IMyDeviceListRequest;
+import com.example.shuangxiang.ysvideodemo.retrofit.ISettingRequest;
 import com.example.shuangxiang.ysvideodemo.retrofit.IUploadFileRequest;
 import com.example.shuangxiang.ysvideodemo.retrofit.IWarningListRequest;
 import com.example.shuangxiang.ysvideodemo.ui.data.show.bean.DataShowBottomTitle;
 import com.example.shuangxiang.ysvideodemo.ui.home.product.bean.ProductInfo;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.bean.MyDeviceInfo;
+import com.example.shuangxiang.ysvideodemo.ui.setting.parameter.bean.ParameterInfo;
 import com.example.shuangxiang.ysvideodemo.ui.warning.record.bean.WarningInfo;
 import com.google.gson.Gson;
 
@@ -55,6 +57,7 @@ public class ApiManager {
     private IWarningListRequest sWarningListRequest;
     private OkHttpClient mSOkHttpClient;
     private IDataShowRequest mIDataShowRequest;
+    private ISettingRequest mISettingRequest;
 
     public ApiManager(Context context) {
         mContext = context;
@@ -187,14 +190,35 @@ public class ApiManager {
     }
 
     /**
-     *
      * 数据显示界面下面的标题获取
+     *
      * @param url
      * @return
      */
     public Observable<List<DataShowBottomTitle>> getTitle(String url) {
         mIDataShowRequest = sRetrofit.create(IDataShowRequest.class);
         return mIDataShowRequest.getDataShowBottomTitle(url);
+    }
+
+    /**
+     * 获取参数设置的标题
+     *
+     * @param url
+     * @return
+     */
+    public Observable<ParameterInfo[]> getParameterTitle(String url) {
+        mISettingRequest = sRetrofit.create(ISettingRequest.class);
+        return mISettingRequest.getParameterTitle(url);
+    }
+
+    /**
+     *
+     * 获取参数设置的值
+     * @param url
+     * @return
+     */
+    public Observable<String> getParameterValue(String url) {
+        return mISettingRequest.getParameterValue(url);
     }
 
 

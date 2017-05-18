@@ -5,4 +5,6 @@ package com.example.shuangxiang.ysvideodemo.ui.setting.parameter.m;
  */
 
 public interface ISettingParameterM {
+    void getParameterTitle(String url);
+    void getParameterValue(String url);
 }

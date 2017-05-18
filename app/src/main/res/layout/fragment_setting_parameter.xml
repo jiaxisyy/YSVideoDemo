@@ -73,9 +73,12 @@
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:background="#ffffff"
+        android:layout_weight="1"
         android:id="@+id/rv_setting_parameter"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:descendantFocusability="beforeDescendants"
+        android:layout_height="0px">
 
     </android.support.v7.widget.RecyclerView>
 </LinearLayout>
