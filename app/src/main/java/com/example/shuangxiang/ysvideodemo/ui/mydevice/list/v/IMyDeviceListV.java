@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IMyDeviceListV {
 
-    void setData(List<String> names, List<String> status);
+    void setData(List<String> names, List<String> status,List<String> ids,List<String> dataTemplateIds);
 
     String getName();
 

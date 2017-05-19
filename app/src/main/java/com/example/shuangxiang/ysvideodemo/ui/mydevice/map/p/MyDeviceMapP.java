@@ -65,6 +65,7 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
     private String mId;
     private Disposable mDisposable;
     private String mDataTemplateId;
+    private String mStrName;
 
 
     public MyDeviceMapP(IMyDeviceMapV view, Context context, TextureMapView mapView) {
@@ -174,7 +175,9 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
 
                     @Override
                     public void onNext(RxMydeviceEvent o) {
+
                         mList = o.getList();
+                        if(mList!=null&&mList.size()>0){
                         String name = mList.get(0).getName();
                         mSize = mList.size();
                         Log.d("TEST", "MyDeviceMapP->clickAll->name->" + name);
@@ -193,6 +196,7 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
                                             .getLongitude()), MAKERTYPE_OFF);
                                 }
                             }
+                        }
                         }
 //                        mDisposable.dispose();
                     }
@@ -285,12 +289,13 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
         for (int i = 0; i < mSize; i++) {
             if (mList.get(i).getLatitude().equals(String.valueOf(endLatitude)) && mList.get(i)
                     .getLongitude().equals(String.valueOf(endLongitude))) {
-                String strName = mList.get(i).getName();
-                name.setText("设备名称:  " + strName);
+                mStrName = mList.get(i).getName();
+                name.setText("设备名称:  " + mStrName);
                 address.setText("设备地址:  " + mList.get(i).getAddr());
                 mId = mList.get(i).getId();
                 mDataTemplateId = mList.get(i).getDataTemplateId();
-                mIntent.putExtra("name", strName);
+                mIntent.putExtra("name", mStrName);
+
                 Log.d("TEST", "MyDeviceMapP->id=" + mId);
                 Log.d("TEST", "MyDeviceMapP->dataTemplateId=" + mDataTemplateId);
             }
@@ -313,6 +318,7 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
                 intent.putExtra("flag", "monitoring");
                 CacheUtils.putString(mContext, Constants.Define.MYDEVICE_TO_SECONDHOME_ID, mId);
                 CacheUtils.putString(mContext, Constants.Define.MYDEVICE_TO_SECONDHOME_DATATEMPLATEID, mDataTemplateId);
+                CacheUtils.putString(mContext, Constants.Define.MYDEVICE_TO_SECONDHOME_TBTITLE, mStrName);
                 mContext.startActivity(intent);
             }
         });

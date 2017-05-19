@@ -1,14 +1,17 @@
 package com.example.shuangxiang.ysvideodemo.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.utils.Utils;
@@ -27,6 +30,8 @@ public class HomeActivity extends BaseActivity {
     FrameLayout mFlHome;
     @BindView(R.id.bnv)
     BottomNavigationView mBnv;
+    @BindView(R.id.ll_home_test)
+    LinearLayout mLinearLayout;
     private Bundle mInstanceState;
     protected Activity mActivity;
     private FragmentTransaction mTransaction;
@@ -41,9 +46,14 @@ public class HomeActivity extends BaseActivity {
 //        StatusBarUtil.setColor(this, getResources().getColor(R.color.stastusbar_bg),0);
         mInstanceState = savedInstanceState;
     }
-
+    private double getStatusBarHeight(Context context){
+        double statusBarHeight = Math.ceil(25 * context.getResources().getDisplayMetrics().density);
+        return statusBarHeight;
+    }
     @Override
     protected void initSomething() {
+        double statusBarHeight = getStatusBarHeight(this);
+        Log.d("TEST","导航栏高="+statusBarHeight);
         ActivityManager.getInstance().addActivity(this);
 //        mBnv.setItemTextColor(resources.getColorStateList(R.drawable.selector_home_bottom,
 //                null));

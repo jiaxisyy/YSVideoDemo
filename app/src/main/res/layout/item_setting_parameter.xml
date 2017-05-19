@@ -24,6 +24,7 @@
         android:background="@drawable/edit_system_parameter"
         android:gravity="center"
         android:text="150.0"
+        android:imeOptions="actionDone"
         android:singleLine="true"
         android:textColor="#627281"
         android:textSize="50px"/>

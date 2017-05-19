@@ -30,6 +30,8 @@ public class SettingParameterP implements ISettingParameterP {
     private String mDatatemplateid;
     private List<String> mFieldNames;
     private List<String> mNames;
+    private List<String> mIds;
+    private List<String> mUnits;
 
 
     public SettingParameterP(ISettingParameterV ISettingParameterV, Context context) {
@@ -44,13 +46,20 @@ public class SettingParameterP implements ISettingParameterP {
         mFieldNames = new ArrayList<>();
         int size = elements.size();
         mNames = new ArrayList<>();
+        mIds = new ArrayList<>();
+        mUnits = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             String name = elements.get(i).getName();
             String fieldName = elements.get(i).getFieldName();
+            String id = elements.get(i).getId();
+            String unit = elements.get(i).getUnit();
             mFieldNames.add(fieldName);
+            mIds.add(id);
             mNames.add(name);
+            mUnits.add(unit);
             Log.d("TEST", "name=" + name);
         }
+        //设备最新数据
         String valueUrl = Constants.Define.BASE_URL + "dataTemplates/" + mDatatemplateid + "/datas?pageSize=1&showTable=false&deviceId=" + mMTitleId;
         mISettingParameterM.getParameterValue(valueUrl);
     }
@@ -59,8 +68,9 @@ public class SettingParameterP implements ISettingParameterP {
     public void getTitle(String type) {
         mMTitleId = CacheUtils.getString(mContext, Constants.Define.MYDEVICE_TO_SECONDHOME_ID);
         mDatatemplateid = CacheUtils.getString(mContext, Constants.Define.MYDEVICE_TO_SECONDHOME_DATATEMPLATEID);
+        //获取元件类别列表
         String url = Constants.Define.BASE_URL + "devices/" + mMTitleId +
-                "/elementCategorys?type="+type;
+                "/elementCategorys?type=" + type;
         Log.d("TEST", "url=" + url);
         mISettingParameterM.getParameterTitle(url);
     }
@@ -70,22 +80,20 @@ public class SettingParameterP implements ISettingParameterP {
         Log.d("TEST", "json=" + s);
         try {
             JSONObject jsonObject = new JSONObject(s);
-            JSONArray jsonArray=jsonObject.getJSONArray("list");
+            JSONArray jsonArray = jsonObject.getJSONArray("list");
             List<String> values = new ArrayList<>();
             int size = mFieldNames.size();
-            for (int i = 0;i<jsonArray.length();i++){
-                JSONObject object=jsonArray.getJSONObject(i);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject object = jsonArray.getJSONObject(i);
                 for (int j = 0; j < size; j++) {
                     String value = object.getString(mFieldNames.get(j));
                     values.add(value);
                 }
-
             }
-            mISettingParameterV.setRvData(mNames, values);
-
+            mISettingParameterV.setRvData(mNames, values, mIds,mUnits);
         } catch (JSONException e) {
             e.printStackTrace();
-            Log.e("ERROR",e.getMessage().toString());
+            Log.e("ERROR", e.getMessage().toString());
         }
 
 

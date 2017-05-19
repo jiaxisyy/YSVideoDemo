@@ -67,6 +67,11 @@ public class MyDeviceMapFragment extends BaseFragment implements IMyDeviceMapV {
     }
 
     @Override
+    protected boolean isCache() {
+        return false;
+    }
+
+    @Override
     public void showDeviceOn() {
 
     }

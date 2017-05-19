@@ -34,14 +34,20 @@ public class MyDeviceListP implements IMyDeviceListP {
     public void getAllDeviceSucceed(List<MyDeviceInfo.ListBean> list) {
         List<String> names = new ArrayList<>();
         List<String> status = new ArrayList<>();
+        List<String> ids = new ArrayList<>();
+        List<String> dataTemplateIds = new ArrayList<>();
         int size = list.size();
         for (int i = 0; i < size; i++) {
             names.add(list.get(i).getName());
             status.add(list.get(i).getOnlineStatus());
+            ids.add(list.get(i).getId());
+            dataTemplateIds.add(list.get(i).getDataTemplateId());
         }
         names.add("测试收费站");
         status.add("ONLINE");
-        mView.setData(names, status);
-        RxBus.getDefault().post(Constants.Define.RXBUS_MYDEVICELISTP_CODE,new RxMydeviceEvent(list));
+        ids.add("123456");
+        dataTemplateIds.add("9999");
+        mView.setData(names, status, ids, dataTemplateIds);
+        RxBus.getDefault().post(Constants.Define.RXBUS_MYDEVICELISTP_CODE, new RxMydeviceEvent(list));
     }
 }

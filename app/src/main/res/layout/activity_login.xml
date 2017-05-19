@@ -52,7 +52,7 @@
         android:layout_alignStart="@+id/et_login_userName"
         android:layout_below="@+id/et_login_userName"
         android:background="@null"
-        android:inputType="numberPassword"
+        android:inputType="textPassword"
         android:paddingLeft="74px"
         android:singleLine="true"
         android:text="@string/login_password"

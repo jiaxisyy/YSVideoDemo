@@ -9,12 +9,12 @@
         android:id="@+id/tb_data_monitoring"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#4498E4"
+        android:background="#449AE5"
         android:clipToPadding="true"
         android:fitsSystemWindows="true"
         >
-
         <TextView
+            android:id="@+id/tv_dataShow_titleIn_Tb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -22,7 +22,6 @@
             android:textColor="#FFFFFF"
             android:textSize="16sp"
             />
-
         <ImageView
             android:id="@+id/iv_monitoring_notice"
             android:layout_width="wrap_content"
@@ -31,6 +30,7 @@
             android:layout_marginRight="40px"
             android:src="@drawable/icon_monitoring_notice"
             />
+
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout
@@ -57,7 +57,7 @@
             <ImageView
                 android:id="@+id/iv_datashow_analyze"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="74px"
@@ -114,6 +114,14 @@
 
 
         </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_dataMonitoring_showCenter"
+            android:layout_width="match_parent"
+            android:layout_height="120px"
+            android:layout_marginTop="98px">
+
+        </android.support.v7.widget.RecyclerView>
 
 
     </LinearLayout>

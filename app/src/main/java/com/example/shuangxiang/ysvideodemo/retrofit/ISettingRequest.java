@@ -4,6 +4,7 @@ import com.example.shuangxiang.ysvideodemo.ui.setting.parameter.bean.ParameterIn
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.PUT;
 import retrofit2.http.Url;
 
 /**
@@ -28,6 +29,10 @@ public interface ISettingRequest {
      */
     @GET
     Observable<String> getParameterValue(@Url String url);
+
+
+    @PUT
+    Observable<String> setParameterValue(@Url String url);
 
 
 }

@@ -73,6 +73,11 @@ public class WarningRecordFragment extends BaseFragment implements IWarningListV
     }
 
     @Override
+    protected boolean isCache() {
+        return false;
+    }
+
+    @Override
     public void setData(List<WarningInfo.ListBean> data) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setHasFixedSize(true);

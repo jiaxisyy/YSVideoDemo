@@ -51,7 +51,6 @@ public class ControlRvAdapter extends RecyclerView.Adapter {
         TextView mTitle;
         CheckBox mCheckBox;
 
-
         public MyViewHolder(View itemView) {
             super(itemView);
             mTitle = (TextView) itemView.findViewById(R.id.tv_item_control_setting);

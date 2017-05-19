@@ -1,13 +1,17 @@
 package com.example.shuangxiang.ysvideodemo.ui.warning;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baidu.mapapi.map.TextureMapView;
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
-import com.example.shuangxiang.ysvideodemo.ui.BaseFragment;
 import com.example.shuangxiang.ysvideodemo.ui.warning.map.p.WarningMapP;
 import com.example.shuangxiang.ysvideodemo.ui.warning.map.v.IWarningMapV;
 import com.example.shuangxiang.ysvideodemo.ui.warning.record.bean.WarningInfo;
@@ -17,13 +21,15 @@ import com.example.shuangxiang.ysvideodemo.ui.warning.record.v.IWarningListV;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * Created by shuang.xiang on 2017/4/27.
  */
 
-public class WarningMapFragment extends BaseFragment implements IWarningListV, IWarningMapV {
+public class WarningMapFragment extends Fragment implements IWarningListV, IWarningMapV {
     @BindView(R.id.mapView_warning)
     TextureMapView mMapView;
     @BindView(R.id.ll_warning_map_red)
@@ -46,6 +52,7 @@ public class WarningMapFragment extends BaseFragment implements IWarningListV, I
     TextView mTvNumGreen;
     private WarningListP mWarningListP;
     private WarningMapP mWarningMapP;
+    private Unbinder mUnbinder;
 
 
     public WarningMapFragment() {
@@ -66,24 +73,36 @@ public class WarningMapFragment extends BaseFragment implements IWarningListV, I
         return instance;
     }
 
+    @Nullable
     @Override
-    protected int getLayoutId() {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(getLayoutId(), container, false);
+        mUnbinder = ButterKnife.bind(this, view);
+        init();
+        initData();
+        return view;
+    }
+
+    private int getLayoutId() {
         return R.layout.fragment_warning_map;
     }
 
-    @Override
-    protected void init() {
+
+    private void init() {
         mWarningListP = new WarningListP(this);
         mWarningListP.getResouce();
         mMapView.showZoomControls(false);
     }
 
-    @Override
-    protected void initData() {
 
+    private void initData() {
 
     }
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mUnbinder.unbind();
+    }
 
     @OnClick({R.id.ll_warning_map_red, R.id.ll_warning_map_orange, R.id.ll_warning_map_yellow, R.id.ll_warning_map_green, R.id.ll_warning_map_all})
     public void onViewClicked(View view) {

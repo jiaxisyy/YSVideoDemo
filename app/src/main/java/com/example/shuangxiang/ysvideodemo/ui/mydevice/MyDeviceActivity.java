@@ -155,7 +155,7 @@ public class MyDeviceActivity extends BaseActivity implements IMyDeviceListV,Act
     }
 
     @Override
-    public void setData(List<String> names, List<String> status) {
+    public void setData(List<String> names, List<String> status,List<String> ids,List<String> dataTemplateIds) {
         int size = names.size();
         if(size>0){
             mTvAllDevice.setText(String.valueOf(size));

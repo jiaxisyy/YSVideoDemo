@@ -82,6 +82,11 @@ public class MyselfFragment extends BaseFragment implements IMyselfFragmentV, ID
         mDownloadPresernter.checkVersion();
     }
 
+    @Override
+    protected boolean isCache() {
+        return true;
+    }
+
     @OnClick(R.id.rl_myself_myservice)
     public void onViewClicked() {
         startActivity(new Intent(getActivity(), MyServiceActivity.class));
@@ -156,8 +161,12 @@ public class MyselfFragment extends BaseFragment implements IMyselfFragmentV, ID
 
     @Override
     public void hintNewestVersion() {
-        mTvNewest.setVisibility(View.INVISIBLE);
-        mRlUpdate.setClickable(true);
+        if(mTvNewest!=null&&mRlUpdate!=null){
+            mTvNewest.setVisibility(View.INVISIBLE);
+            mRlUpdate.setClickable(true);
+        }
+
+
     }
 
     @Override

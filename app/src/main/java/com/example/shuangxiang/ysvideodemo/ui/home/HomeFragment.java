@@ -95,6 +95,11 @@ public class HomeFragment extends BaseFragment implements IHomeFragmentView, IHo
 
     }
 
+    @Override
+    protected boolean isCache() {
+        return true;
+    }
+
 
     protected void setImmerseLayout(View view) {
         //先将状态栏透明化

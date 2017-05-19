@@ -69,20 +69,9 @@ public class SecondHomeActivity extends BaseActivity {
     }
 
     private void setDefaultFragment() {
-        String flag = getIntent().getStringExtra("flag");
 
-        if(flag!=null){
-            if (flag.equals("monitoring")) {
-                Utils.replace(getSupportFragmentManager(), R.id.fl_home2,
-                        DataShowFragment.class);
-            } else if (flag.equals("setting")) {
-                Utils.replace(getSupportFragmentManager(), R.id.fl_home2,
-                        ParameterFragment.class);
-            }
-        }
-
-
-
+        Utils.replace(getSupportFragmentManager(), R.id.fl_home2,
+                DataShowFragment.class);
     }
 
     @Override

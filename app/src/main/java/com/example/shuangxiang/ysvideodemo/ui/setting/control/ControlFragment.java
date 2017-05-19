@@ -1,5 +1,6 @@
 package com.example.shuangxiang.ysvideodemo.ui.setting.control;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
@@ -11,8 +12,12 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.shuangxiang.ysvideodemo.R;
+import com.example.shuangxiang.ysvideodemo.common.Constants;
+import com.example.shuangxiang.ysvideodemo.common.utils.CacheUtils;
 import com.example.shuangxiang.ysvideodemo.common.utils.Utils;
 import com.example.shuangxiang.ysvideodemo.ui.BaseFragment;
 import com.example.shuangxiang.ysvideodemo.ui.setting.adapter.ControlRvAdapter;
@@ -38,10 +43,13 @@ public class ControlFragment extends BaseFragment implements ISettingParameterV 
     @BindView(R.id.tb_setting_control)
     Toolbar mTb;
     @BindView(R.id.iv_control_toParameter)
-    ImageView mIvControlToParameter;
+    LinearLayout mIvControlToParameter;
     @BindView(R.id.rv_setting_control)
     RecyclerView mRv;
+    @BindView(R.id.tv_control_TbTitle)
+    TextView mTbTitle;
     private ControlRvAdapter mAdapter;
+    private ProgressDialog mDialog;
 
     @Override
     protected int getLayoutId() {
@@ -55,12 +63,24 @@ public class ControlFragment extends BaseFragment implements ISettingParameterV 
         setImmerseLayout(mTb);
         ((AppCompatActivity) getActivity()).setSupportActionBar(mTb);
         setHasOptionsMenu(true);
+        String title = CacheUtils.getString(getActivity(), Constants.Define.MYDEVICE_TO_SECONDHOME_TBTITLE);
+        if (title != null && !title.equals("")) {
+            mTbTitle.setText(title);
+        }
     }
 
     @Override
     protected void initData() {
+        mDialog = new ProgressDialog(getActivity());
+        mDialog.show();
+
         SettingParameterP settingParameterP = new SettingParameterP(this, getActivity());
         settingParameterP.getTitle("CONTROL");
+    }
+
+    @Override
+    protected boolean isCache() {
+        return false;
     }
 
     @Override
@@ -97,7 +117,7 @@ public class ControlFragment extends BaseFragment implements ISettingParameterV 
     }
 
     @Override
-    public void setRvData(List<String> names, List<String> values) {
+    public void setRvData(List<String> names, List<String> values,List<String> ids,List<String> units) {
         //默认显示在线
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRv.setHasFixedSize(true);
@@ -105,5 +125,6 @@ public class ControlFragment extends BaseFragment implements ISettingParameterV 
         mRv.setLayoutManager(layoutManager);
         mAdapter = new ControlRvAdapter(getActivity(), names, values);
         mRv.setAdapter(mAdapter);
+        mDialog.dismiss();
     }
 }

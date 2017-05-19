@@ -14,6 +14,7 @@
         >
 
         <TextView
+            android:id="@+id/tv_control_TbTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -34,7 +35,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="400px"
+        android:layout_height="wrap_content"
         android:background="@drawable/bg_setting_blue_reproduction"
         android:orientation="vertical">
 
@@ -62,22 +63,30 @@
                 android:src="@drawable/icon_setting_control_highliht"
                 />
 
-            <ImageView
+            <LinearLayout
                 android:id="@+id/iv_control_toParameter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="78px"
+                android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:layout_marginRight="38px"
                 android:layout_toStartOf="@+id/iv_control_"
-                android:src="@drawable/icon_ssetting_parameter_default"/>
+                android:gravity="center"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_ssetting_parameter_default"/>
+            </LinearLayout>
+
+
         </RelativeLayout>
 
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:background="#ffffff"
         android:id="@+id/rv_setting_control"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#ffffff">
     </android.support.v7.widget.RecyclerView>
 </LinearLayout>

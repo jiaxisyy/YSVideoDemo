@@ -35,7 +35,6 @@ public class SettingParameterM implements ISettingParameterM {
             public void onNext(ParameterInfo[] parameterInfos) {
                 mSettingParameterP.getTitleSucceed(parameterInfos);
             }
-
             @Override
             public void onError(Throwable e) {
                 Log.e("ERROR", "SettingParameterM->" + e.getMessage().toString());

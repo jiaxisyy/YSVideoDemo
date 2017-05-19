@@ -73,7 +73,7 @@ public class MyDeviceListSearchActivity extends BaseActivity implements IMyDevic
     }
 
     @Override
-    public void setData(List<String> names, List<String> status) {
+    public void setData(List<String> names, List<String> status,List<String> ids,List<String> dataTemplateIds) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setHasFixedSize(true);
         layoutManager.setAutoMeasureEnabled(true);
