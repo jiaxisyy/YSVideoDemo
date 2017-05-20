@@ -6,7 +6,7 @@
               android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/tb_data_monitoring_analyze_warning"
+        android:id="@+id/tb_data_analyze"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#4498E4"
@@ -15,6 +15,7 @@
         >
 
         <TextView
+            android:id="@+id/tv_data_analyze_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -24,7 +25,7 @@
             />
 
         <ImageView
-            android:id="@+id/iv_dataShow_analyze_warning"
+            android:id="@+id/iv_data_analyze_warning"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -54,7 +55,7 @@
                 />
 
             <ImageView
-                android:id="@+id/iv_datashow_analyze_analyze"
+                android:id="@+id/iv_data_analyze_analyze"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
@@ -64,20 +65,38 @@
                 />
 
             <ImageView
-                android:id="@+id/iv_dataShow_analyze_show"
+                android:id="@+id/iv_data_analyze_show"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:layout_marginRight="38px"
-                android:layout_toLeftOf="@+id/iv_datashow_analyze_analyze"
+                android:layout_toLeftOf="@+id/iv_data_analyze_analyze"
                 android:src="@drawable/icon_shujuxianhsi_default"/>
 
         </RelativeLayout>
 
+        <TextView
+            android:id="@+id/tv_data_analyze_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="208px"
+            android:singleLine="true"
+            android:text="节能分析"
+            android:textColor="#ffffff"
+            android:textSize="80px"/>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@drawable/di_whirte_icon"
+            android:orientation="horizontal">
 
-
+        </LinearLayout>
     </LinearLayout>
+
+
 
 
 </LinearLayout>

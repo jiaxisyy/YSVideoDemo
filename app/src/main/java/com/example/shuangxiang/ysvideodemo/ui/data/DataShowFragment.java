@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -16,12 +17,16 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.common.utils.CacheUtils;
+import com.example.shuangxiang.ysvideodemo.common.utils.CustomToast;
 import com.example.shuangxiang.ysvideodemo.ui.BaseFragment;
 import com.example.shuangxiang.ysvideodemo.ui.data.show.adapter.DataShowBottomRvAdapter;
+import com.example.shuangxiang.ysvideodemo.ui.data.show.adapter.DataShowCenterRvAdapter;
+import com.example.shuangxiang.ysvideodemo.ui.data.show.adapter.SpacesItemDecoration;
 import com.example.shuangxiang.ysvideodemo.ui.setting.parameter.p.SettingParameterP;
 import com.example.shuangxiang.ysvideodemo.ui.setting.parameter.v.ISettingParameterV;
 import com.example.shuangxiang.ysvideodemo.ui.warning.WarningActivity;
@@ -32,7 +37,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
@@ -60,14 +64,18 @@ public class DataShowFragment extends BaseFragment implements ISettingParameterV
     @BindView(R.id.ll_dataShow_circle)
     LinearLayout mLlDataShowCircle;
     @BindView(R.id.rv_dataMonitoring_showBottom)
-    RecyclerView mRv;
-    Unbinder unbinder;
+    RecyclerView mRvBottom;
+    @BindView(R.id.rv_dataMonitoring_showCenter)
+    RecyclerView mRvCenter;
+
     private Subscription mSubscription;
     private Disposable mDisposable;
     private CompositeDisposable compositeDisposable;
     private SettingParameterP mSettingParameterP;
-    private DataShowBottomRvAdapter mAdapter;
-    private GridLayoutManager mLayoutManager;
+    private DataShowBottomRvAdapter mAdapterBottom;
+    private GridLayoutManager mLayoutManagerBottom;
+    private LinearLayoutManager mLayoutManagerCenter;
+    private DataShowCenterRvAdapter mRvAdapterCenter;
 
     @Override
     protected int getLayoutId() {
@@ -143,12 +151,45 @@ public class DataShowFragment extends BaseFragment implements ISettingParameterV
 
 
     @Override
-    public void setRvData(List<String> names, List<String> values, List<String> ids,List<String> units) {
-        mLayoutManager = new GridLayoutManager(getActivity(),3);
-        mRv.setHasFixedSize(true);
-        mLayoutManager.setAutoMeasureEnabled(true);
-        mRv.setLayoutManager(mLayoutManager);
-        mAdapter = new DataShowBottomRvAdapter(getActivity(), names, values,units);
-        mRv.setAdapter(mAdapter);
+    public void setRvData(final List<String> names, final List<String> values, List<String> ids, final List<String> units) {
+
+        if (names != null && names.size() > 0 && values != null && values.size() > 0 && ids != null && ids.size()
+                > 0 && units != null && units.size() > 0) {
+            mLayoutManagerBottom = new GridLayoutManager(getActivity(), 3);
+            mRvBottom.setHasFixedSize(true);
+            mLayoutManagerBottom.setAutoMeasureEnabled(true);
+            mRvBottom.setLayoutManager(mLayoutManagerBottom);
+            mAdapterBottom = new DataShowBottomRvAdapter(getActivity(), names, values, units);
+            mRvBottom.setAdapter(mAdapterBottom);
+            //***************************************
+            //***************************************
+            //***************************************
+            mLayoutManagerCenter = new LinearLayoutManager(getActivity(),
+                    LinearLayoutManager.HORIZONTAL, false);
+            mRvCenter.setHasFixedSize(true);
+            mLayoutManagerCenter.setAutoMeasureEnabled(true);
+            mRvCenter.setLayoutManager(mLayoutManagerCenter);
+            mRvAdapterCenter = new DataShowCenterRvAdapter(getActivity(), names);
+            mRvCenter.addItemDecoration(new SpacesItemDecoration(Constants.Define.DATASHOW_CENTER_SPACINGINPIXELS));
+            mRvCenter.setAdapter(mRvAdapterCenter);
+
+            //默认设置圆的值
+            mTvDataShowCircleTitle.setText(names.get(0));
+            mTvDataShowCircleNum.setText(values.get(0));
+            mTvDataShowCircleUnit.setText("单位: " + units.get(0));
+
+            mRvAdapterCenter.setItemClickListener(new DataShowCenterRvAdapter.MyItemClickListener() {
+                @Override
+                public void itemClick(View view, int position) {
+                    mTvDataShowCircleTitle.setText(names.get(position));
+                    mTvDataShowCircleNum.setText(values.get(position));
+                    mTvDataShowCircleUnit.setText("单位: " + units.get(position));
+                }
+            });
+        } else {
+            CustomToast.showToast(getActivity(), "数据错误", Toast.LENGTH_SHORT);
+        }
     }
+
+
 }

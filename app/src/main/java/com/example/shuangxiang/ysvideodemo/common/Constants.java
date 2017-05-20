@@ -32,6 +32,7 @@ public class Constants {
         String MYDEVICE_TO_SECONDHOME_ID = "mydevice_to_secondhome_id";//设备列表返回的ID
         String MYDEVICE_TO_SECONDHOME_DATATEMPLATEID="mydevice_to_secondhome_datatemplateid";
         String MYDEVICE_TO_SECONDHOME_TBTITLE="mydevice_to_secondhome_tbtitle";
+        int DATASHOW_CENTER_SPACINGINPIXELS = 80;
     }
 
 }

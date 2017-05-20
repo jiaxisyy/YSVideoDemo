@@ -116,10 +116,12 @@
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
+            android:layout_marginLeft="150px"
+            android:layout_marginRight="150px"
             android:id="@+id/rv_dataMonitoring_showCenter"
             android:layout_width="match_parent"
-            android:layout_height="120px"
-            android:layout_marginTop="98px">
+            android:layout_height="150px"
+            android:layout_marginTop="30px">
 
         </android.support.v7.widget.RecyclerView>
 

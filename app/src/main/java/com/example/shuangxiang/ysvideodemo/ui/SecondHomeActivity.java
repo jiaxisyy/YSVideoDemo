@@ -11,6 +11,7 @@ import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.utils.Utils;
 import com.example.shuangxiang.ysvideodemo.manager.ActivityManager;
 import com.example.shuangxiang.ysvideodemo.ui.data.DataShowFragment;
+import com.example.shuangxiang.ysvideodemo.ui.monitoring.VideoFragment;
 import com.example.shuangxiang.ysvideodemo.ui.setting.parameter.ParameterFragment;
 
 import butterknife.BindView;
@@ -53,8 +54,8 @@ public class SecondHomeActivity extends BaseActivity {
                                 DataShowFragment.class);
                         break;
                     case R.id.bnv_home2_monitoring:
-//                        Utils.replace(getSupportFragmentManager(), R.id.fl_home2,
-//                                DataShowFragment.class);
+                        Utils.replace(getSupportFragmentManager(), R.id.fl_home2,
+                                VideoFragment.class);
                         break;
                     case R.id.bnv_home2_setting:
                         Utils.replace(getSupportFragmentManager(), R.id.fl_home2,

@@ -151,4 +151,5 @@
     <string name="tv_system_setting">系统设置</string>
     <string name="tv_setting_parameter">参数设置</string>
     <string name="tv_setting_control">控制设置</string>
+    <string name="tv_monitoring_video">数据监控</string>
 </resources>

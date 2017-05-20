@@ -20,6 +20,7 @@ import com.example.shuangxiang.ysvideodemo.common.utils.Utils;
 import com.example.shuangxiang.ysvideodemo.login.presenter.LoginPresenter;
 import com.example.shuangxiang.ysvideodemo.manager.ActivityManager;
 import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
+import com.videogo.openapi.EZOpenSDK;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -185,10 +186,25 @@ public class LoginActivity extends BaseActivity implements ILoginView {
                     firstTime = secondTime;//更新firstTime
                     return true;
                 } else { //两次按键小于2秒时，退出应用
+//                    logoutEZO();
                     ActivityManager.getInstance().exit();
                 }
                 break;
         }
         return super.onKeyUp(keyCode, event);
+    }
+
+    /**
+     *
+     * 退出萤石云登录账号
+     */
+    private void logoutEZO() {
+        final EZOpenSDK instance = EZOpenSDK.getInstance();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                instance.logout();
+            }
+        }).start();
     }
 }

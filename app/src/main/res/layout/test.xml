@@ -15,5 +15,12 @@
         android:layout_height="wrap_content"
         />
 
+    <WebView
+        android:id="@+id/wv_test"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </WebView>
+
 
 </LinearLayout>

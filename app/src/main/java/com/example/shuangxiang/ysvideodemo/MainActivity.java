@@ -46,11 +46,8 @@ public class MainActivity extends BaseActivity implements SurfaceHolder.Callback
         setContentView(R.layout.activity_main);
 //        ButterKnife.bind(this);
         mInstance = EZOpenSDK.getInstance();
-
         mInstance.openLoginPage();
-
         initView();
-
         new Thread(new Runnable() {
             @Override
             public void run() {
