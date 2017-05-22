@@ -30,9 +30,16 @@ public class Constants {
         int RXBUS_MYDEVICELISTP_CODE = 2;
         int RXBUS_MYDEVICEMAP_TO_DATASHOW_CODE = 3;
         String MYDEVICE_TO_SECONDHOME_ID = "mydevice_to_secondhome_id";//设备列表返回的ID
-        String MYDEVICE_TO_SECONDHOME_DATATEMPLATEID="mydevice_to_secondhome_datatemplateid";
-        String MYDEVICE_TO_SECONDHOME_TBTITLE="mydevice_to_secondhome_tbtitle";
+        String MYDEVICE_TO_SECONDHOME_DATATEMPLATEID = "mydevice_to_secondhome_datatemplateid";
+        String MYDEVICE_TO_SECONDHOME_TBTITLE = "mydevice_to_secondhome_tbtitle";
         int DATASHOW_CENTER_SPACINGINPIXELS = 80;
+        String SERVERDATAERROR = "服务器数据错误";
+        String ANALYZETIMETYPE_HOUR = "1h";
+        String ANALYZETIMETYPE_DAY = "1d";
+        String ANALYZETIMETYPE_WEEK = "1w";
+        String ANALYZETIMETYPE_MONTH = "1M";
+        String ANALYZETIMETYPE_QUARTER = "1q";
+        String ANALYZETIMETYPE_YEAR = "1y";
     }
 
 }

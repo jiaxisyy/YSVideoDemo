@@ -23,7 +23,9 @@ import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.common.utils.CacheUtils;
 import com.example.shuangxiang.ysvideodemo.common.utils.CustomToast;
+import com.example.shuangxiang.ysvideodemo.common.utils.Utils;
 import com.example.shuangxiang.ysvideodemo.ui.BaseFragment;
+import com.example.shuangxiang.ysvideodemo.ui.data.analyze.DataAnalyzeFragment;
 import com.example.shuangxiang.ysvideodemo.ui.data.show.adapter.DataShowBottomRvAdapter;
 import com.example.shuangxiang.ysvideodemo.ui.data.show.adapter.DataShowCenterRvAdapter;
 import com.example.shuangxiang.ysvideodemo.ui.data.show.adapter.SpacesItemDecoration;
@@ -133,12 +135,11 @@ public class DataShowFragment extends BaseFragment implements ISettingParameterV
                 startActivity(new Intent(getActivity(), WarningActivity.class));
                 break;
             case R.id.iv_datashow_analyze:
-
-
+                Utils.replace(getActivity().getSupportFragmentManager(), R.id.fl_home2,
+                        DataAnalyzeFragment.class);
                 break;
         }
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -151,7 +152,8 @@ public class DataShowFragment extends BaseFragment implements ISettingParameterV
 
 
     @Override
-    public void setRvData(final List<String> names, final List<String> values, List<String> ids, final List<String> units) {
+    public void setRvData(final List<String> names, final List<String> values, List<String> ids,
+                          final List<String> units,List<String> defaultAddress) {
 
         if (names != null && names.size() > 0 && values != null && values.size() > 0 && ids != null && ids.size()
                 > 0 && units != null && units.size() > 0) {
@@ -187,7 +189,7 @@ public class DataShowFragment extends BaseFragment implements ISettingParameterV
                 }
             });
         } else {
-            CustomToast.showToast(getActivity(), "数据错误", Toast.LENGTH_SHORT);
+            CustomToast.showToast(getActivity(), Constants.Define.SERVERDATAERROR, Toast.LENGTH_SHORT);
         }
     }
 

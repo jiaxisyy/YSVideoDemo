@@ -120,7 +120,8 @@ public class ParameterFragment extends BaseFragment implements
     }
 
     @Override
-    public void setRvData(List<String> names, List<String> values, final List<String> ids,List<String> units) {
+    public void setRvData(List<String> names, List<String> values, final List<String> ids,
+                          List<String> units,List<String> defaultAddress) {
         //默认显示在线
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRv.setHasFixedSize(true);

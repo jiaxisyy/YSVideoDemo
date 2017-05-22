@@ -117,7 +117,8 @@ public class ControlFragment extends BaseFragment implements ISettingParameterV 
     }
 
     @Override
-    public void setRvData(List<String> names, List<String> values,List<String> ids,List<String> units) {
+    public void setRvData(List<String> names, List<String> values,List<String> ids,List<String>
+            units,List<String> defaultAddress) {
         //默认显示在线
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRv.setHasFixedSize(true);

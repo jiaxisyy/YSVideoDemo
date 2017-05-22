@@ -9,6 +9,7 @@ import com.example.shuangxiang.ysvideodemo.download.bean.AppMessage;
 import com.example.shuangxiang.ysvideodemo.feedback.bean.FeedbackInfo;
 import com.example.shuangxiang.ysvideodemo.feedback.bean.FilePath;
 import com.example.shuangxiang.ysvideodemo.manager.CookieManger;
+import com.example.shuangxiang.ysvideodemo.retrofit.IDataAnalyzeRequest;
 import com.example.shuangxiang.ysvideodemo.retrofit.IDataShowRequest;
 import com.example.shuangxiang.ysvideodemo.retrofit.IDownloadRequest;
 import com.example.shuangxiang.ysvideodemo.retrofit.IHomePictureRequest;
@@ -17,6 +18,8 @@ import com.example.shuangxiang.ysvideodemo.retrofit.IMyDeviceListRequest;
 import com.example.shuangxiang.ysvideodemo.retrofit.ISettingRequest;
 import com.example.shuangxiang.ysvideodemo.retrofit.IUploadFileRequest;
 import com.example.shuangxiang.ysvideodemo.retrofit.IWarningListRequest;
+import com.example.shuangxiang.ysvideodemo.ui.data.analyze.bean.StatisticsInfo;
+import com.example.shuangxiang.ysvideodemo.ui.data.analyze.bean.TableIdInfo;
 import com.example.shuangxiang.ysvideodemo.ui.data.show.bean.DataShowBottomTitle;
 import com.example.shuangxiang.ysvideodemo.ui.home.product.bean.ProductInfo;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.bean.MyDeviceInfo;
@@ -58,6 +61,7 @@ public class ApiManager {
     private OkHttpClient mSOkHttpClient;
     private IDataShowRequest mIDataShowRequest;
     private ISettingRequest mISettingRequest;
+    private IDataAnalyzeRequest mIDataAnalyzeRequest;
 
     public ApiManager(Context context) {
         mContext = context;
@@ -212,13 +216,36 @@ public class ApiManager {
     }
 
     /**
-     *
      * 获取参数设置的值
+     *
      * @param url
      * @return
      */
     public Observable<String> getParameterValue(String url) {
         return mISettingRequest.getParameterValue(url);
+    }
+
+    /**
+     *
+     * 数据分析获取表的id
+     * @param url
+     * @return
+     */
+    public Observable<TableIdInfo[]> getAnalyzeTableId(String url) {
+
+        mIDataAnalyzeRequest = sRetrofit.create(IDataAnalyzeRequest.class);
+        return mIDataAnalyzeRequest.getTableId(url);
+    }
+    /**
+     *
+     * 数据分析运行统计
+     * @param url
+     * @return
+     */
+    public Observable<StatisticsInfo> getAnalyzeStatistics(String url) {
+
+        mIDataAnalyzeRequest = sRetrofit.create(IDataAnalyzeRequest.class);
+        return mIDataAnalyzeRequest.getStatistics(url);
     }
 
 

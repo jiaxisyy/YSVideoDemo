@@ -32,6 +32,7 @@ public class SettingParameterP implements ISettingParameterP {
     private List<String> mNames;
     private List<String> mIds;
     private List<String> mUnits;
+    private List<String> mDefaultAddress;
 
 
     public SettingParameterP(ISettingParameterV ISettingParameterV, Context context) {
@@ -48,19 +49,24 @@ public class SettingParameterP implements ISettingParameterP {
         mNames = new ArrayList<>();
         mIds = new ArrayList<>();
         mUnits = new ArrayList<>();
+        mDefaultAddress = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             String name = elements.get(i).getName();
             String fieldName = elements.get(i).getFieldName();
             String id = elements.get(i).getId();
             String unit = elements.get(i).getUnit();
+            String defaultAddress = elements.get(i).getDefaultAddress();
+
             mFieldNames.add(fieldName);
             mIds.add(id);
             mNames.add(name);
             mUnits.add(unit);
+            mDefaultAddress.add(defaultAddress);
             Log.d("TEST", "name=" + name);
         }
         //设备最新数据
         String valueUrl = Constants.Define.BASE_URL + "dataTemplates/" + mDatatemplateid + "/datas?pageSize=1&showTable=false&deviceId=" + mMTitleId;
+        Log.d("TEST", "valueUrl=" + valueUrl);
         mISettingParameterM.getParameterValue(valueUrl);
     }
 
@@ -90,7 +96,7 @@ public class SettingParameterP implements ISettingParameterP {
                     values.add(value);
                 }
             }
-            mISettingParameterV.setRvData(mNames, values, mIds,mUnits);
+            mISettingParameterV.setRvData(mNames, values, mIds, mUnits,mDefaultAddress);
         } catch (JSONException e) {
             e.printStackTrace();
             Log.e("ERROR", e.getMessage().toString());
