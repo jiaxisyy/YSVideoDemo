@@ -24,8 +24,9 @@ public class WarningListM implements IWarningListM {
     }
 
     @Override
-    public void getResouce(int pageNum, int pageSize, String fromDate, String toDate) {
-        Observable<WarningInfo> observable = ApiManager.getInstance().getRecord(pageNum, pageSize, fromDate, toDate);
+    public void getResouce(int pageNum, int pageSize, String fromDate, String toDate,String deviceId) {
+        Observable<WarningInfo> observable = ApiManager.getInstance().getRecord(pageNum,
+                pageSize, fromDate, toDate,deviceId);
         observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io()).subscribe(new Observer<WarningInfo>() {
             @Override

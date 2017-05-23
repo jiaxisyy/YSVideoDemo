@@ -4,6 +4,7 @@ package com.example.shuangxiang.ysvideodemo.common.utils;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * Created by shuang.xiang on 2017/5/22.
@@ -76,6 +77,38 @@ public class TimeUtil {
         return now.getTime();
     }
     //TODO
+    /**
+     *
+     *   获得本年第一天的日期,未取到0点
+     */
+    public static long getCurrentYearFirst() {
+        int yearPlus = getYearPlus();
+        GregorianCalendar currentDate = new GregorianCalendar();
+        currentDate.add(GregorianCalendar.DATE, yearPlus);
+        Date yearDay = currentDate.getTime();
+        return yearDay.getTime();
+    }
 
+    public static int getYearPlus() {
+        Calendar cd = Calendar.getInstance();
+        int yearOfNumber = cd.get(Calendar.DAY_OF_YEAR);// 获得当天是一年中的第几天
+        cd.set(Calendar.DAY_OF_YEAR, 1);// 把日期设为当年第一天
+        cd.roll(Calendar.DAY_OF_YEAR, -1);// 把日期回滚一天。
+        int MaxYear = cd.get(Calendar.DAY_OF_YEAR);
+        if (yearOfNumber == 1) {
+            return -MaxYear;
+        } else {
+            return 1 - yearOfNumber;
+        }
+    }
+
+    /**
+     *
+     * 获取当前时间
+     * @return
+     */
+    public static long getNow(){
+        return System.currentTimeMillis();
+    }
 
 }

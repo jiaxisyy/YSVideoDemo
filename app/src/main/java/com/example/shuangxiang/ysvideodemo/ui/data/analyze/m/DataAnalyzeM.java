@@ -28,20 +28,48 @@ public class DataAnalyzeM implements IDataAnalyzeM {
         Observable<TableIdInfo[]> observable = ApiManager.getInstance().getAnalyzeTableId(url);
         observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<TableIdInfo[]>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(TableIdInfo[] tableIdInfo) {
+                        mDataAnalyzeP.getTableIdSucceed(tableIdInfo);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e("ERROR", "DataAnalyzeM->" + e.getMessage().toString());
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+
+    }
+
+    @Override
+    public void getStatistics(String url) {
+        ApiManager.getInstance().getAnalyzeStatistics(url).subscribeOn(Schedulers.io()).observeOn
+                (AndroidSchedulers.mainThread()).subscribe(new Observer<String>() {
             @Override
             public void onSubscribe(Disposable d) {
 
             }
 
             @Override
-            public void onNext(TableIdInfo[] tableIdInfo) {
-                mDataAnalyzeP.getTableIdSucceed(tableIdInfo);
+            public void onNext(String s) {
+                mDataAnalyzeP.getStatisticsSucceed(s);
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.e("ERROR","DataAnalyzeM->"+e.getMessage().toString());
-
+                Log.e("ERROR", e.getMessage().toString());
             }
 
             @Override
@@ -49,7 +77,6 @@ public class DataAnalyzeM implements IDataAnalyzeM {
 
             }
         });
-
 
     }
 }

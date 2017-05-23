@@ -24,6 +24,7 @@ public interface IWarningListV {
     String getFromDate() throws ParseException;
 
     String getToDate() throws ParseException;
+    String getDeviceId(int type) throws ParseException;
 
 
 }

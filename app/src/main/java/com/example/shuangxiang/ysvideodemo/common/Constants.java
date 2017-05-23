@@ -40,6 +40,12 @@ public class Constants {
         String ANALYZETIMETYPE_MONTH = "1M";
         String ANALYZETIMETYPE_QUARTER = "1q";
         String ANALYZETIMETYPE_YEAR = "1y";
+        String JSONARRAYNAME = "list";
+        String JSON_NAN = "NaN";
+        int WARNINGRECORDTYPE_ALL = 0;//预警监测所有的设备
+        int WARNINGRECORDTYPE_ONE = 1;//预警监测单独的设备
+
+
     }
 
 }

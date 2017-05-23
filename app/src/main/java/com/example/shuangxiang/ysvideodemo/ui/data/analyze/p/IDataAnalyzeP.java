@@ -1,6 +1,5 @@
 package com.example.shuangxiang.ysvideodemo.ui.data.analyze.p;
 
-import com.example.shuangxiang.ysvideodemo.ui.data.analyze.bean.StatisticsInfo;
 import com.example.shuangxiang.ysvideodemo.ui.data.analyze.bean.TableIdInfo;
 
 /**
@@ -12,5 +11,5 @@ public interface IDataAnalyzeP {
 
     void getTableId(String url);
     void getStatistics(String timeType,String defaultAddress);
-    void getStatisticsSucceed(StatisticsInfo statisticsInfo);
+    void getStatisticsSucceed(String s);
 }

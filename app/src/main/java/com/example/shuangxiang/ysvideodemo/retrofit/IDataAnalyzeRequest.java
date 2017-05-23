@@ -1,6 +1,5 @@
 package com.example.shuangxiang.ysvideodemo.retrofit;
 
-import com.example.shuangxiang.ysvideodemo.ui.data.analyze.bean.StatisticsInfo;
 import com.example.shuangxiang.ysvideodemo.ui.data.analyze.bean.TableIdInfo;
 
 import io.reactivex.Observable;
@@ -29,7 +28,7 @@ public interface IDataAnalyzeRequest {
      * @return
      */
     @GET
-    Observable<StatisticsInfo> getStatistics(@Url String url);
+    Observable<String> getStatistics(@Url String url);
 
 
 

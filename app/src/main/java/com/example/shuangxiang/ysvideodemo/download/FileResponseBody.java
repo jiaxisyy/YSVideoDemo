@@ -49,6 +49,7 @@ public class FileResponseBody extends ResponseBody {
                 bytesReaded += bytesRead == -1 ? 0 : bytesRead;
                 // 通过RxBus发布进度信息
                 RxBus.getDefault().send(new DownloadBean(contentLength(), bytesReaded));
+
                 return bytesRead;
             }
         });

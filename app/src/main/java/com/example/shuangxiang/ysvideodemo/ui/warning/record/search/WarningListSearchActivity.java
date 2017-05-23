@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
+import com.example.shuangxiang.ysvideodemo.common.utils.CacheUtils;
 import com.example.shuangxiang.ysvideodemo.common.utils.CustomToast;
 import com.example.shuangxiang.ysvideodemo.common.utils.Utils;
 import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
@@ -44,7 +45,7 @@ public class WarningListSearchActivity extends BaseActivity implements IWarningL
     TextView mTvCancel;
     @BindView(R.id.rv_warning_list_search)
     RecyclerView mRv;
-//    @BindView(R.id.animation_view)
+    //    @BindView(R.id.animation_view)
 //    LottieAnimationView mAnimationView;
     private Calendar mCalendar;
     private int mYear;
@@ -198,6 +199,20 @@ public class WarningListSearchActivity extends BaseActivity implements IWarningL
     @Override
     public String getToDate() {
         return getEndDate();
+    }
+
+    @Override
+    public String getDeviceId(int type) throws ParseException {
+        if (type == Constants.Define.WARNINGRECORDTYPE_ONE) {//查看某一台
+            String deviceId = CacheUtils.getString(this, Constants.Define
+                    .MYDEVICE_TO_SECONDHOME_ID);
+            if (deviceId != null && !deviceId.equals("")) {
+                return deviceId;
+            }
+        }
+        return "";
+
+
     }
 
 }

@@ -54,6 +54,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 import static com.zhy.autolayout.utils.ScreenUtils.getStatusBarHeight;
 
@@ -83,11 +85,15 @@ public class DataAnalyzeFragment extends BaseFragment implements
     TabLayout mTabDataAnalyze;
     @BindView(R.id.lc_data_analyze)
     LineChart mChart;
+    Unbinder unbinder;
     private SettingParameterP mSettingParameterP;
     private LinearLayoutManager mLayoutManagerCenter;
     private DataAnalyzeCenterRvAdapter mRvAdapterCenter;
     private DataAnalyzeP mDataAnalyzeP;
-    private String mDefaultAdd;
+
+    private String mSelectAddress;
+
+    private String mSelectTimeType;
 
     @Override
     protected int getLayoutId() {
@@ -126,14 +132,49 @@ public class DataAnalyzeFragment extends BaseFragment implements
         Log.d("TEST", "tableIdUrl=" + tableIdUrl);
         mDataAnalyzeP = new DataAnalyzeP(this, getActivity());
         mDataAnalyzeP.getTableId(tableIdUrl);
+        mTabDataAnalyze.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+                Log.d("TEST", "onTabSelected->position=" + position);
 
+                switch (position) {
+                    case 0:
+                        mSelectTimeType = Constants.Define.ANALYZETIMETYPE_DAY;
+                        break;
+                    case 1:
+                        mSelectTimeType = Constants.Define.ANALYZETIMETYPE_WEEK;
+                        break;
+                    case 2:
+                        mSelectTimeType = Constants.Define.ANALYZETIMETYPE_MONTH;
+                        break;
+                    case 3:
+                        mSelectTimeType = Constants.Define.ANALYZETIMETYPE_QUARTER;
+                        break;
+                    case 4:
+                        mSelectTimeType = Constants.Define.ANALYZETIMETYPE_YEAR;
+                        break;
+                }
+                mDataAnalyzeP.getStatistics(mSelectTimeType, mSelectAddress);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
     }
 
     @Override
     protected void initData() {
-
-
+        //默认第一次选择按照日呈现
+        mSelectTimeType = Constants.Define.ANALYZETIMETYPE_DAY;
     }
 
     protected void setImmerseLayout(View view) {
@@ -148,7 +189,8 @@ public class DataAnalyzeFragment extends BaseFragment implements
         }
     }
 
-    private void drawLine() {
+
+    private void drawLine(List<String> values) {
         mChart.setOnChartGestureListener(this);
         mChart.setOnChartValueSelectedListener(this);
         mChart.setDrawGridBackground(false);
@@ -226,7 +268,7 @@ public class DataAnalyzeFragment extends BaseFragment implements
         //mChart.getViewPortHandler().setMaximumScaleX(2f);
 
         // add data
-        setData(10, 100);
+        setData(values);
 
 //        mChart.setVisibleXRange(20);
 //        mChart.setVisibleYRange(20f, AxisDependency.LEFT);
@@ -276,16 +318,16 @@ public class DataAnalyzeFragment extends BaseFragment implements
 
     @Override
     protected boolean isCache() {
-        return true;
+        return false;
     }
 
-    private void setData(int count, float range) {
+    private void setData(List<String> list) {
 
         ArrayList<Entry> values = new ArrayList<Entry>();
+        int size = list.size();
 
-        for (int i = 0; i < count; i++) {
-
-            float val = (float) (Math.random() * range) + 3;
+        for (int i = 0; i < size; i++) {
+            float val = Float.parseFloat(list.get(i));
             values.add(new Entry(i, val, getResources().getDrawable(R.drawable.star)));
         }
 
@@ -408,8 +450,8 @@ public class DataAnalyzeFragment extends BaseFragment implements
     }
 
     @Override
-    public void setRvData(List<String> names, List<String> values, List<String> ids, List<String>
-            units, List<String> defaultAddress) {
+    public void setRvData(final List<String> names, List<String> values, List<String> ids, List<String>
+            units, final List<String> defaultAddress) {
         //默认设置
         if (names != null && names.size() > 0 && values != null && values.size() > 0 && ids != null && ids.size()
                 > 0 && units != null && units.size() > 0 && defaultAddress != null && defaultAddress
@@ -423,24 +465,48 @@ public class DataAnalyzeFragment extends BaseFragment implements
             mRvAdapterCenter = new DataAnalyzeCenterRvAdapter(getActivity(), names);
             mRvCenter.addItemDecoration(new SpacesItemDecoration(Constants.Define.DATASHOW_CENTER_SPACINGINPIXELS));
             mRvCenter.setAdapter(mRvAdapterCenter);
-            mDefaultAdd = defaultAddress.get(0);
+            //默认第一个日显示
+            mSelectAddress = defaultAddress.get(0);
             //默认按天统计
-            mDataAnalyzeP.getStatistics(Constants.Define.ANALYZETIMETYPE_DAY, mDefaultAdd);
+            mDataAnalyzeP.getStatistics(Constants.Define.ANALYZETIMETYPE_DAY, mSelectAddress);
             mRvAdapterCenter.setItemClickListener(new DataAnalyzeCenterRvAdapter.MyItemClickListener() {
                 @Override
                 public void itemClick(View view, int position) {
-
-
+                    if (names.size() > 0 && defaultAddress.size() > 0) {
+                        mTvDataAnalyzeName.setText(names.get(position));
+                        String address = defaultAddress.get(position);
+                        mDataAnalyzeP.getStatistics(mSelectTimeType, address);
+                        mSelectAddress = address;
+                    } else {
+                        CustomToast.showToast(getActivity(), Constants.Define.SERVERDATAERROR, Toast.LENGTH_SHORT);
+                    }
                 }
             });
-
-
         } else {
             CustomToast.showToast(getActivity(), Constants.Define.SERVERDATAERROR, Toast.LENGTH_SHORT);
         }
 
 
+
     }
 
 
+    @Override
+    public void setLineChart(List<String> values) {
+        drawLine(values);
+    }
+
+
+    @OnClick({R.id.iv_data_analyze_warning, R.id.iv_data_analyze_show, R.id.tab_data_analyze})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_data_analyze_warning:
+                break;
+            case R.id.iv_data_analyze_show:
+                break;
+            case R.id.tab_data_analyze:
+
+                break;
+        }
+    }
 }

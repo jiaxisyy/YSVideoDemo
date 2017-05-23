@@ -37,13 +37,15 @@ import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.v.IMyDeviceMapV;
 import java.util.List;
 
 import io.reactivex.Observer;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 /**
  * Created by shuang.xiang on 2017/5/4.
  */
 
-public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap.OnMarkerClickListener {
+public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
+        .OnMarkerClickListener {
 
 
     private IMyDeviceMapV mView;
@@ -66,7 +68,7 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
     private Disposable mDisposable;
     private String mDataTemplateId;
     private String mStrName;
-
+    private CompositeDisposable cd = new CompositeDisposable();
 
     public MyDeviceMapP(IMyDeviceMapV view, Context context, TextureMapView mapView) {
         mView = view;
@@ -150,7 +152,35 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
 
     @Override
     public void initBaiDuMap() {
+        boolean b = RxBus.getDefault().hasObservers();
+        Log.d("TEST", "hasObservers=" + b);
+        RxBus.getDefault().toObservable(RxMydeviceEvent.class).subscribe(new Observer<RxMydeviceEvent>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                cd.add(d);
+                Log.d("TEST", "onSubscribe");
+            }
 
+            @Override
+            public void onNext(RxMydeviceEvent event) {
+
+                List<MyDeviceInfo.ListBean> list = event.getList();
+
+                int size = list.size();
+
+                Log.d("TEST", "我日你妈"+size);
+
+            }
+            @Override
+            public void onError(Throwable e) {
+                Log.d("TEST", "onError");
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d("TEST", "onComplete");
+            }
+        });
 
         mBaiduMap = mMapView.getMap();
         mBaiduMap.clear();
@@ -163,54 +193,31 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
         mBaiduMap.setOnMarkerClickListener(this);
 
 
-        RxBus.getDefault().toObservable(Constants.Define
-                        .RXBUS_MYDEVICELISTP_CODE,
-                RxMydeviceEvent.class)
-                .subscribe(new Observer<RxMydeviceEvent>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        Log.d("TEST", "MyDeviceMapP->clickAll->onSubscribe->");
-                        mDisposable = d;
+
+
+
+        if (mList != null && mList.size() > 0) {
+            String name = mList.get(0).getName();
+            mSize = mList.size();
+            Log.d("TEST", "MyDeviceMapP->clickAll->name->" + name);
+            Log.d("TEST", "MyDeviceMapP->clickAll->" + mList.get(0).getLatitude());
+            for (int i = 0; i < mSize; i++) {
+                if (mList.get(i).getOnlineStatus().equals("ONLINE")) {
+                    if (!mList.get(i).getLatitude().equals("") && !mList.get(i)
+                            .getLongitude().equals("")) {
+                        addMaker(Double.valueOf(mList.get(i).getLatitude()), Double.valueOf(mList.get(i)
+                                .getLongitude()), MAKERTYPE_ON);
                     }
-
-                    @Override
-                    public void onNext(RxMydeviceEvent o) {
-
-                        mList = o.getList();
-                        if(mList!=null&&mList.size()>0){
-                        String name = mList.get(0).getName();
-                        mSize = mList.size();
-                        Log.d("TEST", "MyDeviceMapP->clickAll->name->" + name);
-                        Log.d("TEST", "MyDeviceMapP->clickAll->" + mList.get(0).getLatitude());
-                        for (int i = 0; i < mSize; i++) {
-                            if (mList.get(i).getOnlineStatus().equals("ONLINE")) {
-                                if (!mList.get(i).getLatitude().equals("") && !mList.get(i)
-                                        .getLongitude().equals("")) {
-                                    addMaker(Double.valueOf(mList.get(i).getLatitude()), Double.valueOf(mList.get(i)
-                                            .getLongitude()), MAKERTYPE_ON);
-                                }
-                            } else {
-                                if (!mList.get(i).getLatitude().equals("") && !mList.get(i)
-                                        .getLongitude().equals("")) {
-                                    addMaker(Double.valueOf(mList.get(i).getLatitude()), Double.valueOf(mList.get(i)
-                                            .getLongitude()), MAKERTYPE_OFF);
-                                }
-                            }
-                        }
-                        }
-//                        mDisposable.dispose();
+                } else {
+                    if (!mList.get(i).getLatitude().equals("") && !mList.get(i)
+                            .getLongitude().equals("")) {
+                        addMaker(Double.valueOf(mList.get(i).getLatitude()), Double.valueOf(mList.get(i)
+                                .getLongitude()), MAKERTYPE_OFF);
                     }
+                }
+            }
+        }
 
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
         if (mFirstInto = true) {
             clickAll();
             mFirstInto = false;

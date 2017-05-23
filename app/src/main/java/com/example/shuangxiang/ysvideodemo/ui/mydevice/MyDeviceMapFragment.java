@@ -1,5 +1,6 @@
 package com.example.shuangxiang.ysvideodemo.ui.mydevice;
 
+import android.app.ProgressDialog;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -8,11 +9,15 @@ import com.baidu.mapapi.map.TextureMapView;
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.utils.CustomToast;
 import com.example.shuangxiang.ysvideodemo.ui.BaseFragment;
+import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.bean.MyDeviceInfo;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.p.MyDeviceMapP;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.v.IMyDeviceMapV;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.disposables.CompositeDisposable;
 
 /**
  * Created by shuang.xiang on 2017/4/20.
@@ -30,6 +35,10 @@ public class MyDeviceMapFragment extends BaseFragment implements IMyDeviceMapV {
     @BindView(R.id.ll_mydevice_all)
     LinearLayout mLlAll;
     private MyDeviceMapP mPresenter;
+    private ProgressDialog mProgressDialog;
+    private boolean mIsFirstInto = true;
+    private List<MyDeviceInfo.ListBean> mMList;
+
 
     public MyDeviceMapFragment() {
     }
@@ -56,8 +65,17 @@ public class MyDeviceMapFragment extends BaseFragment implements IMyDeviceMapV {
 
     @Override
     protected void init() {
+
+
         mPresenter = new MyDeviceMapP(this, getActivity(), mMapView);
-        mPresenter.initBaiDuMap();
+        mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.show();
+        if (mIsFirstInto) {
+            mPresenter.initBaiDuMap();
+            mIsFirstInto = false;
+        }
+        mProgressDialog.dismiss();
+
     }
 
 
@@ -68,7 +86,7 @@ public class MyDeviceMapFragment extends BaseFragment implements IMyDeviceMapV {
 
     @Override
     protected boolean isCache() {
-        return false;
+        return true;
     }
 
     @Override
@@ -131,4 +149,5 @@ public class MyDeviceMapFragment extends BaseFragment implements IMyDeviceMapV {
         super.onPause();
         mMapView.onPause();
     }
+
 }

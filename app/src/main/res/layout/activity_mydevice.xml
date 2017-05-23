@@ -154,11 +154,17 @@
     </android.support.design.widget.TabLayout>
 
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_mydevice"
+    <!--<android.support.v4.view.ViewPager-->
+    <!--android:id="@+id/vp_mydevice"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+    <!--</android.support.v4.view.ViewPager>-->
+    <FrameLayout
+        android:id="@+id/fl_myDevice"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </android.support.v4.view.ViewPager>
+
+    </FrameLayout>
 
 
 </LinearLayout>

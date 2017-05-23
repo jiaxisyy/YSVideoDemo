@@ -1,5 +1,6 @@
 package com.example.shuangxiang.ysvideodemo.ui.home;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,6 +15,8 @@ import android.widget.RelativeLayout;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.example.shuangxiang.ysvideodemo.R;
+import com.example.shuangxiang.ysvideodemo.common.Constants;
+import com.example.shuangxiang.ysvideodemo.common.utils.CacheUtils;
 import com.example.shuangxiang.ysvideodemo.ui.BaseFragment;
 import com.example.shuangxiang.ysvideodemo.ui.SecondHomeActivity;
 import com.example.shuangxiang.ysvideodemo.ui.home.banner.presenter.HomeFragmentPresenter;
@@ -54,6 +57,8 @@ public class HomeFragment extends BaseFragment implements IHomeFragmentView, IHo
     RelativeLayout mLlHomeSetting;
     @BindView(R.id.rv_home_product)
     RecyclerView mRvHomeProduct;
+    private ProgressDialog mProgressDialog;
+
 
     @Override
     protected int getLayoutId() {
@@ -85,8 +90,6 @@ public class HomeFragment extends BaseFragment implements IHomeFragmentView, IHo
         mProductPresenter = new HomeProductPresenter(this, getActivity());
         mProductPresenter.load();
         Log.d("TEST", "load");
-
-
     }
 
 
@@ -117,15 +120,17 @@ public class HomeFragment extends BaseFragment implements IHomeFragmentView, IHo
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_home_myDevice:
+
                 startActivity(new Intent(getActivity(), MyDeviceActivity.class));
+
                 break;
             case R.id.ll_home_monitoring:
                 Intent intentM = new Intent(getActivity(), SecondHomeActivity.class);
-
                 intentM.putExtra("flag", "monitoring");
                 startActivity(intentM);
                 break;
             case R.id.ll_home_warning:
+                CacheUtils.putString(getActivity(), Constants.Define.MYDEVICE_TO_SECONDHOME_ID, "");
                 startActivity(new Intent(getActivity(), WarningActivity.class));
                 break;
             case R.id.ll_home_setting:

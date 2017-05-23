@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
+import com.example.shuangxiang.ysvideodemo.common.utils.CacheUtils;
 import com.example.shuangxiang.ysvideodemo.ui.BaseFragment;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.decoration.MyDecoration;
 import com.example.shuangxiang.ysvideodemo.ui.warning.record.search.WarningListSearchActivity;
@@ -16,6 +17,7 @@ import com.example.shuangxiang.ysvideodemo.ui.warning.record.bean.WarningInfo;
 import com.example.shuangxiang.ysvideodemo.ui.warning.record.p.WarningListP;
 import com.example.shuangxiang.ysvideodemo.ui.warning.record.v.IWarningListV;
 
+import java.text.ParseException;
 import java.util.List;
 
 import butterknife.BindView;
@@ -118,6 +120,17 @@ public class WarningRecordFragment extends BaseFragment implements IWarningListV
     @Override
     public String getToDate() {
         return null;
+    }
+
+    @Override
+    public String getDeviceId(int type) throws ParseException {
+        if (type == Constants.Define.WARNINGRECORDTYPE_ONE) {//查看某一台
+            String deviceId = CacheUtils.getString(getActivity(), Constants.Define.MYDEVICE_TO_SECONDHOME_ID);
+            if (deviceId != null && !deviceId.equals("")) {
+                return deviceId;
+            }
+        }
+        return "";
     }
 
 

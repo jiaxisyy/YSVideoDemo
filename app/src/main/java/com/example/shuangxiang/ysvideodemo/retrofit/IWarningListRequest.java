@@ -13,5 +13,6 @@ import retrofit2.http.Query;
 public interface IWarningListRequest {
     @GET("deviceAlarms")
     Observable<WarningInfo> getRecord(@Query("pageNum") int pageNum, @Query("pageSize") int
-            pageSize, @Query("fromDate") String fromDate, @Query("toDate") String toDate);
+            pageSize, @Query("fromDate") String fromDate, @Query("toDate") String toDate,@Query
+            ("deviceId") String deviceId);
 }

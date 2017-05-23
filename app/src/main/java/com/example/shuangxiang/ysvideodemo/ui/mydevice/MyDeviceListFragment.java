@@ -49,6 +49,8 @@ public class MyDeviceListFragment extends BaseFragment implements IMyDeviceListV
     @BindView(R.id.rv_mydevice_list)
     RecyclerView mRecyclerView;
     private MydeviceListRVAdapter mAdapter;
+    private boolean mIsFirstInto = true;
+
 
     public MyDeviceListFragment() {
     }
@@ -83,12 +85,17 @@ public class MyDeviceListFragment extends BaseFragment implements IMyDeviceListV
     @Override
     protected void initData() {
         mPresenter = new MyDeviceListP(this);
-        mPresenter.getAllDevice();
+
+        if (mIsFirstInto) {
+            mPresenter.getAllDevice();
+            mIsFirstInto = false;
+        }
+
     }
 
     @Override
     protected boolean isCache() {
-        return false;
+        return true;
     }
 
 
@@ -100,8 +107,8 @@ public class MyDeviceListFragment extends BaseFragment implements IMyDeviceListV
     @Override
     public void setData(final List<String> names, final List<String> status, final List<String>
             ids, final List<String> dataTemplateIds) {
-        if(names==null||status==null||ids==null||dataTemplateIds==null){
-            CustomToast.showToast(getActivity(),"数据显示错误", Toast.LENGTH_SHORT);
+        if (names == null || status == null || ids == null || dataTemplateIds == null) {
+            CustomToast.showToast(getActivity(), "数据显示错误", Toast.LENGTH_SHORT);
         }
 
         //初始化在线
@@ -136,8 +143,8 @@ public class MyDeviceListFragment extends BaseFragment implements IMyDeviceListV
             public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
                 switch (i) {
                     case R.id.rb_mydevice_on:
-                        if(namesOn==null||namesOn.size()==0){
-                            CustomToast.showToast(getActivity(),"数据显示错误", Toast.LENGTH_SHORT);
+                        if (namesOn == null || namesOn.size() == 0) {
+                            CustomToast.showToast(getActivity(), "数据显示错误", Toast.LENGTH_SHORT);
                         }
                         MydeviceListRVAdapter adapterOn = new MydeviceListRVAdapter(namesOn,
                                 statusOn, getActivity());
@@ -158,8 +165,8 @@ public class MyDeviceListFragment extends BaseFragment implements IMyDeviceListV
                         });
                         break;
                     case R.id.rb_mydevice_off:
-                        if(namesOff==null||namesOff.size()==0){
-                            CustomToast.showToast(getActivity(),"数据显示错误", Toast.LENGTH_SHORT);
+                        if (namesOff == null || namesOff.size() == 0) {
+                            CustomToast.showToast(getActivity(), "数据显示错误", Toast.LENGTH_SHORT);
                         }
 //                        mAdapter.setData(namesOff, statusOff);
                         MydeviceListRVAdapter adapterOff = new MydeviceListRVAdapter(namesOff,
@@ -182,8 +189,8 @@ public class MyDeviceListFragment extends BaseFragment implements IMyDeviceListV
                         });
                         break;
                     case R.id.rb_mydevice_all:
-                        if(names==null||names.size()==0){
-                            CustomToast.showToast(getActivity(),"数据显示错误", Toast.LENGTH_SHORT);
+                        if (names == null || names.size() == 0) {
+                            CustomToast.showToast(getActivity(), "数据显示错误", Toast.LENGTH_SHORT);
                         }
 //                        mAdapter.setData(names, status);
                         MydeviceListRVAdapter adapterAll = new MydeviceListRVAdapter(names,
@@ -212,8 +219,8 @@ public class MyDeviceListFragment extends BaseFragment implements IMyDeviceListV
         mRecyclerView.setHasFixedSize(true);
         layoutManager.setAutoMeasureEnabled(true);
         mRecyclerView.setLayoutManager(layoutManager);
-        if(namesOn==null||namesOn.size()==0){
-            CustomToast.showToast(getActivity(),"数据显示错误", Toast.LENGTH_SHORT);
+        if (namesOn == null || namesOn.size() == 0) {
+            CustomToast.showToast(getActivity(), "数据显示错误", Toast.LENGTH_SHORT);
         }
 
         mAdapter = new MydeviceListRVAdapter(namesOn, statusOn, getActivity());
@@ -233,6 +240,7 @@ public class MyDeviceListFragment extends BaseFragment implements IMyDeviceListV
                 startActivity(new Intent(getActivity(), SecondHomeActivity.class));
             }
         });
+
 
     }
 
@@ -261,6 +269,7 @@ public class MyDeviceListFragment extends BaseFragment implements IMyDeviceListV
     public void upload() {
 
     }
+
 
 
 }

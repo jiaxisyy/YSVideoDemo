@@ -6,4 +6,6 @@ package com.example.shuangxiang.ysvideodemo.ui.data.analyze.m;
 
 public interface IDataAnalyzeM {
     void getTableId(String url);
+
+    void getStatistics(String url);
 }

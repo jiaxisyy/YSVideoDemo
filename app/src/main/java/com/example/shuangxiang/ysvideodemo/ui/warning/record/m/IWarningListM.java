@@ -6,5 +6,5 @@ package com.example.shuangxiang.ysvideodemo.ui.warning.record.m;
 
 public interface IWarningListM {
     void getResouce(int pageNum, int pageSize, String fromDate,
-                    String toDate);
+                    String toDate,String deviceId);
 }

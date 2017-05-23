@@ -101,7 +101,6 @@
         <activity android:name=".ui.about.kawa.AboutKawaActivity"/>
         <activity android:name=".ui.about.privacy.PrivacyActivity"/>
         <activity android:name=".ui.mydevice.map.ReadyNavigationActivity"/>
-        <activity android:name=".ui.mydevice.map.NavigationActivity"/>
 
         <service android:name=".service.MyIntentService"/>
 

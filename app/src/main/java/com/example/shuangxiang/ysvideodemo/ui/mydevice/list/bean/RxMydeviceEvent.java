@@ -7,7 +7,7 @@ import java.util.List;
  */
 
 public class RxMydeviceEvent {
-    List<MyDeviceInfo.ListBean> mList;
+    private List<MyDeviceInfo.ListBean> mList;
 
     public RxMydeviceEvent(List<MyDeviceInfo.ListBean> list) {
         mList = list;

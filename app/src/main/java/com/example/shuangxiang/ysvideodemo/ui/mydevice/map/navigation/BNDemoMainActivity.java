@@ -198,6 +198,7 @@ public class BNDemoMainActivity extends BaseActivity implements IMyDeviceMapV {
         if (BaiduNaviManager.isNaviInited()) {
             routeplanToNavi(CoordinateType.BD09LL);
         }
+        finish();
     }
 
 

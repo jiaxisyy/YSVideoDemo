@@ -1,5 +1,6 @@
 package com.example.shuangxiang.ysvideodemo.ui.warning.record.p;
 
+import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.ui.warning.record.bean.WarningInfo;
 import com.example.shuangxiang.ysvideodemo.ui.warning.record.m.IWarningListM;
 import com.example.shuangxiang.ysvideodemo.ui.warning.record.m.WarningListM;
@@ -24,7 +25,8 @@ public class WarningListP implements IWarningListP {
     @Override
     public void getResouce() {
         try {
-            mModel.getResouce(mView.getPageNum(), mView.getPageSize(), mView.getFromDate(), mView.getToDate());
+            mModel.getResouce(mView.getPageNum(), mView.getPageSize(), mView.getFromDate(), mView
+                    .getToDate(), mView.getDeviceId(Constants.Define.WARNINGRECORDTYPE_ONE));
         } catch (ParseException e) {
             e.printStackTrace();
         }

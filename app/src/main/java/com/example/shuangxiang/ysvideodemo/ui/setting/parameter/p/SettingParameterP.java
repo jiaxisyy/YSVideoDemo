@@ -86,7 +86,7 @@ public class SettingParameterP implements ISettingParameterP {
         Log.d("TEST", "json=" + s);
         try {
             JSONObject jsonObject = new JSONObject(s);
-            JSONArray jsonArray = jsonObject.getJSONArray("list");
+            JSONArray jsonArray = jsonObject.getJSONArray(Constants.Define.JSONARRAYNAME);
             List<String> values = new ArrayList<>();
             int size = mFieldNames.size();
             for (int i = 0; i < jsonArray.length(); i++) {

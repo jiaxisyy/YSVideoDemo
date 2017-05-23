@@ -18,7 +18,6 @@ import com.example.shuangxiang.ysvideodemo.retrofit.IMyDeviceListRequest;
 import com.example.shuangxiang.ysvideodemo.retrofit.ISettingRequest;
 import com.example.shuangxiang.ysvideodemo.retrofit.IUploadFileRequest;
 import com.example.shuangxiang.ysvideodemo.retrofit.IWarningListRequest;
-import com.example.shuangxiang.ysvideodemo.ui.data.analyze.bean.StatisticsInfo;
 import com.example.shuangxiang.ysvideodemo.ui.data.analyze.bean.TableIdInfo;
 import com.example.shuangxiang.ysvideodemo.ui.data.show.bean.DataShowBottomTitle;
 import com.example.shuangxiang.ysvideodemo.ui.home.product.bean.ProductInfo;
@@ -188,9 +187,9 @@ public class ApiManager {
      * @return
      */
     public Observable<WarningInfo> getRecord(int pageNum, int pageSize, String fromDate,
-                                             String toDate) {
+                                             String toDate,String deviceId) {
         sWarningListRequest = sRetrofit.create(IWarningListRequest.class);
-        return sWarningListRequest.getRecord(pageNum, pageSize, fromDate, toDate);
+        return sWarningListRequest.getRecord(pageNum, pageSize, fromDate, toDate,deviceId);
     }
 
     /**
@@ -242,7 +241,7 @@ public class ApiManager {
      * @param url
      * @return
      */
-    public Observable<StatisticsInfo> getAnalyzeStatistics(String url) {
+    public Observable<String> getAnalyzeStatistics(String url) {
 
         mIDataAnalyzeRequest = sRetrofit.create(IDataAnalyzeRequest.class);
         return mIDataAnalyzeRequest.getStatistics(url);

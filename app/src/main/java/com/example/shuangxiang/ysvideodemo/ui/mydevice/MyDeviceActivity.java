@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -19,10 +18,11 @@ import android.widget.TextView;
 
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
+import com.example.shuangxiang.ysvideodemo.common.utils.CacheUtils;
 import com.example.shuangxiang.ysvideodemo.common.utils.PermissionUtils;
+import com.example.shuangxiang.ysvideodemo.common.utils.Utils;
 import com.example.shuangxiang.ysvideodemo.manager.ActivityManager;
 import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
-import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.adapter.MyViewPagerAdapter;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.p.MyDeviceListP;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.v.IMyDeviceListV;
 import com.example.shuangxiang.ysvideodemo.ui.warning.WarningActivity;
@@ -47,8 +47,8 @@ public class MyDeviceActivity extends BaseActivity implements IMyDeviceListV,Act
 
     @BindView(R.id.tbl_mydevice)
     TabLayout mTabLayout;
-    @BindView(R.id.vp_mydevice)
-    ViewPager mViewPager;
+//    @BindView(R.id.vp_mydevice)
+//    ViewPager mViewPager;
     @BindView(R.id.tv_mydevice_allDevice)
     TextView mTvAllDevice;
     @BindView(R.id.tv_mydevice_deviceOn)
@@ -85,7 +85,8 @@ public class MyDeviceActivity extends BaseActivity implements IMyDeviceListV,Act
         initView();
         initData();
 
-        mTabLayout.setupWithViewPager(mViewPager);
+        //改变为不滑动
+//        mTabLayout.setupWithViewPager(mViewPager);
 
     }
 
@@ -99,10 +100,38 @@ public class MyDeviceActivity extends BaseActivity implements IMyDeviceListV,Act
 
 
     private void initView() {
-        MyViewPagerAdapter myViewPagerAdapter = new MyViewPagerAdapter(getSupportFragmentManager());
-        myViewPagerAdapter.addFragment(MyDeviceListFragment.getInstance(), Constants.Define.DEVICELIST);
-        myViewPagerAdapter.addFragment(MyDeviceMapFragment.getInstance(), Constants.Define.DEVICEMAP);
-        mViewPager.setAdapter(myViewPagerAdapter);
+//        MyViewPagerAdapter myViewPagerAdapter = new MyViewPagerAdapter(getSupportFragmentManager());
+//        myViewPagerAdapter.addFragment(MyDeviceListFragment.getInstance(), Constants.Define.DEVICELIST);
+//        myViewPagerAdapter.addFragment(MyDeviceMapFragment.getInstance(), Constants.Define.DEVICEMAP);
+//        mViewPager.setAdapter(myViewPagerAdapter);
+        //设置默认界面列表
+        Utils.replace(getSupportFragmentManager(), R.id.fl_myDevice,
+                MyDeviceListFragment.class);
+
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+                if(position==0){
+                    Utils.replace(getSupportFragmentManager(), R.id.fl_myDevice,
+                            MyDeviceListFragment.class);
+                }else if(position==1){
+                    Utils.replace(getSupportFragmentManager(), R.id.fl_myDevice,
+                            MyDeviceMapFragment.class);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
     }
 
     @Override
@@ -167,10 +196,7 @@ public class MyDeviceActivity extends BaseActivity implements IMyDeviceListV,Act
             }
             mTvMyDeviceOn.setText(String.valueOf(countOn));
             mTvMyDeviceOff.setText(String.valueOf(size - countOn));
-
         }
-
-
     }
 
     @Override
@@ -201,6 +227,8 @@ public class MyDeviceActivity extends BaseActivity implements IMyDeviceListV,Act
 
     @OnClick(R.id.iv_mydevice_warning)
     public void onViewClicked() {
+        //查询所有
+        CacheUtils.putString(this,Constants.Define.MYDEVICE_TO_SECONDHOME_ID,"");
         startActivity(new Intent(this, WarningActivity.class));
     }
 }

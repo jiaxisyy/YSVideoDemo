@@ -14,10 +14,12 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.common.utils.CacheUtils;
+import com.example.shuangxiang.ysvideodemo.common.utils.CustomToast;
 import com.example.shuangxiang.ysvideodemo.common.utils.Utils;
 import com.example.shuangxiang.ysvideodemo.ui.BaseFragment;
 import com.example.shuangxiang.ysvideodemo.ui.setting.adapter.ControlRvAdapter;
@@ -117,15 +119,20 @@ public class ControlFragment extends BaseFragment implements ISettingParameterV 
     }
 
     @Override
-    public void setRvData(List<String> names, List<String> values,List<String> ids,List<String>
-            units,List<String> defaultAddress) {
-        //默认显示在线
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        mRv.setHasFixedSize(true);
-        layoutManager.setAutoMeasureEnabled(true);
-        mRv.setLayoutManager(layoutManager);
-        mAdapter = new ControlRvAdapter(getActivity(), names, values);
-        mRv.setAdapter(mAdapter);
+    public void setRvData(List<String> names, List<String> values, List<String> ids, List<String>
+            units, List<String> defaultAddress) {
+        if (names.size() > 0 && values.size() > 0 && ids.size() > 0 && units.size() > 0 && defaultAddress.size() > 0) {
+            //默认显示在线
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+            mRv.setHasFixedSize(true);
+            layoutManager.setAutoMeasureEnabled(true);
+            mRv.setLayoutManager(layoutManager);
+            mAdapter = new ControlRvAdapter(getActivity(), names, values);
+            mRv.setAdapter(mAdapter);
+        }else {
+            CustomToast.showToast(getActivity(),Constants.Define.SERVERDATAERROR, Toast.LENGTH_SHORT);
+        }
         mDialog.dismiss();
+
     }
 }

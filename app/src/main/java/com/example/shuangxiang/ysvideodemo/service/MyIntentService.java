@@ -68,6 +68,7 @@ public class MyIntentService extends IntentService {
     }
 
     private void subscribeEvent() {
+        boolean b = RxBus.getDefault().hasObservers();
         RxBus.getDefault().toObservable(DownloadBean.class)
                 .subscribe(new Observer<DownloadBean>() {
                     @Override
@@ -77,6 +78,7 @@ public class MyIntentService extends IntentService {
 
                     @Override
                     public void onNext(DownloadBean downloadBean) {
+
                         int progress = (int) Math.round(downloadBean.getBytesReaded() / (double) downloadBean.getTotal() * 100);
                         builder.setContentInfo(String.valueOf(progress) + "%").setProgress(100, progress, false);
                         notificationManager.notify(0, builder.build());

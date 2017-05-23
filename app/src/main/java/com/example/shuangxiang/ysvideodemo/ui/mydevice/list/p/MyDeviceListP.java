@@ -1,6 +1,5 @@
 package com.example.shuangxiang.ysvideodemo.ui.mydevice.list.p;
 
-import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.rxbus.RxBus;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.bean.MyDeviceInfo;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.bean.RxMydeviceEvent;
@@ -18,6 +17,10 @@ import java.util.List;
 public class MyDeviceListP implements IMyDeviceListP {
     private IMyDeviceListV mView;
     private IMyDeviceListM mModel;
+    private List<MyDeviceInfo.ListBean> sendList;
+
+    public MyDeviceListP() {
+    }
 
     public MyDeviceListP(IMyDeviceListV view) {
         mView = view;
@@ -32,6 +35,7 @@ public class MyDeviceListP implements IMyDeviceListP {
 
     @Override
     public void getAllDeviceSucceed(List<MyDeviceInfo.ListBean> list) {
+
         List<String> names = new ArrayList<>();
         List<String> status = new ArrayList<>();
         List<String> ids = new ArrayList<>();
@@ -48,6 +52,8 @@ public class MyDeviceListP implements IMyDeviceListP {
         ids.add("123456");
         dataTemplateIds.add("9999");
         mView.setData(names, status, ids, dataTemplateIds);
-        RxBus.getDefault().post(Constants.Define.RXBUS_MYDEVICELISTP_CODE, new RxMydeviceEvent(list));
+        RxBus.getDefault().send(new RxMydeviceEvent(list));
     }
+
+
 }
