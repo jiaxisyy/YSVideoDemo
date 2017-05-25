@@ -3,6 +3,8 @@ package com.example.shuangxiang.ysvideodemo.retrofit;
 import com.example.shuangxiang.ysvideodemo.ui.setting.parameter.bean.ParameterInfo;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.PUT;
 import retrofit2.http.Url;
@@ -31,8 +33,14 @@ public interface ISettingRequest {
     Observable<String> getParameterValue(@Url String url);
 
 
+    /**
+     *
+     * 设置参数
+     * @param url
+     * @return
+     */
     @PUT
-    Observable<String> setParameterValue(@Url String url);
+    Observable<String> setParameterValue(@Url String url, @Body RequestBody body);
 
 
 }

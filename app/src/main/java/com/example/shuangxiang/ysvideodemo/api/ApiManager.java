@@ -87,7 +87,7 @@ public class ApiManager {
     //内网
 //    private static final String BASEURL = "http://10.199.198.55:58010/userconsle/";
     //外网
-    private static final String BASEURL = "http://58.250.204.112:58010/userconsle/";
+//    private static final String BASEURL = "http://58.250.204.112:58010/userconsle/";
 
     /**
      * 获取登录信息
@@ -104,7 +104,7 @@ public class ApiManager {
 //                .addInterceptor(new ReadCookiesInterceptor(mContext))
                 .build();
         //增加返回值为String的支持
-        sRetrofit = new Retrofit.Builder().baseUrl(BASEURL)
+        sRetrofit = new Retrofit.Builder().baseUrl(Constants.Define.BASE_URL)
                 //增加返回值为String的支持
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -226,6 +226,22 @@ public class ApiManager {
 
     /**
      *
+     * 设置参数
+     * @param url
+     * @param json
+     * @return
+     */
+    public Observable<String> setParameterValue(String url,String json){
+
+        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; " +
+                "charset=utf-8"), json);
+        return mISettingRequest.setParameterValue(url,body);
+    }
+
+
+
+    /**
+     *
      * 数据分析获取表的id
      * @param url
      * @return
@@ -264,7 +280,7 @@ public class ApiManager {
                     }
                 }).build();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASEURL)
+                .baseUrl(Constants.Define.BASE_URL)
                 .client(client)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();

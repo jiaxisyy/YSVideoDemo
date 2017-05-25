@@ -46,9 +46,9 @@ public class LoginPresenter implements ILoginPresenter {
 
     @Override
     public void loginSucceed(LoginInfo info) {
-
+        CacheUtils.putString(mContext, Constants.Define.USERNAME, mLoginView.getUserName());
+        CacheUtils.putString(mContext, Constants.Define.ADMINPASSWORD, mLoginView.getPassWord());
         if (isChecked) {
-            CacheUtils.putString(mContext, Constants.Define.USERNAME, mLoginView.getUserName());
             CacheUtils.putString(mContext, Constants.Define.PASSWORD, mLoginView.getPassWord());
         }
 

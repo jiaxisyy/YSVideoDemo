@@ -1,8 +1,6 @@
 package com.example.shuangxiang.ysvideodemo.ui.mydevice.list.p;
 
-import com.example.shuangxiang.ysvideodemo.rxbus.RxBus;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.bean.MyDeviceInfo;
-import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.bean.RxMydeviceEvent;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.m.IMyDeviceListM;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.m.MyDeviceListM;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.v.IMyDeviceListV;
@@ -52,8 +50,20 @@ public class MyDeviceListP implements IMyDeviceListP {
         ids.add("123456");
         dataTemplateIds.add("9999");
         mView.setData(names, status, ids, dataTemplateIds);
-        RxBus.getDefault().send(new RxMydeviceEvent(list));
+//        RxBus.getDefault().send(new RxMydeviceEvent(list));
+        if(mIMyDeviceListToMapSendList!=null){
+            mIMyDeviceListToMapSendList.sendList(list);
+        }
+
     }
 
+    public interface IMyDeviceListToMapSendList {
+        void sendList(List<MyDeviceInfo.ListBean> list);
+    }
 
+    public IMyDeviceListToMapSendList mIMyDeviceListToMapSendList;
+
+    public void setIMyDeviceListToMapSendList(IMyDeviceListToMapSendList IMyDeviceListToMapSendList) {
+        mIMyDeviceListToMapSendList = IMyDeviceListToMapSendList;
+    }
 }

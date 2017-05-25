@@ -135,4 +135,9 @@ public class ControlFragment extends BaseFragment implements ISettingParameterV 
         mDialog.dismiss();
 
     }
+
+    @Override
+    public void setToast(String s) {
+
+    }
 }

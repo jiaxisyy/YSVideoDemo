@@ -12,4 +12,12 @@ public interface ISettingParameterP {
     void getTitle(String type);
 
     void getValueSucceed(String s);
+
+    void setValue(String url, String value,String password);
+
+    void setValueSucceed(String s);
+
+    void setValueFailed(String s);
+
+
 }

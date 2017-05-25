@@ -490,6 +490,11 @@ public class DataAnalyzeFragment extends BaseFragment implements
 
     }
 
+    @Override
+    public void setToast(String s) {
+
+    }
+
 
     @Override
     public void setLineChart(List<String> values) {

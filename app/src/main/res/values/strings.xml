@@ -16,10 +16,16 @@
     <string name="dialog_message">感谢你的反馈</string>
     <string name="dialog_sure">确定</string>
     <string name="dialog_cancel">取消</string>
+    <string name="dialog_inputAdminTitle">输入管理员密码</string>
+    <string name="dialog_inputAdminPassword">请输入密码</string>
+    <string name="dialog_inputValueTitle">输入参数</string>
+
+
     <string name="tv_myservice_title">我的客服</string>
     <string name="btn_startPager3">立即体验</string>
     <string name="pop_callPhone">拨打电话</string>
     <string name="pop_phoneNum">40000 811 699</string>
+    <string name="tv_dialog_inputHint">请在这里输入</string>
     <string name="enter_username">请输入用户名</string>
     <string name="tv_login_remember">记住密码</string>
     <string name="tv_home_title">KAWA</string>
@@ -152,4 +158,5 @@
     <string name="tv_setting_parameter">参数设置</string>
     <string name="tv_setting_control">控制设置</string>
     <string name="tv_monitoring_video">数据监控</string>
+    <string name="password_fifter">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
 </resources>

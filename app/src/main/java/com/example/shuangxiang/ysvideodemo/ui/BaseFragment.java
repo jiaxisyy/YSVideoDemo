@@ -51,8 +51,6 @@ public abstract class BaseFragment extends Fragment {
             }
             mInflater = inflater;
             mUnbinder = ButterKnife.bind(this, mLayoutView);
-            initData();
-            init();
         } else {
             mView = inflater.inflate(getLayoutId(), container, false);
             mUnbinder = ButterKnife.bind(this, mView);
@@ -60,6 +58,8 @@ public abstract class BaseFragment extends Fragment {
             init();
             return mView;
         }
+        initData();
+        init();
         return mLayoutView;
     }
 

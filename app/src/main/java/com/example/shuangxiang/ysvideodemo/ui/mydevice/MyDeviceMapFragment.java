@@ -17,7 +17,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.disposables.CompositeDisposable;
 
 /**
  * Created by shuang.xiang on 2017/4/20.
@@ -65,7 +64,6 @@ public class MyDeviceMapFragment extends BaseFragment implements IMyDeviceMapV {
 
     @Override
     protected void init() {
-
 
         mPresenter = new MyDeviceMapP(this, getActivity(), mMapView);
         mProgressDialog = new ProgressDialog(getActivity());

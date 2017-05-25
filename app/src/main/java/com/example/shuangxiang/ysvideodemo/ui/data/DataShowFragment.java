@@ -132,7 +132,9 @@ public class DataShowFragment extends BaseFragment implements ISettingParameterV
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_monitoring_notice:
+
                 startActivity(new Intent(getActivity(), WarningActivity.class));
+
                 break;
             case R.id.iv_datashow_analyze:
                 Utils.replace(getActivity().getSupportFragmentManager(), R.id.fl_home2,
@@ -191,6 +193,11 @@ public class DataShowFragment extends BaseFragment implements ISettingParameterV
         } else {
             CustomToast.showToast(getActivity(), Constants.Define.SERVERDATAERROR, Toast.LENGTH_SHORT);
         }
+    }
+
+    @Override
+    public void setToast(String s) {
+
     }
 
 

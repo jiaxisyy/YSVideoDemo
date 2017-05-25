@@ -1,6 +1,7 @@
 package com.example.shuangxiang.ysvideodemo.ui;
 
 import android.content.res.ColorStateList;
+import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -11,7 +12,7 @@ import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.utils.Utils;
 import com.example.shuangxiang.ysvideodemo.manager.ActivityManager;
 import com.example.shuangxiang.ysvideodemo.ui.data.DataShowFragment;
-import com.example.shuangxiang.ysvideodemo.ui.monitoring.VideoFragment;
+import com.example.shuangxiang.ysvideodemo.ui.monitoring.MonitoringFragment;
 import com.example.shuangxiang.ysvideodemo.ui.setting.parameter.ParameterFragment;
 
 import butterknife.BindView;
@@ -27,10 +28,12 @@ public class SecondHomeActivity extends BaseActivity {
     @Override
     protected void initContentView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_home_second);
+
     }
 
     @Override
     protected void initSomething() {
+        getWindow().setFormat(PixelFormat.TRANSLUCENT);//解决视频界面闪屏
         ActivityManager.getInstance().addActivity(this);
         int[][] states = new int[][]{
                 new int[]{-android.R.attr.state_checked},
@@ -55,7 +58,7 @@ public class SecondHomeActivity extends BaseActivity {
                         break;
                     case R.id.bnv_home2_monitoring:
                         Utils.replace(getSupportFragmentManager(), R.id.fl_home2,
-                                VideoFragment.class);
+                                MonitoringFragment.class);
                         break;
                     case R.id.bnv_home2_setting:
                         Utils.replace(getSupportFragmentManager(), R.id.fl_home2,

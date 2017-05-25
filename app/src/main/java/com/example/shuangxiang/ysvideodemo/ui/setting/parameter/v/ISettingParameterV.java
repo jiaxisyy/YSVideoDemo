@@ -9,5 +9,6 @@ import java.util.List;
 public interface ISettingParameterV {
     void setRvData(List<String> names, List<String> values,List<String> ids,List<String> units,
                    List<String> defaultAddress);
+    void setToast(String s);
 
 }

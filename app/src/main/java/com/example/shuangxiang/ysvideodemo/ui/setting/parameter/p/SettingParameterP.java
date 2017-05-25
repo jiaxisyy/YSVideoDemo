@@ -2,13 +2,17 @@ package com.example.shuangxiang.ysvideodemo.ui.setting.parameter.p;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.common.utils.CacheUtils;
+import com.example.shuangxiang.ysvideodemo.common.utils.CustomToast;
 import com.example.shuangxiang.ysvideodemo.ui.setting.parameter.bean.ParameterInfo;
+import com.example.shuangxiang.ysvideodemo.ui.setting.parameter.bean.ParameterRequestInfo;
 import com.example.shuangxiang.ysvideodemo.ui.setting.parameter.m.ISettingParameterM;
 import com.example.shuangxiang.ysvideodemo.ui.setting.parameter.m.SettingParameterM;
 import com.example.shuangxiang.ysvideodemo.ui.setting.parameter.v.ISettingParameterV;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,31 +47,36 @@ public class SettingParameterP implements ISettingParameterP {
 
     @Override
     public void getTitleSucceed(ParameterInfo[] parameterInfo) {
-        List<ParameterInfo.ElementsBean> elements = parameterInfo[0].getElements();
-        mFieldNames = new ArrayList<>();
-        int size = elements.size();
-        mNames = new ArrayList<>();
-        mIds = new ArrayList<>();
-        mUnits = new ArrayList<>();
-        mDefaultAddress = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            String name = elements.get(i).getName();
-            String fieldName = elements.get(i).getFieldName();
-            String id = elements.get(i).getId();
-            String unit = elements.get(i).getUnit();
-            String defaultAddress = elements.get(i).getDefaultAddress();
+        if (parameterInfo.length > 0) {
+            List<ParameterInfo.ElementsBean> elements = parameterInfo[0].getElements();
+            mFieldNames = new ArrayList<>();
+            int size = elements.size();
+            mNames = new ArrayList<>();
+            mIds = new ArrayList<>();
+            mUnits = new ArrayList<>();
+            mDefaultAddress = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                String name = elements.get(i).getName();
+                String fieldName = elements.get(i).getFieldName();
+                String id = elements.get(i).getId();
+                String unit = elements.get(i).getUnit();
+                String defaultAddress = elements.get(i).getDefaultAddress();
 
-            mFieldNames.add(fieldName);
-            mIds.add(id);
-            mNames.add(name);
-            mUnits.add(unit);
-            mDefaultAddress.add(defaultAddress);
-            Log.d("TEST", "name=" + name);
+                mFieldNames.add(fieldName);
+                mIds.add(id);
+                mNames.add(name);
+                mUnits.add(unit);
+                mDefaultAddress.add(defaultAddress);
+                Log.d("TEST", "name=" + name);
+            }
+            //设备最新数据
+            String valueUrl = Constants.Define.BASE_URL + "dataTemplates/" + mDatatemplateid + "/datas?pageSize=1&showTable=false&deviceId=" + mMTitleId;
+            Log.d("TEST", "valueUrl=" + valueUrl);
+            mISettingParameterM.getParameterValue(valueUrl);
+        } else {
+            CustomToast.showToast(mContext, Constants.Define.SERVERDATAERROR, Toast.LENGTH_SHORT);
         }
-        //设备最新数据
-        String valueUrl = Constants.Define.BASE_URL + "dataTemplates/" + mDatatemplateid + "/datas?pageSize=1&showTable=false&deviceId=" + mMTitleId;
-        Log.d("TEST", "valueUrl=" + valueUrl);
-        mISettingParameterM.getParameterValue(valueUrl);
+
     }
 
     @Override
@@ -96,7 +105,7 @@ public class SettingParameterP implements ISettingParameterP {
                     values.add(value);
                 }
             }
-            mISettingParameterV.setRvData(mNames, values, mIds, mUnits,mDefaultAddress);
+            mISettingParameterV.setRvData(mNames, values, mIds, mUnits, mDefaultAddress);
         } catch (JSONException e) {
             e.printStackTrace();
             Log.e("ERROR", e.getMessage().toString());
@@ -105,5 +114,29 @@ public class SettingParameterP implements ISettingParameterP {
 
     }
 
+    @Override
+    public void setValue(String url, String value, String password) {
+//        String json = "{\"value\":" + value + ",\"password\": \"" + password + "\"}";
+//        Log.d("TEST", "setValue->json=" + json);
+        String s = new Gson().toJson(new ParameterRequestInfo(value, password));
+        Log.d("TEST","GsonToJson="+s);
+        mISettingParameterM.setParameterValue(url, s);
+    }
 
+    @Override
+    public void setValueSucceed(String s) {
+        mISettingParameterV.setToast("设置成功");
+    }
+
+    @Override
+    public void setValueFailed(String s) {
+        try {
+            JSONObject object = new JSONObject(s);
+            String error = object.getString("error");
+            mISettingParameterV.setToast(error);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

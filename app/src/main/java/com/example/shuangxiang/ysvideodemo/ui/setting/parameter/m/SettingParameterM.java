@@ -3,6 +3,7 @@ package com.example.shuangxiang.ysvideodemo.ui.setting.parameter.m;
 import android.util.Log;
 
 import com.example.shuangxiang.ysvideodemo.api.ApiManager;
+import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.ui.setting.parameter.bean.ParameterInfo;
 import com.example.shuangxiang.ysvideodemo.ui.setting.parameter.p.SettingParameterP;
 
@@ -35,10 +36,11 @@ public class SettingParameterM implements ISettingParameterM {
             public void onNext(ParameterInfo[] parameterInfos) {
                 mSettingParameterP.getTitleSucceed(parameterInfos);
             }
+
             @Override
             public void onError(Throwable e) {
+                mSettingParameterP.setValueFailed(Constants.Define.SERVERQUERSTERROR);
                 Log.e("ERROR", "SettingParameterM->" + e.getMessage().toString());
-
             }
 
             @Override
@@ -77,4 +79,39 @@ public class SettingParameterM implements ISettingParameterM {
 
 
     }
+
+    @Override
+    public void setParameterValue(String url, String json) {
+        ApiManager.getInstance().setParameterValue(url, json).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).unsubscribeOn(Schedulers.io())
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        if (s.contains("success")) {
+                            mSettingParameterP.setValueSucceed(s);
+                        } else {
+                            mSettingParameterP.setValueFailed(s);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e("ERROR", e.getMessage().toString());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
+
+
 }

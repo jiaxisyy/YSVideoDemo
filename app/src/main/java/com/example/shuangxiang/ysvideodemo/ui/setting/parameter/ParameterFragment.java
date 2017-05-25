@@ -1,16 +1,21 @@
 package com.example.shuangxiang.ysvideodemo.ui.setting.parameter;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
+import android.text.method.DigitsKeyListener;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -53,7 +58,15 @@ public class ParameterFragment extends BaseFragment implements
     TextView mTbTitle;
     private SettingParameterP mSettingParameterP;
     private ParameterRvAdapter mAdapter;
-
+    private EditText mEditTextValue;
+    private TextView mTvTextCancel;
+    private TextView mTvTextSure;
+    private TextView mTvTextTitle;
+    private View mView;
+    private Dialog mAdminDialog;
+    private final int SHOWDIALOGINPUT_ADMIN = 1;//管理员弹窗
+    private final int SHOWDIALOGINPUT_DEFAULT = 0;//设置参数
+    private final String digists = "0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 
     @Override
@@ -136,21 +149,100 @@ public class ParameterFragment extends BaseFragment implements
 
             mAdapter.setOnItemClickListener(new ParameterRvAdapter.MyItemClickListener() {
                 @Override
-                public void onItemClick(View view, int postion) {
-                    Log.d("TEST", "setRvData->position=" + postion);
-                }
+                public void onItemClick(View view, final int position, String value) {
 
-                @Override
-                public void onItemEditTextAction(String value, int position) {
+                    Log.d("TEST", "setRvData->position=" + position);
                     Log.d("TEST", "text=" + value);
-                    Log.d("TEST", "position=" + position);
                     String elementId = ids.get(position);
                     Log.d("TEST", "elementId=" + elementId);
+                    String deviceid = CacheUtils.getString(getActivity(), Constants.Define
+                            .MYDEVICE_TO_SECONDHOME_ID);
+                    Log.d("TEST", "deviceid=" + deviceid);
+                    String url = Constants.Define
+                            .BASE_URL + "devices/" + deviceid + "/elements/" + elementId + "?client=app";
+                    Log.d("TEST", "url=" + url);
+                    showAdminDialog(position, value, url, "", SHOWDIALOGINPUT_ADMIN);//第一次不传密码
                 }
             });
         } else {
             CustomToast.showToast(getActivity(), "数据显示错误", Toast.LENGTH_SHORT);
         }
+    }
+
+    @Override
+    public void setToast(String s) {
+        CustomToast.showToast(getActivity(), s, Toast.LENGTH_SHORT);
+    }
+
+    /**
+     * 展示输入框
+     */
+    private void showAdminDialog(final int position, final String value, final String url, final String
+            password, final int
+                                         showType) {
+        mView = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_input, null, false);
+        // 创建自定义样式的Dialog
+        mAdminDialog = new Dialog(getActivity(), R.style.input_dialog);
+        // 设置返回键无效
+        mAdminDialog.setCancelable(false);
+        mAdminDialog.setCanceledOnTouchOutside(true);
+        mAdminDialog.setContentView(mView, new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT));
+        mEditTextValue = (EditText) mView.findViewById(R.id.et_dialog_input_value);
+        mTvTextCancel = (TextView) mView.findViewById(R.id.tv_dialog_inputCancel);
+        mTvTextSure = (TextView) mView.findViewById(R.id.tv_dialog_inputSure);
+        mTvTextTitle = (TextView) mView.findViewById(R.id.tv_dialog_inputTitle);
+        if (showType == SHOWDIALOGINPUT_ADMIN) {
+            mEditTextValue.setKeyListener(DigitsKeyListener.getInstance(digists));
+            mTvTextTitle.setText(R.string.dialog_inputAdminTitle);
+        } else if (showType == SHOWDIALOGINPUT_DEFAULT) {
+            mTvTextTitle.setText(R.string.dialog_inputValueTitle);
+            mEditTextValue.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType
+                    .TYPE_CLASS_NUMBER);//必须同时设定才会生效
+
+        }
+
+        mAdminDialog.show();
+        mTvTextCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAdminDialog.dismiss();
+            }
+        });
+        mTvTextSure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (showType == SHOWDIALOGINPUT_ADMIN) {
+                    String password = mEditTextValue.getText().toString();
+                    String adminPassword = CacheUtils.getString(getActivity(), Constants.Define
+                            .ADMINPASSWORD);
+                    if (adminPassword != null && !adminPassword.equals("")) {//和本地密码做比较,以后改为网络形式
+                        if (password.equals(adminPassword)) {
+                            //是管理员
+                            mAdminDialog.dismiss();
+                            //弹出输入数据的
+                            showAdminDialog(position, value, url, password, SHOWDIALOGINPUT_DEFAULT);
+                        } else {
+                            CustomToast.showToast(getActivity(), Constants.Define.ADMINPASSWORDERROR, Toast
+                                    .LENGTH_SHORT);
+                        }
+                    }
+
+                } else if (showType == SHOWDIALOGINPUT_DEFAULT) {
+                    //默认的输入框
+                    //拿取设置的值
+                    String value = mEditTextValue.getText().toString();
+
+                    mSettingParameterP.setValue(url, value, password);
+
+                }
+
+
+            }
+        });
 
     }
+
+
 }

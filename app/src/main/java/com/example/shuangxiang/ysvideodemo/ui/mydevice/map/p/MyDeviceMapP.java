@@ -27,16 +27,14 @@ import com.example.shuangxiang.ysvideodemo.MyLocationListener;
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.common.utils.CacheUtils;
-import com.example.shuangxiang.ysvideodemo.rxbus.RxBus;
 import com.example.shuangxiang.ysvideodemo.ui.SecondHomeActivity;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.bean.MyDeviceInfo;
-import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.bean.RxMydeviceEvent;
+import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.p.MyDeviceListP;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.navigation.BNDemoMainActivity;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.v.IMyDeviceMapV;
 
 import java.util.List;
 
-import io.reactivex.Observer;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
@@ -45,7 +43,7 @@ import io.reactivex.disposables.Disposable;
  */
 
 public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
-        .OnMarkerClickListener {
+        .OnMarkerClickListener,MyDeviceListP.IMyDeviceListToMapSendList {
 
 
     private IMyDeviceMapV mView;
@@ -152,35 +150,51 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
 
     @Override
     public void initBaiDuMap() {
-        boolean b = RxBus.getDefault().hasObservers();
-        Log.d("TEST", "hasObservers=" + b);
-        RxBus.getDefault().toObservable(RxMydeviceEvent.class).subscribe(new Observer<RxMydeviceEvent>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-                cd.add(d);
-                Log.d("TEST", "onSubscribe");
-            }
+//        new MyDeviceListP().setIMyDeviceListToMapSendList(this);
+//        new MyDeviceListP().setIMyDeviceListToMapSendList(new MyDeviceListP.IMyDeviceListToMapSendList() {
+//            @Override
+//            public void sendList(List<MyDeviceInfo.ListBean> list) {
+//                Log.d("TEST", "size=" + list.size());
+//                Log.d("TEST", "size=" + list.size());
+//            }
+//        });
 
-            @Override
-            public void onNext(RxMydeviceEvent event) {
 
-                List<MyDeviceInfo.ListBean> list = event.getList();
+//        boolean b = RxBus.getDefault().hasObservers();
+//        Log.d("TEST", "hasObservers=" + b);
+//        RxBus.getDefault().toObservable(RxMydeviceEvent.class).subscribe(new Observer<RxMydeviceEvent>() {
+//            @Override
+//            public void onSubscribe(Disposable d) {
+//                cd.add(d);
+//                Log.d("TEST", "onSubscribe");
+//            }
+//
+//            @Override
+//            public void onNext(RxMydeviceEvent event) {
+//
+//                List<MyDeviceInfo.ListBean> list = event.getList();
+//                if (list == null) {
+//                    initBaiDuMap();
+//                }
+//
+//                int size = list.size();
+//
+//                Log.d("TEST", "我日你妈" + size);
+//
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                Log.d("TEST", "onError");
+//            }
+//
+//            @Override
+//            public void onComplete() {
+//                Log.d("TEST", "onComplete");
+//            }
+//        });
 
-                int size = list.size();
 
-                Log.d("TEST", "我日你妈"+size);
-
-            }
-            @Override
-            public void onError(Throwable e) {
-                Log.d("TEST", "onError");
-            }
-
-            @Override
-            public void onComplete() {
-                Log.d("TEST", "onComplete");
-            }
-        });
 
         mBaiduMap = mMapView.getMap();
         mBaiduMap.clear();
@@ -191,9 +205,6 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
         initLocation();
         mLocationClient.start();
         mBaiduMap.setOnMarkerClickListener(this);
-
-
-
 
 
         if (mList != null && mList.size() > 0) {
@@ -339,5 +350,10 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
         return false;
     }
 
+
+    @Override
+    public void sendList(List<MyDeviceInfo.ListBean> list) {
+        Log.d("TEST", "size=" + list.size());
+    }
 
 }

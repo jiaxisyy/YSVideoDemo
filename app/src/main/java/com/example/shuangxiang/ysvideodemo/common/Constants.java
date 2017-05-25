@@ -15,10 +15,23 @@ public class Constants {
         String FIRST_START = "first_start";
         String USERNAME = "username";
         String PASSWORD = "password";
+        String ADMINPASSWORD = "admin_password";
+        String ADMINPASSWORDERROR = "管理员密码错误,请重新输入";
+
         String DEVICELIST = "设备列表";
         String DEVICEMAP = "设备地图";
+        String MONITORING_MAIN = "主监控";
+        String MONITORING_FLOW = "流程监控";
+        String MONITORING_VIDEO = "视频监控";
+
         long START_TIME = 3000;//启动页跳转时间为3秒
-        String BASE_URL = "http://58.250.204.112:58010/userconsle/";//外网
+//        String BASE_URL = "http://58.250.204.112:58010/userconsle/";//外网
+        String BASE_URL = "http://kawakp.chinclouds.com/userconsle/";//阿里云
+        //内网
+//    private static final String BASEURL = "http://10.199.198.55:58010/userconsle/";
+        //外网
+//    private static final String BASEURL = "http://58.250.204.112:58010/userconsle/";
+
         //设备列表的默认设置
         int DEFAULTPAGENUM = 1;
         int DEFAULTPAGESIZE = 100;
@@ -34,6 +47,7 @@ public class Constants {
         String MYDEVICE_TO_SECONDHOME_TBTITLE = "mydevice_to_secondhome_tbtitle";
         int DATASHOW_CENTER_SPACINGINPIXELS = 80;
         String SERVERDATAERROR = "服务器数据错误";
+        String SERVERQUERSTERROR = "服务器请求失败";
         String ANALYZETIMETYPE_HOUR = "1h";
         String ANALYZETIMETYPE_DAY = "1d";
         String ANALYZETIMETYPE_WEEK = "1w";

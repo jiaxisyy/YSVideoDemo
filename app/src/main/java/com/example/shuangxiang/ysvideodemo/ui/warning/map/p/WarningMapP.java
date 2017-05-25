@@ -185,23 +185,37 @@ public class WarningMapP implements IWarningMapP, BaiduMap.OnMarkerClickListener
         mSize = data.size();
         for (int i = 0; i < mSize; i++) {
             if (data.get(i).getLevel().equals("1")) {
-                addMaker(Double.valueOf(data.get(i).getLatitude()), Double.valueOf(data.get(i)
-                        .getLongitude()), MAKERTYPE_RED);
-                countRed++;
-            } else if (data.get(i).getLevel().equals("2")) {
-                addMaker(Double.valueOf(data.get(i).getLatitude()), Double.valueOf(data.get(i)
-                        .getLongitude()), MAKERTYPE_ORANGE);
-                countOrange++;
-            } else if (data.get(i).getLevel().equals("3")) {
-                addMaker(Double.valueOf(data.get(i).getLatitude()), Double.valueOf(data.get(i)
-                        .getLongitude()), MAKERTYPE_YELLOW);
-                countYellow++;
-            } else if (data.get(i).getLevel().equals("4")) {
-                addMaker(Double.valueOf(data.get(i).getLatitude()), Double.valueOf(data.get(i)
-                        .getLongitude()), MAKERTYPE_GREEN);
-                countGreen++;
-            }
+                if(!data.get(i).getLatitude().equals("")&&!data.get(i)
+                        .getLongitude().equals("")){
+                    addMaker(Double.valueOf(data.get(i).getLatitude()), Double.valueOf(data.get(i)
+                            .getLongitude()), MAKERTYPE_RED);
+                    countRed++;
+                }
 
+            } else if (data.get(i).getLevel().equals("2")) {
+                if(!data.get(i).getLatitude().equals("")&&!data.get(i)
+                        .getLongitude().equals("")){
+                    addMaker(Double.valueOf(data.get(i).getLatitude()), Double.valueOf(data.get(i)
+                            .getLongitude()), MAKERTYPE_ORANGE);
+                    countOrange++;
+                }
+
+            } else if (data.get(i).getLevel().equals("3")) {
+                if(!data.get(i).getLatitude().equals("")&&!data.get(i)
+                        .getLongitude().equals("")){
+                    addMaker(Double.valueOf(data.get(i).getLatitude()), Double.valueOf(data.get(i)
+                            .getLongitude()), MAKERTYPE_YELLOW);
+                    countYellow++;
+                }
+
+            } else if (data.get(i).getLevel().equals("4")) {
+                if(!data.get(i).getLatitude().equals("")&&!data.get(i)
+                        .getLongitude().equals("")){
+                    addMaker(Double.valueOf(data.get(i).getLatitude()), Double.valueOf(data.get(i)
+                            .getLongitude()), MAKERTYPE_GREEN);
+                    countGreen++;
+                }
+            }
         }
         mIWarningMapV.setRedNum(countRed);
         mIWarningMapV.setOrangeNum(countOrange);

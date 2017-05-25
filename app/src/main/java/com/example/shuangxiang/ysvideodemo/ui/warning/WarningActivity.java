@@ -9,9 +9,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
+import com.example.shuangxiang.ysvideodemo.common.utils.CacheUtils;
 import com.example.shuangxiang.ysvideodemo.manager.ActivityManager;
 import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.adapter.MyViewPagerAdapter;
@@ -35,6 +37,8 @@ public class WarningActivity extends BaseActivity {
     TabLayout mTabWarning;
     @BindView(R.id.vp_warning)
     ViewPager mViewPager;
+    @BindView(R.id.tv_warning_title)
+    TextView mTitle;
     private List<String> mTb_titles;
 
     @Override
@@ -58,7 +62,10 @@ public class WarningActivity extends BaseActivity {
         for (int i = 0; i < mTb_titles.size(); i++) {
             mTabWarning.addTab(mTabWarning.newTab().setText(mTb_titles.get(i)));
         }
-
+        String title = CacheUtils.getString(this, Constants.Define.MYDEVICE_TO_SECONDHOME_TBTITLE);
+        if (title != null && !title.equals("")) {
+            mTitle.setText(title);
+        }
         mTabWarning.setupWithViewPager(mViewPager);
         initView();
     }
