@@ -1,5 +1,6 @@
 package com.example.shuangxiang.ysvideodemo.ui.data.analyze;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Typeface;
@@ -27,6 +28,7 @@ import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.common.utils.CacheUtils;
 import com.example.shuangxiang.ysvideodemo.common.utils.CustomToast;
 import com.example.shuangxiang.ysvideodemo.ui.BaseFragment;
+import com.example.shuangxiang.ysvideodemo.ui.data.DataShowFragment;
 import com.example.shuangxiang.ysvideodemo.ui.data.analyze.adapter.DataAnalyzeCenterRvAdapter;
 import com.example.shuangxiang.ysvideodemo.ui.data.analyze.p.DataAnalyzeP;
 import com.example.shuangxiang.ysvideodemo.ui.data.analyze.v.IDataAnalyzeV;
@@ -34,6 +36,7 @@ import com.example.shuangxiang.ysvideodemo.ui.data.analyze.view.MyMarkerView;
 import com.example.shuangxiang.ysvideodemo.ui.data.show.adapter.SpacesItemDecoration;
 import com.example.shuangxiang.ysvideodemo.ui.setting.parameter.p.SettingParameterP;
 import com.example.shuangxiang.ysvideodemo.ui.setting.parameter.v.ISettingParameterV;
+import com.example.shuangxiang.ysvideodemo.ui.warning.WarningActivity;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
@@ -55,7 +58,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 import static com.zhy.autolayout.utils.ScreenUtils.getStatusBarHeight;
 
@@ -85,7 +87,7 @@ public class DataAnalyzeFragment extends BaseFragment implements
     TabLayout mTabDataAnalyze;
     @BindView(R.id.lc_data_analyze)
     LineChart mChart;
-    Unbinder unbinder;
+
     private SettingParameterP mSettingParameterP;
     private LinearLayoutManager mLayoutManagerCenter;
     private DataAnalyzeCenterRvAdapter mRvAdapterCenter;
@@ -123,8 +125,6 @@ public class DataAnalyzeFragment extends BaseFragment implements
         for (int i = 0; i < size; i++) {
             mTabDataAnalyze.addTab(mTabDataAnalyze.newTab().setText(timeTitles.get(i)));
         }
-
-
         mSettingParameterP = new SettingParameterP(this, getActivity());
         mSettingParameterP.getTitle("MONITOR");
         String datatemplateid = CacheUtils.getString(getActivity(), Constants.Define.MYDEVICE_TO_SECONDHOME_DATATEMPLATEID);
@@ -487,7 +487,6 @@ public class DataAnalyzeFragment extends BaseFragment implements
         }
 
 
-
     }
 
     @Override
@@ -495,23 +494,36 @@ public class DataAnalyzeFragment extends BaseFragment implements
 
     }
 
-
     @Override
-    public void setLineChart(List<String> values) {
-        drawLine(values);
+    public void dissDialog() {
+
     }
 
 
-    @OnClick({R.id.iv_data_analyze_warning, R.id.iv_data_analyze_show, R.id.tab_data_analyze})
+    @Override
+    public void setLineChart(List<String> values) {
+
+        if (values.size() > 0) {
+            drawLine(values);
+        }else {
+            mChart.clear();
+        }
+
+    }
+
+
+    @OnClick({R.id.iv_data_analyze_warning, R.id.iv_data_analyze_show})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_data_analyze_warning:
+                startActivity(new Intent(getActivity(), WarningActivity.class));
                 break;
             case R.id.iv_data_analyze_show:
+                com.example.shuangxiang.ysvideodemo.common.utils.Utils.replace(getActivity()
+                                .getSupportFragmentManager(), R.id.fl_home2,
+                        DataShowFragment.class);
                 break;
-            case R.id.tab_data_analyze:
 
-                break;
         }
     }
 }

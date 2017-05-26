@@ -15,6 +15,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
+
             android:layout_width="0px"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40px"
@@ -31,11 +32,12 @@
                 android:src="@mipmap/mydevice_list_search_search"/>
 
             <TextView
+
                 android:id="@+id/tv_warning_listSearch_startTime"
                 android:layout_width="0px"
-                android:layout_height="match_parent"
+                android:layout_height="32dp"
                 android:layout_marginLeft="54px"
-                android:layout_weight="1"
+                android:layout_weight="0.77"
                 android:gravity="center_vertical"
                 android:hint="@string/tv_warning_list_search_startTime"
                 android:singleLine="true"
@@ -66,10 +68,12 @@
         <TextView
             android:id="@+id/tv_warning_listSearch_cancel"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginRight="40px"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10px"
             android:gravity="center"
             android:text="@string/tv_mydevice_search_cancel"
+            android:padding="30px"
+            android:cropToPadding="true"
             android:textColor="#00a1e9"
             android:textSize="30px"/>
 

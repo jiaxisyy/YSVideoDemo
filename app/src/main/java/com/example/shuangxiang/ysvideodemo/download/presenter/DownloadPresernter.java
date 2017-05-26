@@ -9,9 +9,11 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
+import com.example.shuangxiang.ysvideodemo.common.utils.CustomToast;
 import com.example.shuangxiang.ysvideodemo.common.utils.Utils;
 import com.example.shuangxiang.ysvideodemo.download.bean.AppMessage;
 import com.example.shuangxiang.ysvideodemo.download.model.DownloadModel;
@@ -59,6 +61,8 @@ public class DownloadPresernter implements IDownloadPresenter {
                 mDownloadView.hintUpdatePop(mPopupWindow);
                 //展示下载进度条
                 //下载后的保存路径
+                CustomToast.showToast(mContext,Constants.Define.STARTDOWNLOADFILE, Toast
+                        .LENGTH_SHORT);
                 String apkPath = Environment.getExternalStorageDirectory().getPath() + "/kawa.apk";
                 Log.d("TEST","apkPath->"+apkPath);
                 MyIntentService.startUpdateService(mContext, "", apkPath);

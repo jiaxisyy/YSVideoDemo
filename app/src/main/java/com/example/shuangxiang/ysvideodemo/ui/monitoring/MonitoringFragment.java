@@ -1,5 +1,6 @@
 package com.example.shuangxiang.ysvideodemo.ui.monitoring;
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -13,11 +14,13 @@ import android.widget.TextView;
 
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
+import com.example.shuangxiang.ysvideodemo.common.utils.CacheUtils;
 import com.example.shuangxiang.ysvideodemo.common.utils.Utils;
 import com.example.shuangxiang.ysvideodemo.ui.BaseFragment;
 import com.example.shuangxiang.ysvideodemo.ui.monitoring.flow.MonitoringFlowFragment;
 import com.example.shuangxiang.ysvideodemo.ui.monitoring.main.MonitoringMainFragment;
 import com.example.shuangxiang.ysvideodemo.ui.monitoring.video.MonitoringVideoFragment;
+import com.example.shuangxiang.ysvideodemo.ui.warning.WarningActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +64,10 @@ public class MonitoringFragment extends BaseFragment {
         mTabMonitoring.setLayoutMode(TabLayout.MODE_FIXED);
         for (int i = 0; i < tb_titles.size(); i++) {
             mTabMonitoring.addTab(mTabMonitoring.newTab().setText(tb_titles.get(i)));
+        }
+        String title = CacheUtils.getString(getActivity(), Constants.Define.MYDEVICE_TO_SECONDHOME_TBTITLE);
+        if (title != null && !title.equals("")) {
+            mTvMonitoringTitle.setText(title);
         }
         initView();
 
@@ -114,6 +121,7 @@ public class MonitoringFragment extends BaseFragment {
 
     @OnClick(R.id.iv_monitoring_Notice)
     public void onViewClicked() {
+        startActivity(new Intent(getActivity(), WarningActivity.class));
     }
 
     protected void setImmerseLayout(View view) {

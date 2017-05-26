@@ -24,11 +24,13 @@
             />
 
         <ImageView
+            android:cropToPadding="true"
+            android:padding="30px"
             android:id="@+id/iv_control_notice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginRight="40px"
+            android:layout_marginRight="10px"
             android:src="@drawable/icon_monitoring_notice"
             />
     </android.support.v7.widget.Toolbar>
@@ -59,24 +61,23 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="74px"
+                android:layout_marginRight="50px"
                 android:src="@drawable/icon_setting_control_highliht"
                 />
 
-            <LinearLayout
-                android:id="@+id/iv_control_toParameter"
-                android:layout_width="78px"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:layout_marginRight="38px"
-                android:layout_toStartOf="@+id/iv_control_"
-                android:gravity="center"
-                android:orientation="vertical">
                 <ImageView
+                    android:id="@+id/iv_control_toParameter"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="8px"
+                    android:layout_toStartOf="@+id/iv_control_"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:cropToPadding="true"
+                    android:padding="30px"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/icon_ssetting_parameter_default"/>
-            </LinearLayout>
+
 
 
         </RelativeLayout>

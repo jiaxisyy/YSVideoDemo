@@ -3,8 +3,8 @@ package com.example.shuangxiang.ysvideodemo.ui.warning;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -14,9 +14,9 @@ import android.widget.TextView;
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.common.utils.CacheUtils;
+import com.example.shuangxiang.ysvideodemo.common.utils.Utils;
 import com.example.shuangxiang.ysvideodemo.manager.ActivityManager;
 import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
-import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.adapter.MyViewPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,8 +35,7 @@ public class WarningActivity extends BaseActivity {
     Toolbar mTbWarning;
     @BindView(R.id.tbl_warning)
     TabLayout mTabWarning;
-    @BindView(R.id.vp_warning)
-    ViewPager mViewPager;
+
     @BindView(R.id.tv_warning_title)
     TextView mTitle;
     private List<String> mTb_titles;
@@ -66,15 +65,47 @@ public class WarningActivity extends BaseActivity {
         if (title != null && !title.equals("")) {
             mTitle.setText(title);
         }
-        mTabWarning.setupWithViewPager(mViewPager);
+//        mTabWarning.setupWithViewPager(mViewPager);
         initView();
     }
 
     private void initView() {
-        MyViewPagerAdapter myViewPagerAdapter = new MyViewPagerAdapter(getSupportFragmentManager());
-        myViewPagerAdapter.addFragment(WarningMapFragment.getInstance(), Constants.Define.WARNINGMAP);
-        myViewPagerAdapter.addFragment(WarningRecordFragment.getInstance(), Constants.Define.WARNINGRECORD);
-        mViewPager.setAdapter(myViewPagerAdapter);
+//        MyViewPagerAdapter myViewPagerAdapter = new MyViewPagerAdapter(getSupportFragmentManager());
+//        myViewPagerAdapter.addFragment(WarningMapFragment.getInstance(), Constants.Define.WARNINGMAP);
+//        myViewPagerAdapter.addFragment(WarningRecordFragment.getInstance(), Constants.Define.WARNINGRECORD);
+//        mViewPager.setAdapter(myViewPagerAdapter);
+        Utils.replace(getSupportFragmentManager(), R.id.fl_warning,
+                WarningMapFragment.class);
+
+        mTabWarning.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+                switch (position) {
+                    case 0:
+                        Utils.replace(getSupportFragmentManager(), R.id.fl_warning,
+                                WarningMapFragment.class);
+                        break;
+                    case 1:
+                        Utils.replace(getSupportFragmentManager(), R.id.fl_warning,
+                                WarningRecordFragment.class);
+                        break;
+                }
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
     }
 
     protected void setImmerseLayout(View view) {
@@ -96,5 +127,14 @@ public class WarningActivity extends BaseActivity {
                 finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+        }
+        return false;
+
     }
 }

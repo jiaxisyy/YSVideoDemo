@@ -161,13 +161,18 @@ public class WarningListSearchActivity extends BaseActivity implements IWarningL
 
     @Override
     public void setData(List<WarningInfo.ListBean> data) {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        mRv.setHasFixedSize(true);
-        layoutManager.setAutoMeasureEnabled(true);
-        mRv.setLayoutManager(layoutManager);
-        mAdapter = new WarningListRVAdapter(data, this);
-        mRv.setAdapter(mAdapter);
-        mRv.addItemDecoration(new MyDecoration(this, MyDecoration.VERTICAL_LIST));
+
+        if (data != null && data.size() > 0) {
+            LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+            mRv.setHasFixedSize(true);
+            layoutManager.setAutoMeasureEnabled(true);
+            mRv.setLayoutManager(layoutManager);
+            mAdapter = new WarningListRVAdapter(data, this);
+            mRv.setAdapter(mAdapter);
+            mRv.addItemDecoration(new MyDecoration(this, MyDecoration.VERTICAL_LIST));
+        } else {
+            CustomToast.showToast(this, Constants.Define.SEARCH_NOTHING, Toast.LENGTH_SHORT);
+        }
         mProgressDialog.dismiss();
     }
 

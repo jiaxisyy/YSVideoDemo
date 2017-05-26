@@ -130,9 +130,10 @@ public class DataAnalyzeP implements IDataAnalyzeP {
                     values.add(object.getString(mDefaultAddress));
                 }
             }
-            if(values.size()>0){
-                mIDataAnalyzeV.setLineChart(values);
-            }
+
+            mIDataAnalyzeV.setLineChart(values);
+
+
             for (String value : values) {
                 Log.d("TEST", "DaaAnalyzeP->value=" + value);
             }

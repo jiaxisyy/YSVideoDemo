@@ -1,6 +1,7 @@
 package com.example.shuangxiang.ysvideodemo.ui.mydevice;
 
 import android.app.ProgressDialog;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -124,15 +125,15 @@ public class MyDeviceMapFragment extends BaseFragment implements IMyDeviceMapV {
         }
     }
 
-//    @Override
-//    public void onDestroy() {
-//        super.onDestroy();
-//        //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
-//        Log.d("TEST", "MyDeviceMapFragment->onDestroy");
-//        if (mMapView != null) {
-//            mMapView.onDestroy();
-//        }
-//    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
+        Log.d("TEST", "MyDeviceMapFragment->onDestroy");
+        if (mMapView != null) {
+            mMapView.onDestroy();
+        }
+    }
 
 
     @Override

@@ -61,6 +61,7 @@ public class ApiManager {
     private IDataShowRequest mIDataShowRequest;
     private ISettingRequest mISettingRequest;
     private IDataAnalyzeRequest mIDataAnalyzeRequest;
+    private ISettingRequest mISettingRequestValue;
 
     public ApiManager(Context context) {
         mContext = context;
@@ -133,7 +134,10 @@ public class ApiManager {
      * @return
      */
     public static Observable<String[]> getBannersUrl() {
-        sHomePictureRequest = sRetrofit.create(IHomePictureRequest.class);
+
+        if(sRetrofit!=null){
+            sHomePictureRequest = sRetrofit.create(IHomePictureRequest.class);
+        }
         return sHomePictureRequest.getBannersUrl();
     }
 
@@ -167,6 +171,9 @@ public class ApiManager {
     public Observable<String> submit(FeedbackInfo info) {
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; " +
                 "charset=utf-8"), new Gson().toJson(info));
+        if(sUploadFileRequest==null){
+            sUploadFileRequest = sRetrofit.create(IUploadFileRequest.class);
+        }
         return sUploadFileRequest.submit(body);
     }
 
@@ -232,10 +239,10 @@ public class ApiManager {
      * @return
      */
     public Observable<String> setParameterValue(String url,String json){
-
+        mISettingRequestValue = sRetrofit.create(ISettingRequest.class);
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; " +
                 "charset=utf-8"), json);
-        return mISettingRequest.setParameterValue(url,body);
+        return mISettingRequestValue.setParameterValue(url,body);
     }
 
 

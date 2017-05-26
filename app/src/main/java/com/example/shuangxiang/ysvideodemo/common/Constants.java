@@ -25,7 +25,7 @@ public class Constants {
         String MONITORING_VIDEO = "视频监控";
 
         long START_TIME = 3000;//启动页跳转时间为3秒
-//        String BASE_URL = "http://58.250.204.112:58010/userconsle/";//外网
+//                String BASE_URL = "http://58.250.204.112:58010/userconsle/";//外网
         String BASE_URL = "http://kawakp.chinclouds.com/userconsle/";//阿里云
         //内网
 //    private static final String BASEURL = "http://10.199.198.55:58010/userconsle/";
@@ -60,6 +60,10 @@ public class Constants {
         int WARNINGRECORDTYPE_ONE = 1;//预警监测单独的设备
 
 
+        String SEARCH_NOTHING = "无符合搜索条件的信息";
+        String STARTDOWNLOADFILE = "开始下载文件";
+        //*****************数据获取时间长短
+        int REFRESH_INTERVAL = 1;//刷新数据间隔
     }
 
 }

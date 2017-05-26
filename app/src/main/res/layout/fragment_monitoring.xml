@@ -24,11 +24,13 @@
             />
 
         <ImageView
+            android:cropToPadding="true"
+            android:padding="30px"
             android:id="@+id/iv_monitoring_Notice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginRight="40px"
+            android:layout_marginRight="10px"
             android:src="@drawable/icon_notice_blue"
             />
 

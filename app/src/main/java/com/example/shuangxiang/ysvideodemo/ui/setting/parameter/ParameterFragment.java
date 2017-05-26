@@ -51,7 +51,7 @@ public class ParameterFragment extends BaseFragment implements
     @BindView(R.id.tb_setting_parameter)
     Toolbar mTb;
     @BindView(R.id.iv_parameter_toControl)
-    LinearLayout mIvParameterToControl;
+    ImageView mIvParameterToControl;
     @BindView(R.id.rv_setting_parameter)
     RecyclerView mRv;
     @BindView(R.id.tv_parameter_TbTitile)
@@ -174,6 +174,11 @@ public class ParameterFragment extends BaseFragment implements
         CustomToast.showToast(getActivity(), s, Toast.LENGTH_SHORT);
     }
 
+    @Override
+    public void dissDialog() {
+        mAdminDialog.dismiss();
+    }
+
     /**
      * 展示输入框
      */
@@ -233,7 +238,6 @@ public class ParameterFragment extends BaseFragment implements
                     //默认的输入框
                     //拿取设置的值
                     String value = mEditTextValue.getText().toString();
-
                     mSettingParameterP.setValue(url, value, password);
 
                 }

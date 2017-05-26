@@ -76,7 +76,7 @@ public class WarningRecordFragment extends BaseFragment implements IWarningListV
 
     @Override
     protected boolean isCache() {
-        return false;
+        return true;
     }
 
     @Override

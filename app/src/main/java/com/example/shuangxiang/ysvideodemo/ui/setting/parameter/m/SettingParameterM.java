@@ -53,7 +53,8 @@ public class SettingParameterM implements ISettingParameterM {
 
     @Override
     public void getParameterValue(String url) {
-        ApiManager.getInstance().getParameterValue(url).subscribeOn(Schedulers.io()).observeOn
+        ApiManager.getInstance().getParameterValue(url).subscribeOn(Schedulers.io())
+                .observeOn
                 (AndroidSchedulers.mainThread()).subscribe(new Observer<String>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -102,6 +103,7 @@ public class SettingParameterM implements ISettingParameterM {
 
                     @Override
                     public void onError(Throwable e) {
+                        mSettingParameterP.onError(Constants.Define.SERVERQUERSTERROR);
                         Log.e("ERROR", e.getMessage().toString());
                     }
 

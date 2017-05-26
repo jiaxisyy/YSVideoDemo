@@ -19,6 +19,8 @@
     <string name="dialog_inputAdminTitle">输入管理员密码</string>
     <string name="dialog_inputAdminPassword">请输入密码</string>
     <string name="dialog_inputValueTitle">输入参数</string>
+    <string name="dialog_setValueTitle">设置</string>
+    <string name="dialog_confirm">是否确认修改</string>
 
 
     <string name="tv_myservice_title">我的客服</string>
@@ -51,7 +53,7 @@
     <string name="tv_feedback_submit">提交</string>
     <string name="et_feedback_inputQuestion">请描述您的问题...</string>
     <string name="et_feedback_inputPhone">请输入您的电话...</string>
-    <string name="tv_feedback_addPicExplain">添加图片说明</string>
+    <string name="tv_feedback_addPicExplain">添加图片说明(选填项)</string>
     <string name="tv_mydevice_search_cancel">取消</string>
     <string name="tv_mydevice_list_search_pleaseInputDeviceName">请输入设备名称</string>
     <string name="tv_warning_title">预警监测</string>
@@ -159,4 +161,5 @@
     <string name="tv_setting_control">控制设置</string>
     <string name="tv_monitoring_video">数据监控</string>
     <string name="password_fifter">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="tv_dialog_longClick">长按按钮控制</string>
 </resources>

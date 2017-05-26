@@ -42,7 +42,7 @@ public class FeedbackP implements IFeedbackP {
     @Override
     public void submit(FeedbackInfo info) {
         mModel.submit(info);
-        Log.d("TEST", "FeedbackInfo->" + info.toString());
+//        Log.d("TEST", "FeedbackInfo->" + info.toString());
     }
 
     @Override

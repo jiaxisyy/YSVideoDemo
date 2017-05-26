@@ -28,7 +28,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginRight="40px"
+            android:layout_marginRight="10px"
+            android:cropToPadding="true"
+            android:padding="30px"
             android:src="@drawable/icon_monitoring_notice"
             />
     </android.support.v7.widget.Toolbar>
@@ -38,10 +40,12 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_setting_blue_reproduction"
         android:orientation="vertical">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="100px"
             >
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -51,28 +55,26 @@
                 android:textSize="40px"
                 />
 
-            <LinearLayout
+
+            <ImageView
                 android:id="@+id/iv_parameter_toControl"
-                android:layout_width="78px"
-                android:gravity="center"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="74px"
-                android:orientation="vertical">
+                android:layout_marginRight="44px"
+                android:cropToPadding="true"
+                android:gravity="center"
+                android:padding="30px"
+                android:src="@drawable/icon_setting_control_default"
+                />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/icon_setting_control_default"
-                    />
-            </LinearLayout>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_marginRight="38px"
+                android:layout_marginRight="8px"
                 android:layout_toStartOf="@+id/iv_parameter_toControl"
                 android:src="@drawable/icon_ssetting_parameter_highliht"/>
         </RelativeLayout>

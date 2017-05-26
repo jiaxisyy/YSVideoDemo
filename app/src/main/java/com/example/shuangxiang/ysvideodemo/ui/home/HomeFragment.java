@@ -131,6 +131,8 @@ public class HomeFragment extends BaseFragment implements IHomeFragmentView, IHo
                 break;
             case R.id.ll_home_warning:
                 CacheUtils.putString(getActivity(), Constants.Define.MYDEVICE_TO_SECONDHOME_ID, "");
+                CacheUtils.putString(getActivity(), Constants.Define.MYDEVICE_TO_SECONDHOME_TBTITLE, "");
+
                 startActivity(new Intent(getActivity(), WarningActivity.class));
                 break;
             case R.id.ll_home_setting:

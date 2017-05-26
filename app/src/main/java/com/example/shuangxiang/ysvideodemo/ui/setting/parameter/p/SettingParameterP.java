@@ -8,11 +8,9 @@ import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.common.utils.CacheUtils;
 import com.example.shuangxiang.ysvideodemo.common.utils.CustomToast;
 import com.example.shuangxiang.ysvideodemo.ui.setting.parameter.bean.ParameterInfo;
-import com.example.shuangxiang.ysvideodemo.ui.setting.parameter.bean.ParameterRequestInfo;
 import com.example.shuangxiang.ysvideodemo.ui.setting.parameter.m.ISettingParameterM;
 import com.example.shuangxiang.ysvideodemo.ui.setting.parameter.m.SettingParameterM;
 import com.example.shuangxiang.ysvideodemo.ui.setting.parameter.v.ISettingParameterV;
-import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -116,16 +114,17 @@ public class SettingParameterP implements ISettingParameterP {
 
     @Override
     public void setValue(String url, String value, String password) {
-//        String json = "{\"value\":" + value + ",\"password\": \"" + password + "\"}";
-//        Log.d("TEST", "setValue->json=" + json);
-        String s = new Gson().toJson(new ParameterRequestInfo(value, password));
-        Log.d("TEST","GsonToJson="+s);
-        mISettingParameterM.setParameterValue(url, s);
+        String json = "{\"value\":" + value + ",\"password\": \"" + password + "\"}";
+        Log.d("TEST", "setValue->json=" + json);
+//        String s = new Gson().toJson(new ParameterRequestInfo(value, password));
+//        Log.d("TEST", "GsonToJson=" + s);
+        mISettingParameterM.setParameterValue(url, json);
     }
 
     @Override
     public void setValueSucceed(String s) {
         mISettingParameterV.setToast("设置成功");
+        mISettingParameterV.dissDialog();
     }
 
     @Override
@@ -137,6 +136,12 @@ public class SettingParameterP implements ISettingParameterP {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
+
+    @Override
+    public void onError(String s) {
+        mISettingParameterV.setToast(s);
+    }
+
+
 }

@@ -18,6 +18,6 @@ public interface ISettingParameterP {
     void setValueSucceed(String s);
 
     void setValueFailed(String s);
-
+    void onError(String s);
 
 }

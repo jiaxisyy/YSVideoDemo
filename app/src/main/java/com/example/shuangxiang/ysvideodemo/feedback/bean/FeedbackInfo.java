@@ -6,20 +6,16 @@ package com.example.shuangxiang.ysvideodemo.feedback.bean;
 
 public class FeedbackInfo {
 
-    @Override
-    public String toString() {
-        return "FeedbackInfo{" +
-                "content='" + content + '\'' +
-                ", phone='" + phone + '\'' +
-                ", imgPaths='" + imgPaths + '\'' +
-                '}';
-    }
+
+
+
 
     /**
      * content : 这个一个问题反馈的内容
      * phone : 18612345678
      *  imgPaths  : files/fd40689623344ade98550f4270b98f9
      */
+
 
     private String content;
     private String phone;
@@ -38,7 +34,10 @@ public class FeedbackInfo {
         this.phone = phone;
         this.imgPaths = imgPaths;
     }
-
+    public FeedbackInfo(String content, String phone) {
+        this.content = content;
+        this.phone = phone;
+    }
     public String getContent() {
         return content;
     }
@@ -53,5 +52,13 @@ public class FeedbackInfo {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+    @Override
+    public String toString() {
+        return "FeedbackInfo{" +
+                "content='" + content + '\'' +
+                ", phone='" + phone + '\'' +
+                ", imgPaths='" + imgPaths + '\'' +
+                '}';
     }
 }

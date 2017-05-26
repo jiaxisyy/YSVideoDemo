@@ -159,7 +159,7 @@ public class DataShowFragment extends BaseFragment implements ISettingParameterV
 
         if (names != null && names.size() > 0 && values != null && values.size() > 0 && ids != null && ids.size()
                 > 0 && units != null && units.size() > 0) {
-            mLayoutManagerBottom = new GridLayoutManager(getActivity(), 3);
+            mLayoutManagerBottom = new GridLayoutManager(getActivity(), 2);
             mRvBottom.setHasFixedSize(true);
             mLayoutManagerBottom.setAutoMeasureEnabled(true);
             mRvBottom.setLayoutManager(mLayoutManagerBottom);
@@ -197,6 +197,11 @@ public class DataShowFragment extends BaseFragment implements ISettingParameterV
 
     @Override
     public void setToast(String s) {
+
+    }
+
+    @Override
+    public void dissDialog() {
 
     }
 

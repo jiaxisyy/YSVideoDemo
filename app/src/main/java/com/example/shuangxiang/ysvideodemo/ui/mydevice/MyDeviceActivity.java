@@ -9,6 +9,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -230,5 +231,14 @@ public class MyDeviceActivity extends BaseActivity implements IMyDeviceListV,Act
         //查询所有
         CacheUtils.putString(this,Constants.Define.MYDEVICE_TO_SECONDHOME_ID,"");
         startActivity(new Intent(this, WarningActivity.class));
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+        }
+        return false;
+
     }
 }

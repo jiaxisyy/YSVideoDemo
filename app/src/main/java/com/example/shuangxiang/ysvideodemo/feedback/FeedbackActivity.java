@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.utils.CustomToast;
+import com.example.shuangxiang.ysvideodemo.feedback.bean.FeedbackInfo;
 import com.example.shuangxiang.ysvideodemo.feedback.p.FeedbackP;
 import com.example.shuangxiang.ysvideodemo.feedback.v.IFeedBackV;
 import com.example.shuangxiang.ysvideodemo.manager.ActivityManager;
@@ -81,13 +82,14 @@ public class FeedbackActivity extends BaseActivity implements IFeedBackV {
         switch (view.getId()) {
             case R.id.tv_feedback_submit:
                 mPresenter = new FeedbackP(this);
-                if (mPath == null || mPath.equals("") || getFeedbackMessage().equals("")
+                if ( getFeedbackMessage().equals("")
                         || getFeedbackPhone().equals("")) {
                     CustomToast.showToast(this, "请填写完整", Toast.LENGTH_SHORT);
-                } else {
+                } else if(mPath==null){
+                    mPresenter.submit(new FeedbackInfo(getFeedbackMessage(),getFeedbackPhone()));
+                }else if(mPath!=null&&!mPath.equals("")){
                     mPresenter.uploadFile(new File(mPath));
                 }
-
                 break;
             case R.id.iv_feedback_picAdd:
 //                Intent intent = new Intent();
@@ -153,6 +155,7 @@ public class FeedbackActivity extends BaseActivity implements IFeedBackV {
             @Override
             public void onClick(View view) {
                 mPopupWindow.dismiss();
+                finish();
             }
         });
         mPopupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout
@@ -183,7 +186,10 @@ public class FeedbackActivity extends BaseActivity implements IFeedBackV {
 
     @Override
     public void hideProgressBar() {
-        mProgressDialog.dismiss();
+        if(mProgressDialog!=null){
+            mProgressDialog.dismiss();
+        }
+
 
     }
 

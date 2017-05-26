@@ -1,11 +1,7 @@
 package com.example.shuangxiang.ysvideodemo.ui.warning;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -13,6 +9,7 @@ import com.baidu.mapapi.map.TextureMapView;
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.common.utils.CacheUtils;
+import com.example.shuangxiang.ysvideodemo.ui.BaseFragment;
 import com.example.shuangxiang.ysvideodemo.ui.warning.map.p.WarningMapP;
 import com.example.shuangxiang.ysvideodemo.ui.warning.map.v.IWarningMapV;
 import com.example.shuangxiang.ysvideodemo.ui.warning.record.bean.WarningInfo;
@@ -23,15 +20,13 @@ import java.text.ParseException;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * Created by shuang.xiang on 2017/4/27.
  */
 
-public class WarningMapFragment extends Fragment implements IWarningListV, IWarningMapV {
+public class WarningMapFragment extends BaseFragment implements IWarningListV, IWarningMapV {
     @BindView(R.id.mapView_warning)
     TextureMapView mMapView;
     @BindView(R.id.ll_warning_map_red)
@@ -54,7 +49,7 @@ public class WarningMapFragment extends Fragment implements IWarningListV, IWarn
     TextView mTvNumGreen;
     private WarningListP mWarningListP;
     private WarningMapP mWarningMapP;
-    private Unbinder mUnbinder;
+
 
 
     public WarningMapFragment() {
@@ -75,35 +70,27 @@ public class WarningMapFragment extends Fragment implements IWarningListV, IWarn
         return instance;
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(getLayoutId(), container, false);
-        mUnbinder = ButterKnife.bind(this, view);
-        init();
-        initData();
-        return view;
-    }
 
-    private int getLayoutId() {
+    @Override
+    protected int getLayoutId() {
         return R.layout.fragment_warning_map;
     }
 
-
-    private void init() {
+    @Override
+    protected void init() {
         mWarningListP = new WarningListP(this);
         mWarningListP.getResouce();
         mMapView.showZoomControls(false);
     }
 
-
-    private void initData() {
+    @Override
+    protected void initData() {
 
     }
+
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        mUnbinder.unbind();
+    protected boolean isCache() {
+        return true;
     }
 
     @OnClick({R.id.ll_warning_map_red, R.id.ll_warning_map_orange, R.id.ll_warning_map_yellow, R.id.ll_warning_map_green, R.id.ll_warning_map_all})
@@ -196,5 +183,26 @@ public class WarningMapFragment extends Fragment implements IWarningListV, IWarn
     @Override
     public void setGreenNum(int num) {
         mTvNumGreen.setText(String.valueOf(num));
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        //在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
+        mMapView.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mMapView.onPause();
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
+        Log.d("TEST", "MyDeviceMapFragment->onDestroy");
+        if (mMapView != null) {
+            mMapView.onDestroy();
+        }
     }
 }
