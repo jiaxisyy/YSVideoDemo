@@ -14,6 +14,7 @@ import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.adapter.MydeviceListRVAdapter;
+import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.bean.MyDeviceInfo;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.decoration.MyDecoration;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.p.MyDeviceListP;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.v.IMyDeviceListV;
@@ -73,7 +74,7 @@ public class MyDeviceListSearchActivity extends BaseActivity implements IMyDevic
     }
 
     @Override
-    public void setData(List<String> names, List<String> status,List<String> ids,List<String> dataTemplateIds) {
+    public void setData(List<String> names, List<String> status,List<String> ids,List<String> dataTemplateIds, List<MyDeviceInfo.ListBean> list) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setHasFixedSize(true);
         layoutManager.setAutoMeasureEnabled(true);

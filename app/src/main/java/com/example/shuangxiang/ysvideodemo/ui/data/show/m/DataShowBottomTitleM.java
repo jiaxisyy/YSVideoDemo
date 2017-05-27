@@ -9,6 +9,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
@@ -18,6 +19,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class DataShowBottomTitleM implements IDataShowBottomTitleM {
     private DataShowBottomTitleP mBottomTitleP;
+    private CompositeDisposable cd = new CompositeDisposable();
 
     public DataShowBottomTitleM(DataShowBottomTitleP bottomTitleP) {
         mBottomTitleP = bottomTitleP;
@@ -30,7 +32,7 @@ public class DataShowBottomTitleM implements IDataShowBottomTitleM {
                 .subscribe(new Observer<List<DataShowBottomTitle>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        cd.add(d);
                     }
 
                     @Override
@@ -51,4 +53,6 @@ public class DataShowBottomTitleM implements IDataShowBottomTitleM {
 
 
     }
+
+
 }

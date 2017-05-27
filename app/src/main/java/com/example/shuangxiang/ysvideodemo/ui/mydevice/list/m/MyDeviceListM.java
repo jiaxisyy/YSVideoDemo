@@ -11,6 +11,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
@@ -20,25 +21,29 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MyDeviceListM implements IMyDeviceListM {
     private MyDeviceListP mPresenter;
+    private CompositeDisposable cd = new CompositeDisposable();
 
     public MyDeviceListM(MyDeviceListP presenter) {
         mPresenter = presenter;
     }
+
     @Override
     public void getAllResouce(String orgId, String name, int pageNum, int pageSize) {
-        Observable<MyDeviceInfo> observable = ApiManager.getInstance().getAllDevices(orgId, name,pageNum,
+        Observable<MyDeviceInfo> observable = ApiManager.getInstance().getAllDevices(orgId, name, pageNum,
                 pageSize);
         observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io()).subscribe(new Observer<MyDeviceInfo>() {
             @Override
             public void onSubscribe(Disposable d) {
-
+                cd.add(d);
             }
+
             @Override
             public void onNext(MyDeviceInfo myDeviceInfo) {
                 List<MyDeviceInfo.ListBean> list = myDeviceInfo.getList();
                 mPresenter.getAllDeviceSucceed(list);
             }
+
             @Override
             public void onError(Throwable e) {
                 Log.e("ERROR", e.getMessage().toString());

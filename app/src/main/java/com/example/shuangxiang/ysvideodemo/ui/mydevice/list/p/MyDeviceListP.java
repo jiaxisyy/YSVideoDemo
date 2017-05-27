@@ -15,7 +15,6 @@ import java.util.List;
 public class MyDeviceListP implements IMyDeviceListP {
     private IMyDeviceListV mView;
     private IMyDeviceListM mModel;
-    private List<MyDeviceInfo.ListBean> sendList;
 
     public MyDeviceListP() {
     }
@@ -33,7 +32,6 @@ public class MyDeviceListP implements IMyDeviceListP {
 
     @Override
     public void getAllDeviceSucceed(List<MyDeviceInfo.ListBean> list) {
-
         List<String> names = new ArrayList<>();
         List<String> status = new ArrayList<>();
         List<String> ids = new ArrayList<>();
@@ -49,21 +47,8 @@ public class MyDeviceListP implements IMyDeviceListP {
         status.add("ONLINE");
         ids.add("123456");
         dataTemplateIds.add("9999");
-        mView.setData(names, status, ids, dataTemplateIds);
-//        RxBus.getDefault().send(new RxMydeviceEvent(list));
-        if(mIMyDeviceListToMapSendList!=null){
-            mIMyDeviceListToMapSendList.sendList(list);
-        }
-
+        mView.setData(names, status, ids, dataTemplateIds, list);
     }
 
-    public interface IMyDeviceListToMapSendList {
-        void sendList(List<MyDeviceInfo.ListBean> list);
-    }
 
-    public IMyDeviceListToMapSendList mIMyDeviceListToMapSendList;
-
-    public void setIMyDeviceListToMapSendList(IMyDeviceListToMapSendList IMyDeviceListToMapSendList) {
-        mIMyDeviceListToMapSendList = IMyDeviceListToMapSendList;
-    }
 }

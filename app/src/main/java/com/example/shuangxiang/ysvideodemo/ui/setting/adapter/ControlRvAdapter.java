@@ -2,6 +2,7 @@ package com.example.shuangxiang.ysvideodemo.ui.setting.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -33,6 +34,10 @@ public class ControlRvAdapter extends RecyclerView.Adapter {
         this.values = values;
     }
 
+    public void setValues(List<String> values) {
+        this.values = values;
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View inflate = LayoutInflater.from(mContext).inflate(R.layout.item_setting_control, parent, false);
@@ -46,9 +51,9 @@ public class ControlRvAdapter extends RecyclerView.Adapter {
         MyViewHolder viewHolder = (MyViewHolder) holder;
         viewHolder.mTitle.setText(names.get(position));
         viewHolder.mCheckBox.setChecked(Boolean.valueOf(values.get(position)));
-        if (position == 0) {
-            viewHolder.mLongClick.setVisibility(View.VISIBLE);
-        }
+//        if (position == 0) {
+//            viewHolder.mLongClick.setVisibility(View.VISIBLE);
+//        }
     }
 
     @Override
@@ -56,37 +61,41 @@ public class ControlRvAdapter extends RecyclerView.Adapter {
         return names == null ? 0 : names.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements
-            View.OnTouchListener, View.OnLongClickListener {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View
+            .OnLongClickListener, View.OnTouchListener {
         TextView mTitle;
         CheckBox mCheckBox;
-        TextView mLongClick;
+
         MyItemClickListener mMyItemClickListener;
 
         public MyViewHolder(View itemView, MyItemClickListener listener) {
             super(itemView);
             mMyItemClickListener = listener;
             mTitle = (TextView) itemView.findViewById(R.id.tv_item_control_setting);
-            mLongClick = (TextView) itemView.findViewById(R.id.tv_item_control_longClick);
             mCheckBox = (CheckBox) itemView.findViewById(R.id.cb_item_control);
-//            mCheckBox.setOnClickListener(this);
-            mCheckBox.setOnTouchListener(this);
             mCheckBox.setOnLongClickListener(this);
-
+            mCheckBox.setOnTouchListener(this);
         }
 
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-
-            return false;
-        }
 
         @Override
         public boolean onLongClick(View view) {
             if (mMyItemClickListener != null) {
                 mMyItemClickListener.onItemLongClick(view, getPosition(), mCheckBox.isChecked());
+                Log.d("TEST", "onLongClick-if");
             }
-            return true;
+            Log.d("TEST", "onLongClick");
+            return false;
+        }
+
+
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+
+            if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                return true;
+            }
+            return false;
         }
     }
 

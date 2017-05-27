@@ -1,5 +1,7 @@
 package com.example.shuangxiang.ysvideodemo.ui.mydevice.list.v;
 
+import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.bean.MyDeviceInfo;
+
 import java.util.List;
 
 /**
@@ -8,7 +10,8 @@ import java.util.List;
 
 public interface IMyDeviceListV {
 
-    void setData(List<String> names, List<String> status,List<String> ids,List<String> dataTemplateIds);
+    void setData(List<String> names, List<String> status,List<String> ids,List<String>
+            dataTemplateIds,List<MyDeviceInfo.ListBean> list);
 
     String getName();
 

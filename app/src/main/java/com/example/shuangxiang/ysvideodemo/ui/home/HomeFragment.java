@@ -58,6 +58,7 @@ public class HomeFragment extends BaseFragment implements IHomeFragmentView, IHo
     @BindView(R.id.rv_home_product)
     RecyclerView mRvHomeProduct;
     private ProgressDialog mProgressDialog;
+    private GridLayoutManager mLayoutManager;
 
 
     @Override
@@ -152,30 +153,50 @@ public class HomeFragment extends BaseFragment implements IHomeFragmentView, IHo
     @Override
     public void setBannersListUrl(List<String> list) {
 
-        mBannerHome.setPages(new CBViewHolderCreator<NetworkGlideView>() {
-            @Override
-            public NetworkGlideView createHolder() {
-                return new NetworkGlideView();
-            }
-        }, list).setPageIndicator(new int[]{R.drawable.yuan_dangqian, R.drawable.yuan_default});
-        mBannerHome.startTurning(5000);
+        if(mBannerHome!=null){
+            mBannerHome.setPages(new CBViewHolderCreator<NetworkGlideView>() {
+                @Override
+                public NetworkGlideView createHolder() {
+                    return new NetworkGlideView();
+                }
+            }, list).setPageIndicator(new int[]{R.drawable.yuan_dangqian, R.drawable.yuan_default});
+            mBannerHome.startTurning(5000);
+        }
+
+
     }
 
     @Override
     public void setProductResouce(List<ProductInfo.ListBean> list) {
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        };
-        layoutManager.setAutoMeasureEnabled(true);
-        mRvHomeProduct.setLayoutManager(layoutManager);
-        mRvHomeProduct.setAdapter(new HomeProductAdapter(list, getActivity()));
+        if(mLayoutManager==null){
+            mLayoutManager = new GridLayoutManager(getActivity(), 2) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            };
+            mLayoutManager.setAutoMeasureEnabled(true);
+        }
+        if(mRvHomeProduct!=null){
+            mRvHomeProduct.setLayoutManager(mLayoutManager);
+            mRvHomeProduct.setAdapter(new HomeProductAdapter(list, getActivity()));
+        }
+
     }
 
-//    // 开始自动翻页
+    @Override
+    public void onResume() {
+        super.onResume();
+        mBannerHome.startTurning(5000);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mBannerHome.stopTurning();
+    }
+    //    // 开始自动翻页
 //    @Override
 //    protected void onResume() {
 //        super.onResume();

@@ -63,7 +63,7 @@ public class Constants {
         String SEARCH_NOTHING = "无符合搜索条件的信息";
         String STARTDOWNLOADFILE = "开始下载文件";
         //*****************数据获取时间长短
-        int REFRESH_INTERVAL = 1;//刷新数据间隔
+        int REFRESH_INTERVAL = 2;//刷新数据间隔
     }
 
 }

@@ -29,10 +29,10 @@ import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.common.utils.CacheUtils;
 import com.example.shuangxiang.ysvideodemo.ui.SecondHomeActivity;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.bean.MyDeviceInfo;
-import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.p.MyDeviceListP;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.navigation.BNDemoMainActivity;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.v.IMyDeviceMapV;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -43,7 +43,7 @@ import io.reactivex.disposables.Disposable;
  */
 
 public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
-        .OnMarkerClickListener,MyDeviceListP.IMyDeviceListToMapSendList {
+        .OnMarkerClickListener {
 
 
     private IMyDeviceMapV mView;
@@ -67,6 +67,7 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
     private String mDataTemplateId;
     private String mStrName;
     private CompositeDisposable cd = new CompositeDisposable();
+
 
     public MyDeviceMapP(IMyDeviceMapV view, Context context, TextureMapView mapView) {
         mView = view;
@@ -149,53 +150,10 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
 
 
     @Override
-    public void initBaiDuMap() {
-//        new MyDeviceListP().setIMyDeviceListToMapSendList(this);
-//        new MyDeviceListP().setIMyDeviceListToMapSendList(new MyDeviceListP.IMyDeviceListToMapSendList() {
-//            @Override
-//            public void sendList(List<MyDeviceInfo.ListBean> list) {
-//                Log.d("TEST", "size=" + list.size());
-//                Log.d("TEST", "size=" + list.size());
-//            }
-//        });
-
-
-//        boolean b = RxBus.getDefault().hasObservers();
-//        Log.d("TEST", "hasObservers=" + b);
-//        RxBus.getDefault().toObservable(RxMydeviceEvent.class).subscribe(new Observer<RxMydeviceEvent>() {
-//            @Override
-//            public void onSubscribe(Disposable d) {
-//                cd.add(d);
-//                Log.d("TEST", "onSubscribe");
-//            }
-//
-//            @Override
-//            public void onNext(RxMydeviceEvent event) {
-//
-//                List<MyDeviceInfo.ListBean> list = event.getList();
-//                if (list == null) {
-//                    initBaiDuMap();
-//                }
-//
-//                int size = list.size();
-//
-//                Log.d("TEST", "我日你妈" + size);
-//
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//                Log.d("TEST", "onError");
-//            }
-//
-//            @Override
-//            public void onComplete() {
-//                Log.d("TEST", "onComplete");
-//            }
-//        });
-
-
-
+    public void initBaiDuMap(List<MyDeviceInfo.ListBean> list) {
+        Log.d("TEST","initBaiDuMap");
+        mList = new ArrayList<>();
+        mList.addAll(list);
         mBaiduMap = mMapView.getMap();
         mBaiduMap.clear();
         mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
@@ -205,8 +163,14 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
         initLocation();
         mLocationClient.start();
         mBaiduMap.setOnMarkerClickListener(this);
+        getData();
+        if (mFirstInto = true) {
+            clickAll();
+            mFirstInto = false;
+        }
+    }
 
-
+    private void getData() {
         if (mList != null && mList.size() > 0) {
             String name = mList.get(0).getName();
             mSize = mList.size();
@@ -229,10 +193,6 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
             }
         }
 
-        if (mFirstInto = true) {
-            clickAll();
-            mFirstInto = false;
-        }
     }
 
     @Override
@@ -350,10 +310,5 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
         return false;
     }
 
-
-    @Override
-    public void sendList(List<MyDeviceInfo.ListBean> list) {
-        Log.d("TEST", "size=" + list.size());
-    }
 
 }

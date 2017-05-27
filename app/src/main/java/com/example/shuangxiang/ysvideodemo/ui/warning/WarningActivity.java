@@ -61,8 +61,9 @@ public class WarningActivity extends BaseActivity {
         for (int i = 0; i < mTb_titles.size(); i++) {
             mTabWarning.addTab(mTabWarning.newTab().setText(mTb_titles.get(i)));
         }
+        String id = CacheUtils.getString(this, Constants.Define.MYDEVICE_TO_SECONDHOME_ID);
         String title = CacheUtils.getString(this, Constants.Define.MYDEVICE_TO_SECONDHOME_TBTITLE);
-        if (title != null && !title.equals("")) {
+        if (id != null && !id.equals("")) {
             mTitle.setText(title);
         }
 //        mTabWarning.setupWithViewPager(mViewPager);

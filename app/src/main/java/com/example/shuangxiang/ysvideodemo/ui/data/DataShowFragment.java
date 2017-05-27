@@ -78,6 +78,7 @@ public class DataShowFragment extends BaseFragment implements ISettingParameterV
     private GridLayoutManager mLayoutManagerBottom;
     private LinearLayoutManager mLayoutManagerCenter;
     private DataShowCenterRvAdapter mRvAdapterCenter;
+    private boolean mFirstInto = true;
 
     @Override
     protected int getLayoutId() {
@@ -106,13 +107,16 @@ public class DataShowFragment extends BaseFragment implements ISettingParameterV
         if (operatingAnim != null) {
             mLlDataShowCircle.startAnimation(operatingAnim);
         }
-        mSettingParameterP = new SettingParameterP(this, getActivity());
-        mSettingParameterP.getTitle("MONITOR");
+        if(mFirstInto&&mSettingParameterP==null){
+            mSettingParameterP = new SettingParameterP(this, getActivity());
+            mSettingParameterP.getTitle("MONITOR");
+        }
+
     }
 
     @Override
     protected boolean isCache() {
-        return false;
+        return true;
     }
 
     protected void setImmerseLayout(View view) {
@@ -155,44 +159,49 @@ public class DataShowFragment extends BaseFragment implements ISettingParameterV
 
     @Override
     public void setRvData(final List<String> names, final List<String> values, List<String> ids,
-                          final List<String> units,List<String> defaultAddress) {
+                          final List<String> units, List<String> defaultAddress) {
 
         if (names != null && names.size() > 0 && values != null && values.size() > 0 && ids != null && ids.size()
                 > 0 && units != null && units.size() > 0) {
-            mLayoutManagerBottom = new GridLayoutManager(getActivity(), 2);
-            mRvBottom.setHasFixedSize(true);
-            mLayoutManagerBottom.setAutoMeasureEnabled(true);
-            mRvBottom.setLayoutManager(mLayoutManagerBottom);
-            mAdapterBottom = new DataShowBottomRvAdapter(getActivity(), names, values, units);
-            mRvBottom.setAdapter(mAdapterBottom);
-            //***************************************
-            //***************************************
-            //***************************************
-            mLayoutManagerCenter = new LinearLayoutManager(getActivity(),
-                    LinearLayoutManager.HORIZONTAL, false);
-            mRvCenter.setHasFixedSize(true);
-            mLayoutManagerCenter.setAutoMeasureEnabled(true);
-            mRvCenter.setLayoutManager(mLayoutManagerCenter);
-            mRvAdapterCenter = new DataShowCenterRvAdapter(getActivity(), names);
-            mRvCenter.addItemDecoration(new SpacesItemDecoration(Constants.Define.DATASHOW_CENTER_SPACINGINPIXELS));
-            mRvCenter.setAdapter(mRvAdapterCenter);
 
-            //默认设置圆的值
-            mTvDataShowCircleTitle.setText(names.get(0));
-            mTvDataShowCircleNum.setText(values.get(0));
-            mTvDataShowCircleUnit.setText("单位: " + units.get(0));
-
-            mRvAdapterCenter.setItemClickListener(new DataShowCenterRvAdapter.MyItemClickListener() {
-                @Override
-                public void itemClick(View view, int position) {
-                    mTvDataShowCircleTitle.setText(names.get(position));
-                    mTvDataShowCircleNum.setText(values.get(position));
-                    mTvDataShowCircleUnit.setText("单位: " + units.get(position));
-                }
-            });
+            if (mFirstInto) {
+                mFirstInto = false;
+                mLayoutManagerBottom = new GridLayoutManager(getActivity(), 2);
+                mRvBottom.setHasFixedSize(true);
+                mLayoutManagerBottom.setAutoMeasureEnabled(true);
+                mRvBottom.setLayoutManager(mLayoutManagerBottom);
+                mAdapterBottom = new DataShowBottomRvAdapter(getActivity(), names, values, units);
+                mRvBottom.setAdapter(mAdapterBottom);
+                //***************************************
+                //***************************************
+                //***************************************
+                mLayoutManagerCenter = new LinearLayoutManager(getActivity(),
+                        LinearLayoutManager.HORIZONTAL, false);
+                mRvCenter.setHasFixedSize(true);
+                mLayoutManagerCenter.setAutoMeasureEnabled(true);
+                mRvCenter.setLayoutManager(mLayoutManagerCenter);
+                mRvAdapterCenter = new DataShowCenterRvAdapter(getActivity(), names);
+                mRvCenter.addItemDecoration(new SpacesItemDecoration(Constants.Define.DATASHOW_CENTER_SPACINGINPIXELS));
+                mRvCenter.setAdapter(mRvAdapterCenter);
+                //默认设置圆的值
+                mTvDataShowCircleTitle.setText(names.get(0));
+                mTvDataShowCircleNum.setText(values.get(0));
+                mTvDataShowCircleUnit.setText("单位: " + units.get(0));
+                mRvAdapterCenter.setItemClickListener(new DataShowCenterRvAdapter.MyItemClickListener() {
+                    @Override
+                    public void itemClick(View view, int position) {
+                        mTvDataShowCircleTitle.setText(names.get(position));
+                        mTvDataShowCircleNum.setText(values.get(position));
+                        mTvDataShowCircleUnit.setText("单位: " + units.get(position));
+                    }
+                });
+            } else {
+                mAdapterBottom.setValues(values);
+            }
         } else {
             CustomToast.showToast(getActivity(), Constants.Define.SERVERDATAERROR, Toast.LENGTH_SHORT);
         }
+
     }
 
     @Override

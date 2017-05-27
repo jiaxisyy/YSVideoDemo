@@ -125,6 +125,7 @@ public class SettingParameterP implements ISettingParameterP {
     public void setValueSucceed(String s) {
         mISettingParameterV.setToast("设置成功");
         mISettingParameterV.dissDialog();
+
     }
 
     @Override
@@ -142,6 +143,7 @@ public class SettingParameterP implements ISettingParameterP {
     public void onError(String s) {
         mISettingParameterV.setToast(s);
     }
+
 
 
 }

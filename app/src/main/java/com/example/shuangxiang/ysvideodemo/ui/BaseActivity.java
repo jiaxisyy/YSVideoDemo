@@ -20,10 +20,10 @@ public abstract class BaseActivity extends AutoLayoutActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-            initContentView(savedInstanceState);
+
+        initContentView(savedInstanceState);
         mUnbinder = ButterKnife.bind(this);
         initSomething();
-
     }
 
     protected abstract void initContentView(Bundle savedInstanceState);
@@ -33,7 +33,7 @@ public abstract class BaseActivity extends AutoLayoutActivity {
 
     @Override
     protected void onDestroy() {
-            super.onDestroy();
-            mUnbinder.unbind();
+        super.onDestroy();
+        mUnbinder.unbind();
     }
 }

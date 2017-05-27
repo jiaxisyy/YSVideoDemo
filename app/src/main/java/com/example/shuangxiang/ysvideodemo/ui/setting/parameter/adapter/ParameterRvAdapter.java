@@ -40,6 +40,11 @@ public class ParameterRvAdapter extends RecyclerView.Adapter {
         this.mItemClickListener = listener;
     }
 
+    public void setValues(List<String> values) {
+        this.values = values;
+        notifyDataSetChanged();
+    }
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         //解决参数设置界面错误问题

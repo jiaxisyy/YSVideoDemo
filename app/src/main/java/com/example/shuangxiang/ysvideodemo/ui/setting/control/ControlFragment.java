@@ -67,6 +67,7 @@ public class ControlFragment extends BaseFragment implements ISettingParameterV 
     private final int SHOWDIALOGINPUT_ADMIN = 1;//管理员弹窗
     private final int SHOWDIALOGINPUT_DEFAULT = 0;//确认控制弹窗
     private SettingParameterP mSettingParameterP;
+    private boolean mFirstInto = true;
 
     @Override
     protected int getLayoutId() {
@@ -91,13 +92,15 @@ public class ControlFragment extends BaseFragment implements ISettingParameterV 
         mDialog = new ProgressDialog(getActivity());
         mDialog.show();
 
-        mSettingParameterP = new SettingParameterP(this, getActivity());
-        mSettingParameterP.getTitle("CONTROL");
+        if (mFirstInto) {
+            mSettingParameterP = new SettingParameterP(this, getActivity());
+            mSettingParameterP.getTitle("CONTROL");
+        }
     }
 
     @Override
     protected boolean isCache() {
-        return false;
+        return true;
     }
 
     @Override
@@ -138,34 +141,49 @@ public class ControlFragment extends BaseFragment implements ISettingParameterV 
             units, List<String> defaultAddress) {
         if (names.size() > 0 && values.size() > 0 && ids.size() > 0 && units.size() > 0 && defaultAddress.size() > 0) {
             //默认显示在线
-            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-            mRv.setHasFixedSize(true);
-            layoutManager.setAutoMeasureEnabled(true);
-            mRv.setLayoutManager(layoutManager);
-            mAdapter = new ControlRvAdapter(getActivity(), names, values);
-            mRv.setAdapter(mAdapter);
-            mAdapter.setMyItemClickListener(new ControlRvAdapter.MyItemClickListener() {
-                @Override
-                public void onItemLongClick(View view, int position, boolean isChecked) {
-                    Log.d("TEST", "setRvData->position=" + position);
-                    Log.d("TEST", "isChecked=" + isChecked);
-                    String elementId = ids.get(position);
-                    Log.d("TEST", "elementId=" + elementId);
-                    String deviceid = CacheUtils.getString(getActivity(), Constants.Define
-                            .MYDEVICE_TO_SECONDHOME_ID);
-                    Log.d("TEST", "deviceid=" + deviceid);
-                    String url = Constants.Define
-                            .BASE_URL + "devices/" + deviceid + "/elements/" + elementId + "?client=app";
-                    Log.d("TEST", "url=" + url);
-                    showAdminDialog(position, String.valueOf(!isChecked), url, "",
-                            SHOWDIALOGINPUT_ADMIN);
-                    //第一次不传密码
-                }
-            });
+
+            if (mFirstInto) {
+                mFirstInto = false;
+
+                LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+                mRv.setHasFixedSize(true);
+                layoutManager.setAutoMeasureEnabled(true);
+                mRv.setLayoutManager(layoutManager);
+                mAdapter = new ControlRvAdapter(getActivity(), names, values);
+                mRv.setAdapter(mAdapter);
+                mAdapter.setMyItemClickListener(new ControlRvAdapter.MyItemClickListener() {
+                    @Override
+                    public void onItemLongClick(View view, int position, boolean isChecked) {
+                        Log.d("TEST", "setRvData->position=" + position);
+                        Log.d("TEST", "isChecked=" + isChecked);
+                        String elementId = ids.get(position);
+                        Log.d("TEST", "elementId=" + elementId);
+                        String deviceid = CacheUtils.getString(getActivity(), Constants.Define
+                                .MYDEVICE_TO_SECONDHOME_ID);
+                        Log.d("TEST", "deviceid=" + deviceid);
+                        String url = Constants.Define
+                                .BASE_URL + "devices/" + deviceid + "/elements/" + elementId + "?client=app";
+                        Log.d("TEST", "url=" + url);
+                        showAdminDialog(position, String.valueOf(!isChecked), url, "",
+                                SHOWDIALOGINPUT_ADMIN);
+                        //第一次不传密码
+                    }
+                });
+            } else {
+
+                mAdapter.setValues(values);
+
+
+            }
+
+
         } else {
             CustomToast.showToast(getActivity(), Constants.Define.SERVERDATAERROR, Toast.LENGTH_SHORT);
         }
-        mDialog.dismiss();
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
+
 
     }
 
@@ -177,8 +195,15 @@ public class ControlFragment extends BaseFragment implements ISettingParameterV 
 
     @Override
     public void dissDialog() {
+        if (mAdminDialog.isShowing()) {
+            mAdminDialog.dismiss();
+        }
+        if (mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
 
     }
+
     /**
      * 展示输入框
      */
@@ -235,6 +260,9 @@ public class ControlFragment extends BaseFragment implements ISettingParameterV 
                 } else if (showType == SHOWDIALOGINPUT_DEFAULT) {
                     //默认的输入框
                     //拿取设置的值
+                    if (!mDialog.isShowing()) {
+                        mDialog.show();
+                    }
                     mSettingParameterP.setValue(url, value, password);
 
                 }

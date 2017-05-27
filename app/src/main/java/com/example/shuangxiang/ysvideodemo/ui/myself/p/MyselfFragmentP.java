@@ -1,6 +1,7 @@
 package com.example.shuangxiang.ysvideodemo.ui.myself.p;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.example.shuangxiang.ysvideodemo.R;
+import com.example.shuangxiang.ysvideodemo.login.view.LoginActivity;
 import com.example.shuangxiang.ysvideodemo.ui.myself.v.IMyselfFragmentV;
 
 /**
@@ -48,12 +50,13 @@ public class MyselfFragmentP implements IMyselfFragmentP {
             @Override
             public void onClick(View view) {
                 mView.exit();
+                mContext.startActivity(new Intent(mContext, LoginActivity.class));
             }
         });
         mPopupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout
                 .LayoutParams.MATCH_PARENT, false);
         if (mPopupWindow.isShowing()) {
-           mView.dismissPop(mPopupWindow);
+            mView.dismissPop(mPopupWindow);
         }
         mPopupWindow.setFocusable(true);
         //下面的是设置外部是否可以点击

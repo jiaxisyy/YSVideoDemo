@@ -67,12 +67,14 @@ public class ParameterFragment extends BaseFragment implements
     private final int SHOWDIALOGINPUT_ADMIN = 1;//管理员弹窗
     private final int SHOWDIALOGINPUT_DEFAULT = 0;//设置参数
     private final String digists = "0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
+    private boolean mFirstInto = true;
 
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_setting_parameter;
     }
+
+
 
     @Override
     protected void init() {
@@ -89,9 +91,10 @@ public class ParameterFragment extends BaseFragment implements
 
     @Override
     protected void initData() {
-
-        mSettingParameterP = new SettingParameterP(this, getActivity());
-        mSettingParameterP.getTitle("PARAM");
+        if (mFirstInto) {
+            mSettingParameterP = new SettingParameterP(this, getActivity());
+            mSettingParameterP.getTitle("PARAM");
+        }
     }
 
     @Override
@@ -137,33 +140,35 @@ public class ParameterFragment extends BaseFragment implements
                           List<String> units, List<String> defaultAddress) {
 
         if (names.size() > 0 && values.size() > 0 && ids.size() > 0 && units.size() > 0 && defaultAddress.size() > 0) {
-
-
             //默认显示在线
-            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-            mRv.setHasFixedSize(true);
-            layoutManager.setAutoMeasureEnabled(true);
-            mRv.setLayoutManager(layoutManager);
-            mAdapter = new ParameterRvAdapter(getActivity(), names, values, units);
-            mRv.setAdapter(mAdapter);
+            if (mFirstInto) {
+                mFirstInto = false;
+                LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+                mRv.setHasFixedSize(true);
+                layoutManager.setAutoMeasureEnabled(true);
+                mRv.setLayoutManager(layoutManager);
+                mAdapter = new ParameterRvAdapter(getActivity(), names, values, units);
+                mRv.setAdapter(mAdapter);
+                mAdapter.setOnItemClickListener(new ParameterRvAdapter.MyItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, final int position, String value) {
+                        Log.d("TEST", "setRvData->position=" + position);
+                        Log.d("TEST", "text=" + value);
+                        String elementId = ids.get(position);
+                        Log.d("TEST", "elementId=" + elementId);
+                        String deviceid = CacheUtils.getString(getActivity(), Constants.Define
+                                .MYDEVICE_TO_SECONDHOME_ID);
+                        Log.d("TEST", "deviceid=" + deviceid);
+                        String url = Constants.Define
+                                .BASE_URL + "devices/" + deviceid + "/elements/" + elementId + "?client=app";
+                        Log.d("TEST", "url=" + url);
+                        showAdminDialog(position, value, url, "", SHOWDIALOGINPUT_ADMIN);//第一次不传密码
+                    }
+                });
+            } else {
+                mAdapter.setValues(values);
+            }
 
-            mAdapter.setOnItemClickListener(new ParameterRvAdapter.MyItemClickListener() {
-                @Override
-                public void onItemClick(View view, final int position, String value) {
-
-                    Log.d("TEST", "setRvData->position=" + position);
-                    Log.d("TEST", "text=" + value);
-                    String elementId = ids.get(position);
-                    Log.d("TEST", "elementId=" + elementId);
-                    String deviceid = CacheUtils.getString(getActivity(), Constants.Define
-                            .MYDEVICE_TO_SECONDHOME_ID);
-                    Log.d("TEST", "deviceid=" + deviceid);
-                    String url = Constants.Define
-                            .BASE_URL + "devices/" + deviceid + "/elements/" + elementId + "?client=app";
-                    Log.d("TEST", "url=" + url);
-                    showAdminDialog(position, value, url, "", SHOWDIALOGINPUT_ADMIN);//第一次不传密码
-                }
-            });
         } else {
             CustomToast.showToast(getActivity(), "数据显示错误", Toast.LENGTH_SHORT);
         }

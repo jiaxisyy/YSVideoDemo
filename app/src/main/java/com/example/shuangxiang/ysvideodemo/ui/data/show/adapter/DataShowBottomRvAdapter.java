@@ -37,6 +37,11 @@ public class DataShowBottomRvAdapter extends RecyclerView.Adapter {
         return new MyViewHolder(inflate);
     }
 
+    public void setValues(List<String> values) {
+        this.values = values;
+        notifyDataSetChanged();
+    }
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         holder.setIsRecyclable(false);

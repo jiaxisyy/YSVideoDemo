@@ -18,6 +18,7 @@ import com.example.shuangxiang.ysvideodemo.common.utils.CustomToast;
 import com.example.shuangxiang.ysvideodemo.ui.BaseFragment;
 import com.example.shuangxiang.ysvideodemo.ui.SecondHomeActivity;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.adapter.MydeviceListRVAdapter;
+import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.bean.MyDeviceInfo;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.decoration.MyDecoration;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.p.MyDeviceListP;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.v.IMyDeviceListV;
@@ -106,11 +107,10 @@ public class MyDeviceListFragment extends BaseFragment implements IMyDeviceListV
 
     @Override
     public void setData(final List<String> names, final List<String> status, final List<String>
-            ids, final List<String> dataTemplateIds) {
+            ids, final List<String> dataTemplateIds,List<MyDeviceInfo.ListBean> list) {
         if (names == null || status == null || ids == null || dataTemplateIds == null) {
             CustomToast.showToast(getActivity(), "数据显示错误", Toast.LENGTH_SHORT);
         }
-
         //初始化在线
         final List<String> namesOn = new ArrayList<>();
         final List<String> statusOn = new ArrayList<>();

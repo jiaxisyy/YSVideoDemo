@@ -32,7 +32,8 @@ public class LoginModel implements ILoginModel {
 
     @Override
     public void getLoginInfo(User user) {
-        Observable<String> observable = new ApiManager(mContext).getLoginRequest(user.getUsername(), user
+        Observable<String> observable = ApiManager.getInstance().getLoginRequest(user.getUsername
+                (), user
                 .getPassword());
         observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {

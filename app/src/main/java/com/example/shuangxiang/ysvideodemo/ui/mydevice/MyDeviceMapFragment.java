@@ -8,9 +8,12 @@ import android.widget.Toast;
 
 import com.baidu.mapapi.map.TextureMapView;
 import com.example.shuangxiang.ysvideodemo.R;
+import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.common.utils.CustomToast;
 import com.example.shuangxiang.ysvideodemo.ui.BaseFragment;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.bean.MyDeviceInfo;
+import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.p.MyDeviceListP;
+import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.v.IMyDeviceListV;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.p.MyDeviceMapP;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.v.IMyDeviceMapV;
 
@@ -23,7 +26,7 @@ import butterknife.OnClick;
  * Created by shuang.xiang on 2017/4/20.
  */
 
-public class MyDeviceMapFragment extends BaseFragment implements IMyDeviceMapV {
+public class MyDeviceMapFragment extends BaseFragment implements IMyDeviceMapV, IMyDeviceListV {
 
     private static final int ACCESS_COARSE_LOCATION_REQUEST_CODE = 2;
     @BindView(R.id.mapView_mydevice)
@@ -38,6 +41,7 @@ public class MyDeviceMapFragment extends BaseFragment implements IMyDeviceMapV {
     private ProgressDialog mProgressDialog;
     private boolean mIsFirstInto = true;
     private List<MyDeviceInfo.ListBean> mMList;
+    private MyDeviceListP mMyDeviceListP;
 
 
     public MyDeviceMapFragment() {
@@ -65,22 +69,18 @@ public class MyDeviceMapFragment extends BaseFragment implements IMyDeviceMapV {
 
     @Override
     protected void init() {
-
         mPresenter = new MyDeviceMapP(this, getActivity(), mMapView);
         mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.show();
-        if (mIsFirstInto) {
-            mPresenter.initBaiDuMap();
-            mIsFirstInto = false;
-        }
-        mProgressDialog.dismiss();
+
 
     }
 
 
     @Override
     protected void initData() {
-
+        mMyDeviceListP = new MyDeviceListP(this);
+        mMyDeviceListP.getAllDevice();
     }
 
     @Override
@@ -149,4 +149,39 @@ public class MyDeviceMapFragment extends BaseFragment implements IMyDeviceMapV {
         mMapView.onPause();
     }
 
+
+    @Override
+    public void setData(List<String> names, List<String> status, List<String> ids, List<String> dataTemplateIds, List<MyDeviceInfo.ListBean> list) {
+
+        if (mIsFirstInto) {
+            mPresenter.initBaiDuMap(list);
+            mIsFirstInto = false;
+        }
+        mProgressDialog.dismiss();
+    }
+
+    @Override
+    public String getName() {
+        return null;
+    }
+
+    @Override
+    public int getPagerNum() {
+        return Constants.Define.DEFAULTPAGENUM;
+    }
+
+    @Override
+    public int getPagerSize() {
+        return Constants.Define.DEFAULTPAGESIZE;
+    }
+
+    @Override
+    public void refresh() {
+
+    }
+
+    @Override
+    public void upload() {
+
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.shuangxiang.ysvideodemo.login.presenter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -50,9 +51,11 @@ public class LoginPresenter implements ILoginPresenter {
         CacheUtils.putString(mContext, Constants.Define.ADMINPASSWORD, mLoginView.getPassWord());
         if (isChecked) {
             CacheUtils.putString(mContext, Constants.Define.PASSWORD, mLoginView.getPassWord());
+        } else {
+            CacheUtils.putString(mContext, Constants.Define.PASSWORD, "");
         }
-
         mContext.startActivity(new Intent(mContext, HomeActivity.class));
+        ((Activity) mContext).finish();
         mLoginView.hideLoading();
         Log.d("TEST", "cookie=" + CacheUtils.getString(mContext, Constants.Define.COOKIE));
         Log.d("TEST", "orgID=" + info.getOrgId());

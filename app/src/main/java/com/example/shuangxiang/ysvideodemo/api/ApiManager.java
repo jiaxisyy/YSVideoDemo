@@ -90,14 +90,7 @@ public class ApiManager {
     //外网
 //    private static final String BASEURL = "http://58.250.204.112:58010/userconsle/";
 
-    /**
-     * 获取登录信息
-     *
-     * @param username
-     * @param password
-     * @return
-     */
-    public Observable<String> getLoginRequest(String username, String password) {
+    public void initApiManager(){
         mSOkHttpClient = new OkHttpClient.Builder()
 
                 .cookieJar(new CookieManger(mContext))
@@ -112,6 +105,16 @@ public class ApiManager {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(mSOkHttpClient)
                 .build();
+    }
+    /**
+     * 获取登录信息
+     *
+     * @param username
+     * @param password
+     * @return
+     */
+    public Observable<String> getLoginRequest(String username, String password) {
+
 
         ILoginRequest loginRequest = sRetrofit.create(ILoginRequest.class);
 
