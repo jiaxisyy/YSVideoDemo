@@ -1,5 +1,6 @@
 package com.example.shuangxiang.ysvideodemo.ui.data;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -79,6 +81,9 @@ public class DataShowFragment extends BaseFragment implements ISettingParameterV
     private LinearLayoutManager mLayoutManagerCenter;
     private DataShowCenterRvAdapter mRvAdapterCenter;
     private boolean mFirstInto = true;
+    private ProgressDialog mProgressDialog;
+    //默认设置圆的值
+    private int mDefaultPosition = 0;
 
     @Override
     protected int getLayoutId() {
@@ -87,6 +92,11 @@ public class DataShowFragment extends BaseFragment implements ISettingParameterV
 
     @Override
     protected void init() {
+        if (getActivity() != null) {
+            mProgressDialog = new ProgressDialog(getActivity());
+            mProgressDialog.show();
+        }
+
         mTbDataMonitoring.setNavigationIcon(R.drawable.icon_mydevice_back);
         mTbDataMonitoring.setTitle("");
         setImmerseLayout(mTbDataMonitoring);
@@ -107,7 +117,7 @@ public class DataShowFragment extends BaseFragment implements ISettingParameterV
         if (operatingAnim != null) {
             mLlDataShowCircle.startAnimation(operatingAnim);
         }
-        if(mFirstInto&&mSettingParameterP==null){
+        if (mFirstInto && mSettingParameterP == null) {
             mSettingParameterP = new SettingParameterP(this, getActivity());
             mSettingParameterP.getTitle("MONITOR");
         }
@@ -171,6 +181,7 @@ public class DataShowFragment extends BaseFragment implements ISettingParameterV
                 mLayoutManagerBottom.setAutoMeasureEnabled(true);
                 mRvBottom.setLayoutManager(mLayoutManagerBottom);
                 mAdapterBottom = new DataShowBottomRvAdapter(getActivity(), names, values, units);
+
                 mRvBottom.setAdapter(mAdapterBottom);
                 //***************************************
                 //***************************************
@@ -183,13 +194,14 @@ public class DataShowFragment extends BaseFragment implements ISettingParameterV
                 mRvAdapterCenter = new DataShowCenterRvAdapter(getActivity(), names);
                 mRvCenter.addItemDecoration(new SpacesItemDecoration(Constants.Define.DATASHOW_CENTER_SPACINGINPIXELS));
                 mRvCenter.setAdapter(mRvAdapterCenter);
-                //默认设置圆的值
-                mTvDataShowCircleTitle.setText(names.get(0));
-                mTvDataShowCircleNum.setText(values.get(0));
-                mTvDataShowCircleUnit.setText("单位: " + units.get(0));
+
+                mTvDataShowCircleTitle.setText(names.get(mDefaultPosition));
+                mTvDataShowCircleNum.setText(values.get(mDefaultPosition));
+                mTvDataShowCircleUnit.setText("单位: " + units.get(mDefaultPosition));
                 mRvAdapterCenter.setItemClickListener(new DataShowCenterRvAdapter.MyItemClickListener() {
                     @Override
                     public void itemClick(View view, int position) {
+                        mDefaultPosition = position;
                         mTvDataShowCircleTitle.setText(names.get(position));
                         mTvDataShowCircleNum.setText(values.get(position));
                         mTvDataShowCircleUnit.setText("单位: " + units.get(position));
@@ -200,6 +212,15 @@ public class DataShowFragment extends BaseFragment implements ISettingParameterV
             }
         } else {
             CustomToast.showToast(getActivity(), Constants.Define.SERVERDATAERROR, Toast.LENGTH_SHORT);
+        }
+        if (mTvDataShowCircleTitle != null && mTvDataShowCircleNum != null && mTvDataShowCircleUnit != null) {
+            mTvDataShowCircleTitle.setText(names.get(mDefaultPosition));
+            mTvDataShowCircleNum.setText(values.get(mDefaultPosition));
+            Log.d("TEST", "dataShow_refresh");
+            mTvDataShowCircleUnit.setText("单位: " + units.get(mDefaultPosition));
+        }
+        if(mProgressDialog!=null&&mProgressDialog.isShowing()){
+            mProgressDialog.dismiss();
         }
 
     }

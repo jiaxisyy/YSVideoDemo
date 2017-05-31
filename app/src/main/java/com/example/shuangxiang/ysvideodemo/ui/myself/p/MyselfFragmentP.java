@@ -50,6 +50,7 @@ public class MyselfFragmentP implements IMyselfFragmentP {
             @Override
             public void onClick(View view) {
                 mView.exit();
+
                 mContext.startActivity(new Intent(mContext, LoginActivity.class));
             }
         });
@@ -67,4 +68,5 @@ public class MyselfFragmentP implements IMyselfFragmentP {
 
 
     }
+
 }

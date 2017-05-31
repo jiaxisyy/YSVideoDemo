@@ -26,7 +26,6 @@ public class WarningListRVAdapter extends RecyclerView.Adapter {
         this.data = data;
         mContext = context;
     }
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View inflate = LayoutInflater.from(mContext).inflate(R.layout.item_warning_list, parent, false);

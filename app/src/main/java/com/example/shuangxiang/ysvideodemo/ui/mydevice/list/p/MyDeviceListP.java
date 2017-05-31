@@ -43,10 +43,6 @@ public class MyDeviceListP implements IMyDeviceListP {
             ids.add(list.get(i).getId());
             dataTemplateIds.add(list.get(i).getDataTemplateId());
         }
-        names.add("测试收费站");
-        status.add("ONLINE");
-        ids.add("123456");
-        dataTemplateIds.add("9999");
         mView.setData(names, status, ids, dataTemplateIds, list);
     }
 

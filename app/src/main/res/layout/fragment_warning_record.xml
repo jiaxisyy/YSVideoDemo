@@ -13,24 +13,24 @@
         android:layout_marginTop="20px"
         android:src="@drawable/icon_mydevice_search"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100px"
-        android:layout_marginTop="26px"
-        android:orientation="horizontal">
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="100px"-->
+        <!--android:layout_marginTop="26px"-->
+        <!--android:orientation="horizontal">-->
 
-        <TextView
-            style="@style/tv_warning_listTitle"
-            android:text="@string/tv_warning_listTitle_date"/>
+        <!--<TextView-->
+            <!--style="@style/tv_warning_listTitle"-->
+            <!--android:text="@string/tv_warning_listTitle_date"/>-->
 
-        <TextView
-            style="@style/tv_warning_listTitle"
-            android:text="@string/tv_warning_listTitle_name"/>
+        <!--<TextView-->
+            <!--style="@style/tv_warning_listTitle"-->
+            <!--android:text="@string/tv_warning_listTitle_name"/>-->
 
-        <TextView
-            style="@style/tv_warning_listTitle"
-            android:text="@string/tv_warning_listTitle_status"/>
-    </LinearLayout>
+        <!--<TextView-->
+            <!--style="@style/tv_warning_listTitle"-->
+            <!--android:text="@string/tv_warning_listTitle_status"/>-->
+    <!--</LinearLayout>-->
 
     <TextView
         android:layout_width="match_parent"

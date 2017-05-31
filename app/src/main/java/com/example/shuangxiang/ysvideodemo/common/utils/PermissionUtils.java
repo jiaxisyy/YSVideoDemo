@@ -11,7 +11,6 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.shuangxiang.ysvideodemo.R;
 
@@ -94,8 +93,8 @@ public class PermissionUtils {
         try {
             checkSelfPermission = ActivityCompat.checkSelfPermission(activity, requestPermission);
         } catch (RuntimeException e) {
-            Toast.makeText(activity, "please open this permission", Toast.LENGTH_SHORT)
-                    .show();
+//            Toast.makeText(activity, "please open this permission", Toast.LENGTH_SHORT)
+//                    .show();
             Log.e(TAG, "RuntimeException:" + e.getMessage());
             return;
         }
@@ -115,7 +114,7 @@ public class PermissionUtils {
 
         } else {
             Log.d(TAG, "ActivityCompat.checkSelfPermission ==== PackageManager.PERMISSION_GRANTED");
-            Toast.makeText(activity, "opened:" + requestPermissions[requestCode], Toast.LENGTH_SHORT).show();
+//            Toast.makeText(activity, "opened:" + requestPermissions[requestCode], Toast.LENGTH_SHORT).show();
             permissionGrant.onPermissionGranted(requestCode);
         }
     }
@@ -140,8 +139,8 @@ public class PermissionUtils {
         }
 
         if (notGranted.size() == 0) {
-            Toast.makeText(activity, "all permission success" + notGranted, Toast.LENGTH_SHORT)
-                    .show();
+//            Toast.makeText(activity, "all permission success" + notGranted, Toast.LENGTH_SHORT)
+//                    .show();
             permissionGrant.onPermissionGranted(CODE_MULTI_PERMISSION);
         } else {
             openSettingActivity(activity, "those permission need granted!");
@@ -230,7 +229,7 @@ public class PermissionUtils {
 
         if (requestCode < 0 || requestCode >= requestPermissions.length) {
             Log.w(TAG, "requestPermissionsResult illegal requestCode:" + requestCode);
-            Toast.makeText(activity, "illegal requestCode:" + requestCode, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(activity, "illegal requestCode:" + requestCode, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -286,8 +285,8 @@ public class PermissionUtils {
             try {
                 checkSelfPermission = ActivityCompat.checkSelfPermission(activity, requestPermission);
             } catch (RuntimeException e) {
-                Toast.makeText(activity, "please open those permission", Toast.LENGTH_SHORT)
-                        .show();
+//                Toast.makeText(activity, "please open those permission", Toast.LENGTH_SHORT)
+//                        .show();
                 Log.e(TAG, "RuntimeException:" + e.getMessage());
                 return null;
             }

@@ -82,8 +82,12 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
 
         for (int i = 0; i < mSize; i++) {
             if (mList.get(i).getOnlineStatus().equals("ONLINE")) {
-                addMaker(Double.valueOf(mList.get(i).getLatitude()), Double.valueOf(mList.get(i)
-                        .getLongitude()), MAKERTYPE_ON);
+                if (!mList.get(i).getLatitude().equals("") && !mList.get(i)
+                        .getLongitude().equals("")) {
+                    addMaker(Double.valueOf(mList.get(i).getLatitude()), Double.valueOf(mList.get(i)
+                            .getLongitude()), MAKERTYPE_ON);
+                }
+
             }
         }
 
@@ -95,8 +99,13 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
         mBaiduMap.clear();
         for (int i = 0; i < mSize; i++) {
             if (mList.get(i).getOnlineStatus().equals("OFFLINE")) {
-                addMaker(Double.valueOf(mList.get(i).getLatitude()), Double.valueOf(mList.get(i)
-                        .getLongitude()), MAKERTYPE_OFF);
+                if (!mList.get(i).getLatitude().equals("") && !mList.get(i)
+                        .getLongitude().equals("")) {
+                    addMaker(Double.valueOf(mList.get(i).getLatitude()), Double.valueOf(mList.get(i)
+                            .getLongitude()), MAKERTYPE_OFF);
+                }
+
+
             }
         }
     }
@@ -108,11 +117,19 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
         }
         for (int i = 0; i < mSize; i++) {
             if (mList.get(i).getOnlineStatus().equals("ONLINE")) {
-                addMaker(Double.valueOf(mList.get(i).getLatitude()), Double.valueOf(mList.get(i)
-                        .getLongitude()), MAKERTYPE_ON);
+                if (!mList.get(i).getLatitude().equals("") && !mList.get(i)
+                        .getLongitude().equals("")) {
+                    addMaker(Double.valueOf(mList.get(i).getLatitude()), Double.valueOf(mList.get(i)
+                            .getLongitude()), MAKERTYPE_ON);
+                }
+
             } else {
-                addMaker(Double.valueOf(mList.get(i).getLatitude()), Double.valueOf(mList.get(i)
-                        .getLongitude()), MAKERTYPE_OFF);
+                if (!mList.get(i).getLatitude().equals("") && !mList.get(i)
+                        .getLongitude().equals("")) {
+                    addMaker(Double.valueOf(mList.get(i).getLatitude()), Double.valueOf(mList.get(i)
+                            .getLongitude()), MAKERTYPE_OFF);
+                }
+
             }
         }
 
@@ -151,7 +168,7 @@ public class MyDeviceMapP implements IMydeviceMapP, BDLocationListener, BaiduMap
 
     @Override
     public void initBaiDuMap(List<MyDeviceInfo.ListBean> list) {
-        Log.d("TEST","initBaiDuMap");
+        Log.d("TEST", "initBaiDuMap");
         mList = new ArrayList<>();
         mList.addAll(list);
         mBaiduMap = mMapView.getMap();

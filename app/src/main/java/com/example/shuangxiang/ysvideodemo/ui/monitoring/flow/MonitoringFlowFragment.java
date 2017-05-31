@@ -5,13 +5,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.shuangxiang.ysvideodemo.R;
-import com.videogo.openapi.EZOpenSDK;
-import com.videogo.openapi.EZPlayer;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -21,12 +18,7 @@ import butterknife.Unbinder;
  */
 
 public class MonitoringFlowFragment extends Fragment {
-    private static final String TAG = "TEST";
 
-    private int mErrorCode = -1;
-    private EZOpenSDK mInstance;
-    private SurfaceHolder mRealPlaySh = null;
-    private EZPlayer mMEZPlayer;
     private Unbinder mUnbinder;
 
     private int getLayoutId() {
@@ -43,6 +35,7 @@ public class MonitoringFlowFragment extends Fragment {
     }
 
     private void init() {
+
     }
 
     @Override

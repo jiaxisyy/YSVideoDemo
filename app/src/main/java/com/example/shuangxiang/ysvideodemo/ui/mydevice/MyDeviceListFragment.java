@@ -107,7 +107,7 @@ public class MyDeviceListFragment extends BaseFragment implements IMyDeviceListV
 
     @Override
     public void setData(final List<String> names, final List<String> status, final List<String>
-            ids, final List<String> dataTemplateIds,List<MyDeviceInfo.ListBean> list) {
+            ids, final List<String> dataTemplateIds, List<MyDeviceInfo.ListBean> list) {
         if (names == null || status == null || ids == null || dataTemplateIds == null) {
             CustomToast.showToast(getActivity(), "数据显示错误", Toast.LENGTH_SHORT);
         }
@@ -143,73 +143,83 @@ public class MyDeviceListFragment extends BaseFragment implements IMyDeviceListV
             public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
                 switch (i) {
                     case R.id.rb_mydevice_on:
-                        if (namesOn == null || namesOn.size() == 0) {
-                            CustomToast.showToast(getActivity(), "数据显示错误", Toast.LENGTH_SHORT);
+//                        if (namesOn == null || namesOn.size() == 0) {
+//                            CustomToast.showToast(getActivity(), "数据显示错误", Toast.LENGTH_SHORT);
+//                        }
+                        if (namesOn != null) {
+                            MydeviceListRVAdapter adapterOn = new MydeviceListRVAdapter(namesOn,
+                                    statusOn, getActivity());
+                            mRecyclerView.setAdapter(adapterOn);
+                            adapterOn.setOnItemClickListener(new MydeviceListRVAdapter.MyItemClickListener() {
+                                @Override
+                                public void onItemClick(View view, int postion) {
+                                    Log.d("TEST", "position=" + postion);
+                                    Log.d("TEST", "position=" + postion + "name=" + namesOn.get(postion));
+                                    CacheUtils.putString(getActivity(), Constants.Define
+                                            .MYDEVICE_TO_SECONDHOME_ID, idsOn.get(postion));
+                                    CacheUtils.putString(getActivity(), Constants.Define
+                                            .MYDEVICE_TO_SECONDHOME_TBTITLE, namesOn.get(postion));
+                                    CacheUtils.putString(getActivity(), Constants.Define
+                                            .MYDEVICE_TO_SECONDHOME_DATATEMPLATEID, dataTemplateIdsOn.get(postion));
+                                    startActivity(new Intent(getActivity(), SecondHomeActivity.class));
+                                }
+                            });
+                            break;
                         }
-                        MydeviceListRVAdapter adapterOn = new MydeviceListRVAdapter(namesOn,
-                                statusOn, getActivity());
-                        mRecyclerView.setAdapter(adapterOn);
-                        adapterOn.setOnItemClickListener(new MydeviceListRVAdapter.MyItemClickListener() {
-                            @Override
-                            public void onItemClick(View view, int postion) {
-                                Log.d("TEST", "position=" + postion);
-                                Log.d("TEST", "position=" + postion + "name=" + namesOn.get(postion));
-                                CacheUtils.putString(getActivity(), Constants.Define
-                                        .MYDEVICE_TO_SECONDHOME_ID, idsOn.get(postion));
-                                CacheUtils.putString(getActivity(), Constants.Define
-                                        .MYDEVICE_TO_SECONDHOME_TBTITLE, namesOn.get(postion));
-                                CacheUtils.putString(getActivity(), Constants.Define
-                                        .MYDEVICE_TO_SECONDHOME_DATATEMPLATEID, dataTemplateIdsOn.get(postion));
-                                startActivity(new Intent(getActivity(), SecondHomeActivity.class));
-                            }
-                        });
-                        break;
+
                     case R.id.rb_mydevice_off:
-                        if (namesOff == null || namesOff.size() == 0) {
-                            CustomToast.showToast(getActivity(), "数据显示错误", Toast.LENGTH_SHORT);
+//                        if (namesOff == null || namesOff.size() == 0) {
+//                            CustomToast.showToast(getActivity(), "数据显示错误", Toast.LENGTH_SHORT);
+//                        }
+                        if (namesOff != null) {
+                            MydeviceListRVAdapter adapterOff = new MydeviceListRVAdapter(namesOff,
+                                    statusOff, getActivity());
+                            mRecyclerView.setAdapter(adapterOff);
+//                        Log.d("TEST", "name=" + namesOff.get(0));
+                            adapterOff.setOnItemClickListener(new MydeviceListRVAdapter.MyItemClickListener() {
+                                @Override
+                                public void onItemClick(View view, int postion) {
+                                    Log.d("TEST", "position=" + postion + "name=" + namesOff.get(postion));
+                                    CacheUtils.putString(getActivity(), Constants.Define
+                                            .MYDEVICE_TO_SECONDHOME_ID, idsOff.get(postion));
+                                    CacheUtils.putString(getActivity(), Constants.Define
+                                            .MYDEVICE_TO_SECONDHOME_DATATEMPLATEID, dataTemplateIdsOff
+                                            .get(postion));
+                                    CacheUtils.putString(getActivity(), Constants.Define
+                                            .MYDEVICE_TO_SECONDHOME_TBTITLE, namesOff.get(postion));
+                                    startActivity(new Intent(getActivity(), SecondHomeActivity.class));
+                                }
+                            });
+                            break;
+
                         }
 //                        mAdapter.setData(namesOff, statusOff);
-                        MydeviceListRVAdapter adapterOff = new MydeviceListRVAdapter(namesOff,
-                                statusOff, getActivity());
-                        mRecyclerView.setAdapter(adapterOff);
-//                        Log.d("TEST", "name=" + namesOff.get(0));
-                        adapterOff.setOnItemClickListener(new MydeviceListRVAdapter.MyItemClickListener() {
-                            @Override
-                            public void onItemClick(View view, int postion) {
-                                Log.d("TEST", "position=" + postion + "name=" + namesOff.get(postion));
-                                CacheUtils.putString(getActivity(), Constants.Define
-                                        .MYDEVICE_TO_SECONDHOME_ID, idsOff.get(postion));
-                                CacheUtils.putString(getActivity(), Constants.Define
-                                        .MYDEVICE_TO_SECONDHOME_DATATEMPLATEID, dataTemplateIdsOff
-                                        .get(postion));
-                                CacheUtils.putString(getActivity(), Constants.Define
-                                        .MYDEVICE_TO_SECONDHOME_TBTITLE, namesOff.get(postion));
-                                startActivity(new Intent(getActivity(), SecondHomeActivity.class));
-                            }
-                        });
-                        break;
+
                     case R.id.rb_mydevice_all:
-                        if (names == null || names.size() == 0) {
-                            CustomToast.showToast(getActivity(), "数据显示错误", Toast.LENGTH_SHORT);
+//                        if (names == null || names.size() == 0) {
+//                            CustomToast.showToast(getActivity(), "数据显示错误", Toast.LENGTH_SHORT);
+//                        }
+                        if (names != null) {
+                            MydeviceListRVAdapter adapterAll = new MydeviceListRVAdapter(names,
+                                    status, getActivity());
+                            mRecyclerView.setAdapter(adapterAll);
+                            adapterAll.setOnItemClickListener(new MydeviceListRVAdapter.MyItemClickListener() {
+                                @Override
+                                public void onItemClick(View view, int postion) {
+                                    Log.d("TEST", "position=" + postion + "name=" + names.get(postion));
+                                    CacheUtils.putString(getActivity(), Constants.Define
+                                            .MYDEVICE_TO_SECONDHOME_ID, ids.get(postion));
+                                    CacheUtils.putString(getActivity(), Constants.Define
+                                            .MYDEVICE_TO_SECONDHOME_DATATEMPLATEID, dataTemplateIds.get(postion));
+                                    CacheUtils.putString(getActivity(), Constants.Define
+                                            .MYDEVICE_TO_SECONDHOME_TBTITLE, names.get(postion));
+                                    startActivity(new Intent(getActivity(), SecondHomeActivity.class));
+                                }
+                            });
+                            break;
                         }
 //                        mAdapter.setData(names, status);
-                        MydeviceListRVAdapter adapterAll = new MydeviceListRVAdapter(names,
-                                status, getActivity());
-                        mRecyclerView.setAdapter(adapterAll);
-                        adapterAll.setOnItemClickListener(new MydeviceListRVAdapter.MyItemClickListener() {
-                            @Override
-                            public void onItemClick(View view, int postion) {
-                                Log.d("TEST", "position=" + postion + "name=" + names.get(postion));
-                                CacheUtils.putString(getActivity(), Constants.Define
-                                        .MYDEVICE_TO_SECONDHOME_ID, ids.get(postion));
-                                CacheUtils.putString(getActivity(), Constants.Define
-                                        .MYDEVICE_TO_SECONDHOME_DATATEMPLATEID, dataTemplateIds.get(postion));
-                                CacheUtils.putString(getActivity(), Constants.Define
-                                        .MYDEVICE_TO_SECONDHOME_TBTITLE, names.get(postion));
-                                startActivity(new Intent(getActivity(), SecondHomeActivity.class));
-                            }
-                        });
-                        break;
+
                 }
 
             }
@@ -219,10 +229,9 @@ public class MyDeviceListFragment extends BaseFragment implements IMyDeviceListV
         mRecyclerView.setHasFixedSize(true);
         layoutManager.setAutoMeasureEnabled(true);
         mRecyclerView.setLayoutManager(layoutManager);
-        if (namesOn == null || namesOn.size() == 0) {
+        if (namesOn == null) {
             CustomToast.showToast(getActivity(), "数据显示错误", Toast.LENGTH_SHORT);
         }
-
         mAdapter = new MydeviceListRVAdapter(namesOn, statusOn, getActivity());
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addItemDecoration(new MyDecoration(getActivity(), MyDecoration.VERTICAL_LIST));
@@ -244,6 +253,13 @@ public class MyDeviceListFragment extends BaseFragment implements IMyDeviceListV
 
     }
 
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        if(mAdapter!=null){
+//            mAdapter.notifyDataSetChanged();
+//        }
+//    }
 
     @Override
     public String getName() {
@@ -269,7 +285,6 @@ public class MyDeviceListFragment extends BaseFragment implements IMyDeviceListV
     public void upload() {
 
     }
-
 
 
 }

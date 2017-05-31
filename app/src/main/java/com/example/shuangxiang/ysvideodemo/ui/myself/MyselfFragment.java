@@ -20,6 +20,7 @@ import com.example.shuangxiang.ysvideodemo.ui.BaseFragment;
 import com.example.shuangxiang.ysvideodemo.ui.about.AboutActivity;
 import com.example.shuangxiang.ysvideodemo.ui.myself.p.MyselfFragmentP;
 import com.example.shuangxiang.ysvideodemo.ui.myself.v.IMyselfFragmentV;
+import com.videogo.openapi.EZOpenSDK;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -115,10 +116,11 @@ public class MyselfFragment extends BaseFragment implements IMyselfFragmentV, ID
         startActivity(new Intent(getActivity(), AboutActivity.class));
     }
 
-    @OnClick(R.id.rl_myself_exit)
+    @OnClick(R.id.tv_myself_exit)
     public void onViewClickedExit() {
         mPresenter = new MyselfFragmentP(this, getActivity());
         mPresenter.exit();
+
     }
 
 
@@ -135,7 +137,21 @@ public class MyselfFragment extends BaseFragment implements IMyselfFragmentV, ID
 
     @Override
     public void exit() {
+        logoutEZO();
         getActivity().finish();
+    }
+
+    /**
+     * 退出萤石云登录账号
+     */
+    private void logoutEZO() {
+        final EZOpenSDK instance = EZOpenSDK.getInstance();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                instance.logout();
+            }
+        }).start();
     }
 
     @Override
@@ -161,7 +177,7 @@ public class MyselfFragment extends BaseFragment implements IMyselfFragmentV, ID
 
     @Override
     public void hintNewestVersion() {
-        if(mTvNewest!=null&&mRlUpdate!=null){
+        if (mTvNewest != null && mRlUpdate != null) {
             mTvNewest.setVisibility(View.INVISIBLE);
             mRlUpdate.setClickable(true);
         }

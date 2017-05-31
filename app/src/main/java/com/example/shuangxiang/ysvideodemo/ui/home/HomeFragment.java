@@ -59,10 +59,10 @@ public class HomeFragment extends BaseFragment implements IHomeFragmentView, IHo
     RecyclerView mRvHomeProduct;
     private ProgressDialog mProgressDialog;
     private GridLayoutManager mLayoutManager;
-
-
     @Override
     protected int getLayoutId() {
+
+
         return R.layout.fragment_home;
     }
 
@@ -91,6 +91,7 @@ public class HomeFragment extends BaseFragment implements IHomeFragmentView, IHo
         mProductPresenter = new HomeProductPresenter(this, getActivity());
         mProductPresenter.load();
         Log.d("TEST", "load");
+
     }
 
 
@@ -133,7 +134,6 @@ public class HomeFragment extends BaseFragment implements IHomeFragmentView, IHo
             case R.id.ll_home_warning:
                 CacheUtils.putString(getActivity(), Constants.Define.MYDEVICE_TO_SECONDHOME_ID, "");
                 CacheUtils.putString(getActivity(), Constants.Define.MYDEVICE_TO_SECONDHOME_TBTITLE, "");
-
                 startActivity(new Intent(getActivity(), WarningActivity.class));
                 break;
             case R.id.ll_home_setting:

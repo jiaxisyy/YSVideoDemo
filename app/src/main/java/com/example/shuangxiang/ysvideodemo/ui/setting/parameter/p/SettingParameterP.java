@@ -90,7 +90,7 @@ public class SettingParameterP implements ISettingParameterP {
 
     @Override
     public void getValueSucceed(String s) {
-        Log.d("TEST", "json=" + s);
+
         try {
             JSONObject jsonObject = new JSONObject(s);
             JSONArray jsonArray = jsonObject.getJSONArray(Constants.Define.JSONARRAYNAME);

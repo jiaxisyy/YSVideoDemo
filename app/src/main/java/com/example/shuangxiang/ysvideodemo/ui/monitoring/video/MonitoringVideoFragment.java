@@ -1,17 +1,14 @@
 package com.example.shuangxiang.ysvideodemo.ui.monitoring.video;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.content.Intent;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.shuangxiang.ysvideodemo.R;
+import com.example.shuangxiang.ysvideodemo.ui.BaseFragment;
 import com.videogo.exception.BaseException;
 import com.videogo.openapi.EZOpenSDK;
 import com.videogo.openapi.EZPlayer;
@@ -20,8 +17,7 @@ import com.videogo.openapi.bean.EZDeviceInfo;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
+import butterknife.OnClick;
 
 import static com.videogo.camera.CameraInfo.VIDEO_LEVEL_HD;
 
@@ -29,9 +25,9 @@ import static com.videogo.camera.CameraInfo.VIDEO_LEVEL_HD;
  * Created by shuang.xiang on 2017/5/20.
  */
 
-public class MonitoringVideoFragment extends Fragment implements SurfaceHolder.Callback {
+public class MonitoringVideoFragment extends BaseFragment implements SurfaceHolder.Callback {
     private static final String TAG = "TEST";
-//    @BindView(R.id.tv_monitoring_videoTitle)
+    //    @BindView(R.id.tv_monitoring_videoTitle)
 //    TextView mTvTitle;
 //    @BindView(R.id.iv_monitoring_videoNotice)
 //    ImageView mIvNotice;
@@ -39,38 +35,79 @@ public class MonitoringVideoFragment extends Fragment implements SurfaceHolder.C
 //    Toolbar mTb;
     @BindView(R.id.realplay_sv_video)
     SurfaceView mRealPlaySv;
+    @BindView(R.id.iv_monitoring_fullScreen)
+    ImageView mIvFullScreen;
+
     private int mErrorCode = -1;
     private EZOpenSDK mInstance;
     private SurfaceHolder mRealPlaySh = null;
     private EZPlayer mMEZPlayer;
-    private Unbinder mUnbinder;
+    private boolean mFirstInfo = true;
 
 
-    private int getLayoutId() {
+    @Override
+    protected int getLayoutId() {
         return R.layout.fragment_monitoring_video;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view= inflater.inflate(getLayoutId(), container, false);
-        mUnbinder = ButterKnife.bind(this, view);
-        init();
-        return view;
-    }
-    private void init() {
+    protected void init() {
         //海康威视
         mInstance = EZOpenSDK.getInstance();
         mInstance.openLoginPage();
         mRealPlaySh = mRealPlaySv.getHolder();
         mRealPlaySh.addCallback(this);
-        startVideo();
+        if (mFirstInfo) {
+            mFirstInfo = false;
+            startVideo();
+        }
 
-//        mTb.setNavigationIcon(R.drawable.icon_back);
-//        mTb.setTitle("");
-//        setImmerseLayout(mTb);
-//        ((AppCompatActivity) getActivity()).setSupportActionBar(mTb);
-//        setHasOptionsMenu(true);
+    }
+
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected boolean isCache() {
+        return false;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("TEST", "onPause");
+        if (mMEZPlayer != null) {
+            mMEZPlayer.pausePlayback();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("TEST", "onResume");
+        if (mMEZPlayer != null) {
+            mMEZPlayer.resumePlayback();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d("TEST", "onStop");
+        if (mMEZPlayer != null) {
+            mMEZPlayer.stopPlayback();
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (mMEZPlayer != null) {
+            mMEZPlayer.startRealPlay();
+        }
     }
 
     private void startVideo() {
@@ -88,7 +125,6 @@ public class MonitoringVideoFragment extends Fragment implements SurfaceHolder.C
                     mInstance.setVideoLevel(deviceSerial, cameraNum, VIDEO_LEVEL_HD);
                     mMEZPlayer.setSurfaceHold(mRealPlaySh);
                     mMEZPlayer.startRealPlay();
-
                 } catch (BaseException e) {
                     mErrorCode = e.getErrorCode();
                     Log.e(TAG, mErrorCode + "");
@@ -108,7 +144,6 @@ public class MonitoringVideoFragment extends Fragment implements SurfaceHolder.C
 //            view.setPadding(0, statusBarHeight, 0, 0);
 //        }
 //    }
-
 
 
 //    @OnClick(R.id.iv_monitoring_videoNotice)
@@ -141,9 +176,10 @@ public class MonitoringVideoFragment extends Fragment implements SurfaceHolder.C
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
 
     }
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        mUnbinder.unbind();
+
+
+    @OnClick(R.id.iv_monitoring_fullScreen)
+    public void onViewClicked() {
+        startActivity(new Intent(getActivity(), MonitoringVideoFullScreenActivity.class));
     }
 }

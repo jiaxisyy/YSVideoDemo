@@ -11,10 +11,10 @@ import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.common.utils.CacheUtils;
 import com.example.shuangxiang.ysvideodemo.ui.BaseFragment;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.decoration.MyDecoration;
-import com.example.shuangxiang.ysvideodemo.ui.warning.record.search.WarningListSearchActivity;
-import com.example.shuangxiang.ysvideodemo.ui.warning.record.adapter.WarningListRVAdapter;
+import com.example.shuangxiang.ysvideodemo.ui.warning.record.adapter.WarningListRVAllAdapter;
 import com.example.shuangxiang.ysvideodemo.ui.warning.record.bean.WarningInfo;
 import com.example.shuangxiang.ysvideodemo.ui.warning.record.p.WarningListP;
+import com.example.shuangxiang.ysvideodemo.ui.warning.record.search.WarningListSearchActivity;
 import com.example.shuangxiang.ysvideodemo.ui.warning.record.v.IWarningListV;
 
 import java.text.ParseException;
@@ -32,7 +32,7 @@ public class WarningRecordFragment extends BaseFragment implements IWarningListV
     ImageView mIvWarningSearch;
     @BindView(R.id.rv_warning_list)
     RecyclerView mRecyclerView;
-    private WarningListRVAdapter mAdapter;
+    private WarningListRVAllAdapter mAdapter;
     private WarningListP mPresenter;
     private ProgressDialog mProgressDialog;
 
@@ -85,7 +85,7 @@ public class WarningRecordFragment extends BaseFragment implements IWarningListV
         mRecyclerView.setHasFixedSize(true);
         layoutManager.setAutoMeasureEnabled(true);
         mRecyclerView.setLayoutManager(layoutManager);
-        mAdapter = new WarningListRVAdapter(data, getActivity());
+        mAdapter = new WarningListRVAllAdapter(data, getActivity());
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addItemDecoration(new MyDecoration(getActivity(), MyDecoration.VERTICAL_LIST));
 //        mProgressDialog.dismiss();

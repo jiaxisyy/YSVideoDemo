@@ -96,6 +96,7 @@ public class DataAnalyzeFragment extends BaseFragment implements
     private String mSelectAddress;
 
     private String mSelectTimeType;
+    private boolean mFirstInto = true;
 
     @Override
     protected int getLayoutId() {
@@ -122,11 +123,13 @@ public class DataAnalyzeFragment extends BaseFragment implements
         timeTitles.add("年");
         mTabDataAnalyze.setTabMode(TabLayout.MODE_FIXED);
         int size = timeTitles.size();
-        for (int i = 0; i < size; i++) {
-            mTabDataAnalyze.addTab(mTabDataAnalyze.newTab().setText(timeTitles.get(i)));
+        if (mFirstInto) {
+            for (int i = 0; i < size; i++) {
+                mTabDataAnalyze.addTab(mTabDataAnalyze.newTab().setText(timeTitles.get(i)));
+            }
+            mSettingParameterP = new SettingParameterP(this, getActivity());
+            mSettingParameterP.getTitle("MONITOR");
         }
-        mSettingParameterP = new SettingParameterP(this, getActivity());
-        mSettingParameterP.getTitle("MONITOR");
         String datatemplateid = CacheUtils.getString(getActivity(), Constants.Define.MYDEVICE_TO_SECONDHOME_DATATEMPLATEID);
         String tableIdUrl = Constants.Define.BASE_URL + "elementTables?dataTemplateId=" + datatemplateid;
         Log.d("TEST", "tableIdUrl=" + tableIdUrl);
@@ -318,7 +321,7 @@ public class DataAnalyzeFragment extends BaseFragment implements
 
     @Override
     protected boolean isCache() {
-        return false;
+        return true;
     }
 
     private void setData(List<String> list) {
@@ -456,32 +459,37 @@ public class DataAnalyzeFragment extends BaseFragment implements
         if (names != null && names.size() > 0 && values != null && values.size() > 0 && ids != null && ids.size()
                 > 0 && units != null && units.size() > 0 && defaultAddress != null && defaultAddress
                 .size() > 0) {
-            mTvDataAnalyzeName.setText(names.get(0));
-            mLayoutManagerCenter = new LinearLayoutManager(getActivity(),
-                    LinearLayoutManager.HORIZONTAL, false);
-            mRvCenter.setHasFixedSize(true);
-            mLayoutManagerCenter.setAutoMeasureEnabled(true);
-            mRvCenter.setLayoutManager(mLayoutManagerCenter);
-            mRvAdapterCenter = new DataAnalyzeCenterRvAdapter(getActivity(), names);
-            mRvCenter.addItemDecoration(new SpacesItemDecoration(Constants.Define.DATASHOW_CENTER_SPACINGINPIXELS));
-            mRvCenter.setAdapter(mRvAdapterCenter);
-            //默认第一个日显示
-            mSelectAddress = defaultAddress.get(0);
-            //默认按天统计
-            mDataAnalyzeP.getStatistics(Constants.Define.ANALYZETIMETYPE_DAY, mSelectAddress);
-            mRvAdapterCenter.setItemClickListener(new DataAnalyzeCenterRvAdapter.MyItemClickListener() {
-                @Override
-                public void itemClick(View view, int position) {
-                    if (names.size() > 0 && defaultAddress.size() > 0) {
-                        mTvDataAnalyzeName.setText(names.get(position));
-                        String address = defaultAddress.get(position);
-                        mDataAnalyzeP.getStatistics(mSelectTimeType, address);
-                        mSelectAddress = address;
-                    } else {
-                        CustomToast.showToast(getActivity(), Constants.Define.SERVERDATAERROR, Toast.LENGTH_SHORT);
+            if (mFirstInto) {
+                mFirstInto = false;
+                mTvDataAnalyzeName.setText(names.get(0));
+                mLayoutManagerCenter = new LinearLayoutManager(getActivity(),
+                        LinearLayoutManager.HORIZONTAL, false);
+                mRvCenter.setHasFixedSize(true);
+                mLayoutManagerCenter.setAutoMeasureEnabled(true);
+                mRvCenter.setLayoutManager(mLayoutManagerCenter);
+                mRvAdapterCenter = new DataAnalyzeCenterRvAdapter(getActivity(), names);
+                mRvCenter.addItemDecoration(new SpacesItemDecoration(Constants.Define.DATASHOW_CENTER_SPACINGINPIXELS));
+                mRvCenter.setAdapter(mRvAdapterCenter);
+                //默认第一个日显示
+                mSelectAddress = defaultAddress.get(0);
+                //默认按天统计
+                mDataAnalyzeP.getStatistics(Constants.Define.ANALYZETIMETYPE_DAY, mSelectAddress);
+                mRvAdapterCenter.setItemClickListener(new DataAnalyzeCenterRvAdapter.MyItemClickListener() {
+                    @Override
+                    public void itemClick(View view, int position) {
+                        if (names.size() > 0 && defaultAddress.size() > 0) {
+                            mTvDataAnalyzeName.setText(names.get(position));
+                            String address = defaultAddress.get(position);
+                            mDataAnalyzeP.getStatistics(mSelectTimeType, address);
+                            mSelectAddress = address;
+                        } else {
+                            CustomToast.showToast(getActivity(), Constants.Define.SERVERDATAERROR, Toast.LENGTH_SHORT);
+                        }
                     }
-                }
-            });
+                });
+            }
+
+
         } else {
             CustomToast.showToast(getActivity(), Constants.Define.SERVERDATAERROR, Toast.LENGTH_SHORT);
         }
@@ -505,7 +513,7 @@ public class DataAnalyzeFragment extends BaseFragment implements
 
         if (values.size() > 0) {
             drawLine(values);
-        }else {
+        } else {
             mChart.clear();
         }
 

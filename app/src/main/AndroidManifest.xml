@@ -101,6 +101,9 @@
         <activity android:name=".ui.about.kawa.AboutKawaActivity"/>
         <activity android:name=".ui.about.privacy.PrivacyActivity"/>
         <activity android:name=".ui.mydevice.map.ReadyNavigationActivity"/>
+        <activity android:name=".ui.monitoring.video.MonitoringVideoFullScreenActivity"
+                  android:launchMode="singleTask" android:screenOrientation="landscape"
+            />
 
         <service android:name=".service.MyIntentService"/>
 
@@ -111,6 +114,7 @@
             android:label="@string/title_route_guide_demo"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             />
+
 
 
         <meta-data

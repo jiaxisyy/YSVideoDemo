@@ -68,6 +68,7 @@ public class WarningListSearchActivity extends BaseActivity implements IWarningL
 
     @Override
     protected void initSomething() {
+        mProgressDialog = new ProgressDialog(WarningListSearchActivity.this);
         // 获取日历的一个对象
         mCalendar = Calendar.getInstance();
         // 获取年月日时分秒的信息
@@ -101,7 +102,7 @@ public class WarningListSearchActivity extends BaseActivity implements IWarningL
                     }
                     mWarningListP.getResouce();
                     Log.d("TEST", "哈哈");
-                    mProgressDialog = new ProgressDialog(WarningListSearchActivity.this);
+
                     mProgressDialog.show();
                 }
             }
@@ -128,7 +129,6 @@ public class WarningListSearchActivity extends BaseActivity implements IWarningL
             case R.id.tv_warning_listSearch_endTime:
                 START_OR_END_FLAG = 0;
                 mDatePickerDialog.show();
-
                 break;
             case R.id.tv_warning_listSearch_cancel:
                 finish();

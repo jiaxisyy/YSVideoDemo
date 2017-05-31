@@ -80,6 +80,7 @@ public class WarningMapP implements IWarningMapP, BaiduMap.OnMarkerClickListener
     @Override
     public void setOrangeNum(int num) {
 
+
     }
 
     @Override
@@ -178,6 +179,8 @@ public class WarningMapP implements IWarningMapP, BaiduMap.OnMarkerClickListener
     @Override
     public void setData(List<WarningInfo.ListBean> data) {
         mList = data;
+
+
         int countRed = 0;
         int countOrange = 0;
         int countYellow = 0;
@@ -189,32 +192,33 @@ public class WarningMapP implements IWarningMapP, BaiduMap.OnMarkerClickListener
                         .getLongitude().equals("")){
                     addMaker(Double.valueOf(data.get(i).getLatitude()), Double.valueOf(data.get(i)
                             .getLongitude()), MAKERTYPE_RED);
-                    countRed++;
-                }
 
+                }
+                countRed++;
             } else if (data.get(i).getLevel().equals("2")) {
                 if(!data.get(i).getLatitude().equals("")&&!data.get(i)
                         .getLongitude().equals("")){
                     addMaker(Double.valueOf(data.get(i).getLatitude()), Double.valueOf(data.get(i)
                             .getLongitude()), MAKERTYPE_ORANGE);
-                    countOrange++;
-                }
 
+                }
+                countOrange++;
             } else if (data.get(i).getLevel().equals("3")) {
                 if(!data.get(i).getLatitude().equals("")&&!data.get(i)
                         .getLongitude().equals("")){
                     addMaker(Double.valueOf(data.get(i).getLatitude()), Double.valueOf(data.get(i)
                             .getLongitude()), MAKERTYPE_YELLOW);
-                    countYellow++;
-                }
 
+                }
+                countYellow++;
             } else if (data.get(i).getLevel().equals("4")) {
                 if(!data.get(i).getLatitude().equals("")&&!data.get(i)
                         .getLongitude().equals("")){
                     addMaker(Double.valueOf(data.get(i).getLatitude()), Double.valueOf(data.get(i)
                             .getLongitude()), MAKERTYPE_GREEN);
-                    countGreen++;
+
                 }
+                countGreen++;
             }
         }
         mIWarningMapV.setRedNum(countRed);
