@@ -1,5 +1,6 @@
 package com.example.shuangxiang.ysvideodemo.ui.about;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +16,8 @@ import com.example.shuangxiang.ysvideodemo.manager.ActivityManager;
 import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
 import com.example.shuangxiang.ysvideodemo.ui.about.kawa.AboutKawaActivity;
 import com.example.shuangxiang.ysvideodemo.ui.about.privacy.PrivacyActivity;
+
+import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -40,7 +43,7 @@ public class AboutActivity extends BaseActivity {
 
     @Override
     protected void initSomething() {
-        ActivityManager.getInstance().addActivity(this);
+        ActivityManager.getInstance().addActivity(new WeakReference<Activity>(this));
         setImmerseLayout(mTbAbout);
         mTbAbout.setNavigationIcon(R.drawable.icon_back);
         mTbAbout.setTitle("");

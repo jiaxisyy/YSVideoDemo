@@ -1,5 +1,6 @@
 package com.example.shuangxiang.ysvideodemo.ui.warning;
 
+import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -18,6 +19,7 @@ import com.example.shuangxiang.ysvideodemo.common.utils.Utils;
 import com.example.shuangxiang.ysvideodemo.manager.ActivityManager;
 import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +49,7 @@ public class WarningActivity extends BaseActivity {
 
     @Override
     protected void initSomething() {
-        ActivityManager.getInstance().addActivity(this);
+        ActivityManager.getInstance().addActivity(new WeakReference<Activity>(this));
         setImmerseLayout(mTbWarning);
         mTbWarning.setTitle("");
         mTbWarning.setNavigationIcon(R.drawable.icon_back);

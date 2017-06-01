@@ -1,5 +1,6 @@
 package com.example.shuangxiang.ysvideodemo.feedback;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -32,6 +33,7 @@ import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -68,7 +70,7 @@ public class FeedbackActivity extends BaseActivity implements IFeedBackV {
 
     @Override
     protected void initSomething() {
-        ActivityManager.getInstance().addActivity(this);
+        ActivityManager.getInstance().addActivity(new WeakReference<Activity>(this));
         mToolbar.setNavigationIcon(R.drawable.icon_back);
         mToolbar.setTitle("");
         setSupportActionBar(mToolbar);

@@ -17,7 +17,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_GPS"/>
     <!-- SDK1.5需要android.permission.GET_TASKS权限判断本程序是否为当前运行的应用? -->
     <uses-permission android:name="android.permission.GET_TASKS"/>
@@ -54,7 +53,10 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="rmtGkgqZg7ybNxm8Ms3OmwntmDWTAlpL"/>
 
-        <activity android:name=".ui.StartActivity">
+        <activity
+            android:name=".ui.StartActivity"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -83,26 +85,62 @@
             android:process=":remote">
         </service>
 
-        <activity android:name="retrofit.RetrofitActivity"/>
-        <activity android:name=".login.view.LoginActivity"/>
-        <activity android:name=".feedback.FeedbackActivity"/>
-        <activity android:name=".myservice.MyServiceActivity"/>
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".ui.StartPagerActivity"/>
-        <activity android:name=".ui.HomeActivity"/>
-        <activity android:name=".ui.TestActivity"/>
-        <activity android:name=".ui.mydevice.MyDeviceActivity"/>
-        <activity android:name=".ui.mydevice.search.MyDeviceListSearchActivity"/>
-        <activity android:name=".ui.warning.WarningActivity"/>
-        <activity android:name=".ui.warning.record.search.WarningListSearchActivity"/>
-        <activity android:name=".ui.SecondHomeActivity"
-                  android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".ui.about.AboutActivity"/>
-        <activity android:name=".ui.about.kawa.AboutKawaActivity"/>
-        <activity android:name=".ui.about.privacy.PrivacyActivity"/>
-        <activity android:name=".ui.mydevice.map.ReadyNavigationActivity"/>
-        <activity android:name=".ui.monitoring.video.MonitoringVideoFullScreenActivity"
-                  android:launchMode="singleTask" android:screenOrientation="landscape"
+        <activity
+            android:name="retrofit.RetrofitActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".login.view.LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".feedback.FeedbackActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".myservice.MyServiceActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.StartPagerActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.HomeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.TestActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.mydevice.MyDeviceActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.mydevice.search.MyDeviceListSearchActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.warning.WarningActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.warning.record.search.WarningListSearchActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.SecondHomeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".ui.about.AboutActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.about.kawa.AboutKawaActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.about.privacy.PrivacyActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.mydevice.map.ReadyNavigationActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.monitoring.video.MonitoringVideoFullScreenActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape"
             />
 
         <service android:name=".service.MyIntentService"/>
@@ -116,6 +154,13 @@
             />
 
 
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="592fd9954ad15673780013b3"/>
+        <!--渠道号-->
+        <!--<meta-data-->
+            <!--android:name="UMENG_CHANNEL"-->
+            <!--android:value="Channel ID"/>-->
 
         <meta-data
             android:name="design_width"

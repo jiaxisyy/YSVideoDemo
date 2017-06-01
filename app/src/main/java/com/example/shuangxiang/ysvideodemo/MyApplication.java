@@ -4,6 +4,7 @@ import android.support.multidex.MultiDexApplication;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.example.shuangxiang.ysvideodemo.api.ApiManager;
+import com.squareup.leakcanary.LeakCanary;
 import com.videogo.openapi.EZOpenSDK;
 
 /**
@@ -22,6 +23,7 @@ public class MyApplication extends MultiDexApplication {
         //注意该方法要再setContentView方法之前实现
         SDKInitializer.initialize(getApplicationContext());
         new ApiManager(getApplicationContext()).initApiManager();
+        LeakCanary.install(this);
 
     }
 

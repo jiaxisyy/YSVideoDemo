@@ -34,7 +34,6 @@ public class DataShowBottomTitleM implements IDataShowBottomTitleM {
                     public void onSubscribe(Disposable d) {
                         cd.add(d);
                     }
-
                     @Override
                     public void onNext(List<DataShowBottomTitle> list) {
                         mBottomTitleP.getTitleSucceed(list);
@@ -55,4 +54,11 @@ public class DataShowBottomTitleM implements IDataShowBottomTitleM {
     }
 
 
+    @Override
+    public CompositeDisposable onDestroy() {
+        if (cd != null && cd.size() > 0&&!cd.isDisposed()) {
+            return cd;
+        }
+        return null;
+    }
 }

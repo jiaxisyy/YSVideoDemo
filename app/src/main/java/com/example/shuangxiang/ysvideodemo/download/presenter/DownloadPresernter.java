@@ -63,7 +63,8 @@ public class DownloadPresernter implements IDownloadPresenter {
                 //下载后的保存路径
                 CustomToast.showToast(mContext,Constants.Define.STARTDOWNLOADFILE, Toast
                         .LENGTH_SHORT);
-                String apkPath = Environment.getExternalStorageDirectory().getPath() + "/kawa.apk";
+                String apkPath = Environment.getExternalStorageDirectory().getPath() +
+                        "/"+Constants.Define.APP_APK_NAME + ".apk";
                 Log.d("TEST","apkPath->"+apkPath);
                 MyIntentService.startUpdateService(mContext, "", apkPath);
             }
@@ -91,14 +92,13 @@ public class DownloadPresernter implements IDownloadPresenter {
     @Override
     public void getAppMessageSucceed(AppMessage message) {
         int versionCode = Utils.getVersionCode(mContext);
+
+        Log.d("TEST","versionCode="+versionCode);
         if (message.getVersionCode() > versionCode) {
             //执行更新
             mDownloadView.hintNewestVersion();
-
         } else {
-
             mDownloadView.showNewestVersion();
-
         }
     }
 

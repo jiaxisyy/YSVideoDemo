@@ -65,8 +65,6 @@ public class MyselfFragmentP implements IMyselfFragmentP {
 //        popupWindow.setBackgroundDrawable(new BitmapDrawable());
 //        mPopupWindow.setAnimationStyle(R.style.AnimationPreview);
         mPopupWindow.showAsDropDown(view, 0, 0, Gravity.FILL);
-
-
     }
 
 }

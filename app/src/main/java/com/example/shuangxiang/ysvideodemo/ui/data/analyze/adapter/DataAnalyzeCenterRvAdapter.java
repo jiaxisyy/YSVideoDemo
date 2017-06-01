@@ -32,6 +32,11 @@ public class DataAnalyzeCenterRvAdapter extends RecyclerView.Adapter {
         this.names = names;
     }
 
+    public void setNames(List<String> names) {
+        this.names = names;
+        notifyDataSetChanged();
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View inflate = LayoutInflater.from(mContext).inflate(R.layout.item_show_monitoring_center,

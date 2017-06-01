@@ -1,5 +1,6 @@
 package com.example.shuangxiang.ysvideodemo.ui.mydevice.map;
 
+import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +21,8 @@ import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.p.MyDeviceMapP;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.v.IMyDeviceMapNavigationV;
 import com.example.shuangxiang.ysvideodemo.ui.mydevice.map.v.IMyDeviceMapV;
 import com.zhy.autolayout.utils.ScreenUtils;
+
+import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -55,7 +58,7 @@ public class ReadyNavigationActivity extends BaseActivity implements IMyDeviceMa
 
     @Override
     protected void initSomething() {
-        ActivityManager.getInstance().addActivity(this);
+        ActivityManager.getInstance().addActivity(new WeakReference<Activity>(this));
         mAddress = getIntent().getStringExtra("name");
         mStartLatitude = getIntent().getDoubleExtra("startLatitude", DEFAULT_LATITUDE);
         mEndLatitude = getIntent().getDoubleExtra("endLatitude", DEFAULT_LATITUDE);

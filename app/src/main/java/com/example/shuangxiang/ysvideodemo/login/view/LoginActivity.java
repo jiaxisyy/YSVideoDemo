@@ -1,6 +1,7 @@
 package com.example.shuangxiang.ysvideodemo.login.view;
 
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
@@ -21,6 +22,8 @@ import com.example.shuangxiang.ysvideodemo.login.presenter.LoginPresenter;
 import com.example.shuangxiang.ysvideodemo.manager.ActivityManager;
 import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
 import com.videogo.openapi.EZOpenSDK;
+
+import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -60,7 +63,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
 
     @Override
     protected void initSomething() {
-       ActivityManager.getInstance().addActivity(this);
+        ActivityManager.getInstance().addActivity(new WeakReference<Activity>(this));
         if (CacheUtils.getString(this, Constants.Define.USERNAME) != null && !CacheUtils.getString
                 (this, Constants.Define.USERNAME).equals("") && CacheUtils.getString(this,
                 Constants.Define.PASSWORD) != null && !CacheUtils.getString(this, Constants.Define

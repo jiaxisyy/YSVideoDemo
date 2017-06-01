@@ -144,8 +144,6 @@ public class WarningMapP implements IWarningMapP, BaiduMap.OnMarkerClickListener
         mBaiduMap = mMapView.getMap();
         //注册标注的点击事件
         mBaiduMap.setOnMarkerClickListener(this);
-
-
     }
 
     @Override
@@ -179,7 +177,6 @@ public class WarningMapP implements IWarningMapP, BaiduMap.OnMarkerClickListener
     @Override
     public void setData(List<WarningInfo.ListBean> data) {
         mList = data;
-
 
         int countRed = 0;
         int countOrange = 0;

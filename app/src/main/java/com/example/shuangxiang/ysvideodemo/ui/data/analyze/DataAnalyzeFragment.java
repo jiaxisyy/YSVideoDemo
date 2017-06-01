@@ -123,13 +123,14 @@ public class DataAnalyzeFragment extends BaseFragment implements
         timeTitles.add("年");
         mTabDataAnalyze.setTabMode(TabLayout.MODE_FIXED);
         int size = timeTitles.size();
-        if (mFirstInto) {
+        if(mFirstInto){
             for (int i = 0; i < size; i++) {
                 mTabDataAnalyze.addTab(mTabDataAnalyze.newTab().setText(timeTitles.get(i)));
             }
-            mSettingParameterP = new SettingParameterP(this, getActivity());
-            mSettingParameterP.getTitle("MONITOR");
         }
+
+        mSettingParameterP = new SettingParameterP(this, getActivity());
+        mSettingParameterP.getTitle("MONITOR");
         String datatemplateid = CacheUtils.getString(getActivity(), Constants.Define.MYDEVICE_TO_SECONDHOME_DATATEMPLATEID);
         String tableIdUrl = Constants.Define.BASE_URL + "elementTables?dataTemplateId=" + datatemplateid;
         Log.d("TEST", "tableIdUrl=" + tableIdUrl);
@@ -172,6 +173,12 @@ public class DataAnalyzeFragment extends BaseFragment implements
             }
         });
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mSettingParameterP.dispose();
     }
 
     @Override
@@ -459,8 +466,9 @@ public class DataAnalyzeFragment extends BaseFragment implements
         if (names != null && names.size() > 0 && values != null && values.size() > 0 && ids != null && ids.size()
                 > 0 && units != null && units.size() > 0 && defaultAddress != null && defaultAddress
                 .size() > 0) {
+            Log.d("TEST","FirstInto==========="+mFirstInto);
             if (mFirstInto) {
-                mFirstInto = false;
+                mFirstInto=false;
                 mTvDataAnalyzeName.setText(names.get(0));
                 mLayoutManagerCenter = new LinearLayoutManager(getActivity(),
                         LinearLayoutManager.HORIZONTAL, false);
@@ -487,9 +495,9 @@ public class DataAnalyzeFragment extends BaseFragment implements
                         }
                     }
                 });
+            }else {
+//                mRvAdapterCenter.setNames(names);
             }
-
-
         } else {
             CustomToast.showToast(getActivity(), Constants.Define.SERVERDATAERROR, Toast.LENGTH_SHORT);
         }
@@ -502,8 +510,9 @@ public class DataAnalyzeFragment extends BaseFragment implements
 
     }
 
+
     @Override
-    public void dissDialog() {
+    public void dismissDialog() {
 
     }
 

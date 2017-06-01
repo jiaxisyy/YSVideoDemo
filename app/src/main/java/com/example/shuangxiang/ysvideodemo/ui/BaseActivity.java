@@ -3,6 +3,7 @@ package com.example.shuangxiang.ysvideodemo.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.umeng.analytics.MobclickAgent;
 import com.zhy.autolayout.AutoLayoutActivity;
 
 import butterknife.ButterKnife;
@@ -35,5 +36,17 @@ public abstract class BaseActivity extends AutoLayoutActivity {
     protected void onDestroy() {
         super.onDestroy();
         mUnbinder.unbind();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

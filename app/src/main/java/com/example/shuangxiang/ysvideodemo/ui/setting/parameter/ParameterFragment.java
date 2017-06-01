@@ -75,7 +75,6 @@ public class ParameterFragment extends BaseFragment implements
     }
 
 
-
     @Override
     protected void init() {
         mTb.setNavigationIcon(R.drawable.icon_mydevice_back);
@@ -95,6 +94,12 @@ public class ParameterFragment extends BaseFragment implements
             mSettingParameterP = new SettingParameterP(this, getActivity());
             mSettingParameterP.getTitle("PARAM");
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mSettingParameterP.dispose();
     }
 
     @Override
@@ -180,8 +185,10 @@ public class ParameterFragment extends BaseFragment implements
     }
 
     @Override
-    public void dissDialog() {
-        mAdminDialog.dismiss();
+    public void dismissDialog() {
+        if(mAdminDialog!=null&&mAdminDialog.isShowing()){
+            mAdminDialog.dismiss();
+        }
     }
 
     /**

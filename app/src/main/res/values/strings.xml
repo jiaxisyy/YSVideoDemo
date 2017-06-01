@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">YSVideoDemo</string>
+    <string name="app_apk_name">KAWA</string>
+
     <string name="weixin_login">百度地图测试</string>
     <string name="openRetrofit">打开retrofit</string>
     <string name="get">GET</string>

@@ -19,6 +19,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.disposables.CompositeDisposable;
+
 /**
  * Created by shuang.xiang on 2017/5/18.
  */
@@ -78,6 +80,14 @@ public class SettingParameterP implements ISettingParameterP {
     }
 
     @Override
+    public void getTitleFailed(String s) {
+        Log.d("TEST", "test5");
+        mISettingParameterV.setToast(s);
+        mISettingParameterV.dismissDialog();
+
+    }
+
+    @Override
     public void getTitle(String type) {
         mMTitleId = CacheUtils.getString(mContext, Constants.Define.MYDEVICE_TO_SECONDHOME_ID);
         mDatatemplateid = CacheUtils.getString(mContext, Constants.Define.MYDEVICE_TO_SECONDHOME_DATATEMPLATEID);
@@ -90,6 +100,7 @@ public class SettingParameterP implements ISettingParameterP {
 
     @Override
     public void getValueSucceed(String s) {
+        Log.d("TEST", "test1");
 
         try {
             JSONObject jsonObject = new JSONObject(s);
@@ -104,12 +115,17 @@ public class SettingParameterP implements ISettingParameterP {
                 }
             }
             mISettingParameterV.setRvData(mNames, values, mIds, mUnits, mDefaultAddress);
+            mISettingParameterV.dismissDialog();
         } catch (JSONException e) {
             e.printStackTrace();
             Log.e("ERROR", e.getMessage().toString());
         }
-
-
+    }
+    @Override
+    public void getValueFailed(String s) {
+        Log.e("ERROR", "SettingParameterP->getValueFailed");
+        mISettingParameterV.setToast(s);
+        mISettingParameterV.dismissDialog();
     }
 
     @Override
@@ -123,17 +139,21 @@ public class SettingParameterP implements ISettingParameterP {
 
     @Override
     public void setValueSucceed(String s) {
+        Log.d("TEST", "test4");
+
         mISettingParameterV.setToast("设置成功");
-        mISettingParameterV.dissDialog();
+        mISettingParameterV.dismissDialog();
 
     }
 
     @Override
     public void setValueFailed(String s) {
+        Log.d("TEST", "test3");
         try {
             JSONObject object = new JSONObject(s);
             String error = object.getString("error");
             mISettingParameterV.setToast(error);
+            mISettingParameterV.dismissDialog();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -141,9 +161,15 @@ public class SettingParameterP implements ISettingParameterP {
 
     @Override
     public void onError(String s) {
+        Log.d("TEST", "test2");
+        mISettingParameterV.dismissDialog();
         mISettingParameterV.setToast(s);
     }
 
 
-
+    @Override
+    public void dispose() {
+        CompositeDisposable compositeDisposable = mISettingParameterM.onDestroy();
+        compositeDisposable.dispose();
+    }
 }

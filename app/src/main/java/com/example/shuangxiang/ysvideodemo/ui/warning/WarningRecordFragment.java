@@ -55,6 +55,8 @@ public class WarningRecordFragment extends BaseFragment implements IWarningListV
         return instance;
     }
 
+
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_warning_record;
@@ -81,15 +83,16 @@ public class WarningRecordFragment extends BaseFragment implements IWarningListV
 
     @Override
     public void setData(List<WarningInfo.ListBean> data) {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setHasFixedSize(true);
-        layoutManager.setAutoMeasureEnabled(true);
-        mRecyclerView.setLayoutManager(layoutManager);
-        mAdapter = new WarningListRVAllAdapter(data, getActivity());
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.addItemDecoration(new MyDecoration(getActivity(), MyDecoration.VERTICAL_LIST));
+        if(mRecyclerView!=null){
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+            mRecyclerView.setHasFixedSize(true);
+            layoutManager.setAutoMeasureEnabled(true);
+            mRecyclerView.setLayoutManager(layoutManager);
+            mAdapter = new WarningListRVAllAdapter(data, getActivity());
+            mRecyclerView.setAdapter(mAdapter);
+            mRecyclerView.addItemDecoration(new MyDecoration(getActivity(), MyDecoration.VERTICAL_LIST));
+        }
 //        mProgressDialog.dismiss();
-
     }
 
     @Override

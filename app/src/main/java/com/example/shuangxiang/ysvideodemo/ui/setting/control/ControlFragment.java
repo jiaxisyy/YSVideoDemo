@@ -193,12 +193,14 @@ public class ControlFragment extends BaseFragment implements ISettingParameterV 
 
     }
 
+
+
     @Override
-    public void dissDialog() {
-        if (mAdminDialog.isShowing()) {
-            mAdminDialog.dismiss();
-        }
-        if (mDialog.isShowing()) {
+    public void dismissDialog() {
+//        if (mAdminDialog!=null&&mAdminDialog.isShowing()) {
+//            mAdminDialog.dismiss();
+//        }
+        if (mDialog!=null&&mDialog.isShowing()) {
             mDialog.dismiss();
         }
 

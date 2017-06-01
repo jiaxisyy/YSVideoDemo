@@ -92,10 +92,8 @@ public class DataShowFragment extends BaseFragment implements ISettingParameterV
 
     @Override
     protected void init() {
-        if (getActivity() != null) {
-            mProgressDialog = new ProgressDialog(getActivity());
-            mProgressDialog.show();
-        }
+
+
 
         mTbDataMonitoring.setNavigationIcon(R.drawable.icon_mydevice_back);
         mTbDataMonitoring.setTitle("");
@@ -107,6 +105,7 @@ public class DataShowFragment extends BaseFragment implements ISettingParameterV
         if (title != null && !title.equals("")) {
             mTbTile.setText(title);
         }
+
     }
 
     @Override
@@ -117,11 +116,22 @@ public class DataShowFragment extends BaseFragment implements ISettingParameterV
         if (operatingAnim != null) {
             mLlDataShowCircle.startAnimation(operatingAnim);
         }
+        Log.d("TEST", "mFirstInto="+mFirstInto);
+        Log.d("TEST", String.valueOf("mSettingParameterP="+mSettingParameterP==null));
+        mProgressDialog = new ProgressDialog(getActivity());
         if (mFirstInto && mSettingParameterP == null) {
             mSettingParameterP = new SettingParameterP(this, getActivity());
-            mSettingParameterP.getTitle("MONITOR");
-        }
 
+            mProgressDialog.show();
+            mSettingParameterP.getTitle("MONITOR");
+            Log.d("TEST", "你他妈");
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mSettingParameterP.dispose();
     }
 
     @Override
@@ -207,11 +217,16 @@ public class DataShowFragment extends BaseFragment implements ISettingParameterV
                         mTvDataShowCircleUnit.setText("单位: " + units.get(position));
                     }
                 });
+                Log.d("TEST", "dataShow_refresh4");
             } else {
                 mAdapterBottom.setValues(values);
+                Log.d("TEST", "ok");
             }
         } else {
-            CustomToast.showToast(getActivity(), Constants.Define.SERVERDATAERROR, Toast.LENGTH_SHORT);
+            Log.d("TEST", "dataShow_refresh3");
+            if (mFirstInto) {
+                CustomToast.showToast(getActivity(), Constants.Define.SERVERDATAERROR, Toast.LENGTH_SHORT);
+            }
         }
         if (mTvDataShowCircleTitle != null && mTvDataShowCircleNum != null && mTvDataShowCircleUnit != null) {
             mTvDataShowCircleTitle.setText(names.get(mDefaultPosition));
@@ -219,20 +234,20 @@ public class DataShowFragment extends BaseFragment implements ISettingParameterV
             Log.d("TEST", "dataShow_refresh");
             mTvDataShowCircleUnit.setText("单位: " + units.get(mDefaultPosition));
         }
-        if(mProgressDialog!=null&&mProgressDialog.isShowing()){
-            mProgressDialog.dismiss();
-        }
-
+        Log.d("TEST", "dataShow_refresh2");
     }
 
     @Override
     public void setToast(String s) {
-
+        CustomToast.showToast(getActivity(), s, Toast.LENGTH_SHORT);
     }
-
     @Override
-    public void dissDialog() {
-
+    public void dismissDialog() {
+        Log.d("TEST", "dataShow_refresh5");
+        Log.d("TEST", "isShowing=" + mProgressDialog.isShowing());
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
     }
 
 

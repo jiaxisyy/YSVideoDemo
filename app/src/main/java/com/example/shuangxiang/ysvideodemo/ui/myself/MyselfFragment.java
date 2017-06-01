@@ -120,7 +120,6 @@ public class MyselfFragment extends BaseFragment implements IMyselfFragmentV, ID
     public void onViewClickedExit() {
         mPresenter = new MyselfFragmentP(this, getActivity());
         mPresenter.exit();
-
     }
 
 
@@ -181,8 +180,6 @@ public class MyselfFragment extends BaseFragment implements IMyselfFragmentV, ID
             mTvNewest.setVisibility(View.INVISIBLE);
             mRlUpdate.setClickable(true);
         }
-
-
     }
 
     @Override
@@ -202,6 +199,10 @@ public class MyselfFragment extends BaseFragment implements IMyselfFragmentV, ID
 
     @OnClick(R.id.rl_myself_update)
     public void rl_myself_update() {
-        mDownloadPresernter.startDownload();
+        mRlUpdate.setClickable(false);
+        boolean clickable = mRlUpdate.isClickable();
+        if (clickable) {
+            mDownloadPresernter.startDownload();
+        }
     }
 }

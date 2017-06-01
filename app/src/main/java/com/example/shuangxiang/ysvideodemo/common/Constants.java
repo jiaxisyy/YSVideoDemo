@@ -64,6 +64,8 @@ public class Constants {
         String STARTDOWNLOADFILE = "开始下载文件";
         //*****************数据获取时间长短
         int REFRESH_INTERVAL = 2;//刷新数据间隔
+
+        String APP_APK_NAME = "kawa";
     }
 
 }

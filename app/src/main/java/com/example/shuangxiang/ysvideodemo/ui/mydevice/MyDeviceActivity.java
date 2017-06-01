@@ -1,5 +1,6 @@
 package com.example.shuangxiang.ysvideodemo.ui.mydevice;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import com.example.shuangxiang.ysvideodemo.ui.mydevice.list.v.IMyDeviceListV;
 import com.example.shuangxiang.ysvideodemo.ui.warning.WarningActivity;
 import com.zhy.autolayout.utils.ScreenUtils;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,7 +72,7 @@ public class MyDeviceActivity extends BaseActivity implements IMyDeviceListV,Act
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void initSomething() {
-        ActivityManager.getInstance().addActivity(this);
+        ActivityManager.getInstance().addActivity(new WeakReference<Activity>(this));
         mTbMydevice.setTitle("");
         setSupportActionBar(mTbMydevice);
         mTbMydevice.setNavigationIcon(R.drawable.icon_mydevice_back);

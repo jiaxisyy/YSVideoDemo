@@ -1,5 +1,6 @@
 package com.example.shuangxiang.ysvideodemo.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -15,6 +16,7 @@ import com.example.shuangxiang.ysvideodemo.common.utils.CacheUtils;
 import com.example.shuangxiang.ysvideodemo.login.view.LoginActivity;
 import com.example.shuangxiang.ysvideodemo.manager.ActivityManager;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +40,7 @@ public class StartPagerActivity extends BaseActivity {
 
     @Override
     protected void initSomething() {
-        ActivityManager.getInstance().addActivity(this);
+        ActivityManager.getInstance().addActivity(new WeakReference<Activity>(this));
 
         LayoutInflater inflater = LayoutInflater.from(this);
         //获取四个view

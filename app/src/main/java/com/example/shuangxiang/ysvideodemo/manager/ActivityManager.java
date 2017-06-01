@@ -2,15 +2,17 @@ package com.example.shuangxiang.ysvideodemo.manager;
 
 import android.app.Activity;
 
-import java.util.LinkedList;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Administrator on 2016/1/22.
  */
 public class ActivityManager {
-    private List<Activity> activityList = new LinkedList<Activity>();
+    private List<WeakReference<Activity>> activityList = new ArrayList<>();
     private static volatile ActivityManager instance;
+
 
     private ActivityManager() {
     }
@@ -28,15 +30,25 @@ public class ActivityManager {
     }
 
     // 添加Activity到容器中
-    public void addActivity(Activity activity) {
-        activityList.add(activity);
+    public void addActivity(WeakReference<Activity> activity) {
+        if (!activityList.contains(activity)) {
+            activityList.add(activity);
+        }
     }
 
     // 遍历所有Activity并finish
     public void exit() {
-        for (Activity activity : activityList) {
-            activity.finish();
+
+        for (WeakReference<Activity> activity : activityList) {
+            Activity ac = activity.get();
+            if (ac != null) {
+                ac.finish();
+            }
         }
+//        友盟关闭前调用
+//        MobclickAgent.onKillProcess();
+        activityList.clear();
         System.exit(0);
     }
+
 }

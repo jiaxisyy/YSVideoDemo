@@ -1,5 +1,6 @@
 package com.example.shuangxiang.ysvideodemo.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +12,8 @@ import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.common.utils.CacheUtils;
 import com.example.shuangxiang.ysvideodemo.login.view.LoginActivity;
 import com.example.shuangxiang.ysvideodemo.manager.ActivityManager;
+
+import java.lang.ref.WeakReference;
 
 /**
  * Created by shuang.xiang on 2017/4/17.
@@ -30,7 +33,7 @@ public class StartActivity extends BaseActivity {
 
     @Override
     protected void initSomething() {
-        ActivityManager.getInstance().addActivity(this);
+        ActivityManager.getInstance().addActivity(new WeakReference<Activity>(this));
         final boolean isFirst = CacheUtils.getBoolean(StartActivity.this, Constants.Define.FIRST_START, true);
 
         new Thread(new Runnable() {

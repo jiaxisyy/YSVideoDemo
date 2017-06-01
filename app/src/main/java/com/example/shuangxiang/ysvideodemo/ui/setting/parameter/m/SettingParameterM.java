@@ -49,7 +49,7 @@ public class SettingParameterM implements ISettingParameterM {
             @Override
             public void onError(Throwable e) {
                 mSettingParameterP.setValueFailed(Constants.Define.SERVERQUERSTERROR);
-                Log.e("ERROR", "SettingParameterM->" + e.getMessage().toString());
+                Log.e("ERROR", "SettingParameterM->getParameterTitle" + e.getMessage().toString());
             }
 
             @Override
@@ -84,7 +84,8 @@ public class SettingParameterM implements ISettingParameterM {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        mSettingParameterP.getValueFailed(Constants.Define.SERVERQUERSTERROR);
+                        Log.e("ERROR", "SettingParameterM->getParameterValue" + e.getMessage().toString());
                     }
 
                     @Override
@@ -118,7 +119,7 @@ public class SettingParameterM implements ISettingParameterM {
                     @Override
                     public void onError(Throwable e) {
                         mSettingParameterP.onError(Constants.Define.SERVERQUERSTERROR);
-                        Log.e("ERROR", e.getMessage().toString());
+                        Log.e("ERROR", "SettingParameterM->setParameterValue" + e.getMessage().toString());
                     }
 
                     @Override
@@ -129,4 +130,11 @@ public class SettingParameterM implements ISettingParameterM {
 
     }
 
+    @Override
+    public CompositeDisposable onDestroy() {
+        if (cd != null && cd.size() > 0&&!cd.isDisposed()) {
+            return cd;
+        }
+        return null;
+    }
 }

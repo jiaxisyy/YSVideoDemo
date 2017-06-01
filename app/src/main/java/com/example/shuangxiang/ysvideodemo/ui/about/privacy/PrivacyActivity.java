@@ -1,5 +1,6 @@
 package com.example.shuangxiang.ysvideodemo.ui.about.privacy;
 
+import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +12,8 @@ import android.view.WindowManager;
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.manager.ActivityManager;
 import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
+
+import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 
@@ -32,7 +35,7 @@ public class PrivacyActivity extends BaseActivity {
 
     @Override
     protected void initSomething() {
-        ActivityManager.getInstance().addActivity(this);
+        ActivityManager.getInstance().addActivity(new WeakReference<Activity>(this));
         mTbPrivacy.setNavigationIcon(R.drawable.icon_back);
         mTbPrivacy.setTitle("");
         setSupportActionBar(mTbPrivacy);

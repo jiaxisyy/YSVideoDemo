@@ -1,6 +1,7 @@
 package com.example.shuangxiang.ysvideodemo.myservice;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -19,6 +20,8 @@ import android.widget.TextView;
 import com.example.shuangxiang.ysvideodemo.R;
 import com.example.shuangxiang.ysvideodemo.manager.ActivityManager;
 import com.example.shuangxiang.ysvideodemo.ui.BaseActivity;
+
+import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -47,7 +50,7 @@ public class MyServiceActivity extends BaseActivity implements IMyService {
 
     @Override
     protected void initSomething() {
-        ActivityManager.getInstance().addActivity(this);
+        ActivityManager.getInstance().addActivity(new WeakReference<Activity>(this));
         mTbMyservice.setNavigationIcon(R.drawable.icon_back);
         mTbMyservice.setTitle("");
         setSupportActionBar(mTbMyservice);

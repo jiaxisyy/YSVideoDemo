@@ -111,6 +111,7 @@
     <RelativeLayout
         android:id="@+id/rl_myself_update"
         android:layout_width="match_parent"
+        android:clickable="false"
         android:layout_height="120px">
 
         <TextView

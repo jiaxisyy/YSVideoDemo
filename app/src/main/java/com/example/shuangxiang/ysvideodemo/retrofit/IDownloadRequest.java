@@ -1,5 +1,6 @@
 package com.example.shuangxiang.ysvideodemo.retrofit;
 
+import com.example.shuangxiang.ysvideodemo.common.Constants;
 import com.example.shuangxiang.ysvideodemo.download.bean.AppMessage;
 
 import io.reactivex.Observable;
@@ -14,10 +15,10 @@ import retrofit2.http.Streaming;
 public interface IDownloadRequest {
 
 
-    @GET("clientApps/techray-coic")
+    @GET("clientApps/"+ Constants.Define.APP_APK_NAME)
     Observable<AppMessage> getAppMessage();
 
     @Streaming//注明为流文件，防止retrofit将大文件读入内存
-    @GET("clientApps/techray-coic/file")
+    @GET("clientApps/"+Constants.Define.APP_APK_NAME+"/file")
     Observable<ResponseBody> down();//通过@Url覆盖baseurl
 }

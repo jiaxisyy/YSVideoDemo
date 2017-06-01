@@ -117,9 +117,10 @@ public class WarningMapFragment extends BaseFragment implements IWarningListV, I
     @Override
     public void setData(List<WarningInfo.ListBean> data) {
         mWarningMapP = new WarningMapP(this, mMapView, getActivity());
-        mWarningMapP.init();
-        mWarningMapP.setData(data);
-
+        if(mMapView!=null){
+            mWarningMapP.init();
+            mWarningMapP.setData(data);
+        }
     }
 
     @Override

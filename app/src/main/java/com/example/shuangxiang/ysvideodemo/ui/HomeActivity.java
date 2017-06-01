@@ -20,6 +20,8 @@ import com.example.shuangxiang.ysvideodemo.manager.ActivityManager;
 import com.example.shuangxiang.ysvideodemo.ui.home.HomeFragment;
 import com.example.shuangxiang.ysvideodemo.ui.myself.MyselfFragment;
 
+import java.lang.ref.WeakReference;
+
 import butterknife.BindView;
 
 /**
@@ -55,7 +57,7 @@ public class HomeActivity extends BaseActivity {
     protected void initSomething() {
         double statusBarHeight = getStatusBarHeight(this);
         Log.d("TEST","导航栏高="+statusBarHeight);
-        ActivityManager.getInstance().addActivity(this);
+        ActivityManager.getInstance().addActivity(new WeakReference<Activity>(this));
 //        mBnv.setItemTextColor(resources.getColorStateList(R.drawable.selector_home_bottom,
 //                null));
 //        mBnv.setItemIconTintList(resources.getColorStateList(R.drawable.selector_home_bottom, null));

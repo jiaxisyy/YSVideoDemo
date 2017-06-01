@@ -1,5 +1,6 @@
 package com.example.shuangxiang.ysvideodemo.ui;
 
+import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import com.example.shuangxiang.ysvideodemo.manager.ActivityManager;
 import com.example.shuangxiang.ysvideodemo.ui.data.DataShowFragment;
 import com.example.shuangxiang.ysvideodemo.ui.monitoring.MonitoringFragment;
 import com.example.shuangxiang.ysvideodemo.ui.setting.parameter.ParameterFragment;
+
+import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 
@@ -34,7 +37,7 @@ public class SecondHomeActivity extends BaseActivity {
     @Override
     protected void initSomething() {
         getWindow().setFormat(PixelFormat.TRANSLUCENT);//解决视频界面闪屏
-        ActivityManager.getInstance().addActivity(this);
+        ActivityManager.getInstance().addActivity(new WeakReference<Activity>(this));
         int[][] states = new int[][]{
                 new int[]{-android.R.attr.state_checked},
                 new int[]{android.R.attr.state_checked}
